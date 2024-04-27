@@ -1,13 +1,10 @@
 package user;
 
-import features.user.application.SignupUsecase;
 import features.user.application.UserListUsecase;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
-import features.user.presentation.SignupInput;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
