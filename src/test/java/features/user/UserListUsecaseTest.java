@@ -4,6 +4,7 @@ import features.user.application.UserListUsecase;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
 import features.user.presentation.SignupInput;
+import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -16,7 +17,8 @@ public class UserListUsecaseTest {
     @Test
     void 全てのユーザを取得する() {
         //given
-        UserRepository.records = Arrays.asList(User.signup(new SignupInput("tanaka")), User.signup(new SignupInput("suzuki")));
+        TestDataFactory.createUser();
+        TestDataFactory.createUser();
         //when
         List<User> actual = new UserListUsecase().run();
         //then

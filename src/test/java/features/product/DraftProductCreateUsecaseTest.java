@@ -1,8 +1,7 @@
 package features.product;
 
 import features.user.domain.User;
-import features.user.domain.UserRepository;
-import features.user.presentation.SignupInput;
+import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
 import product.application.ProductCreateUsecase;
 import product.domain.Product;
@@ -18,8 +17,7 @@ public class DraftProductCreateUsecaseTest {
     @Test
     void Draft登録() {
         //given
-        User loginUser = User.signup(new SignupInput("tanaka"));
-        UserRepository.records = Arrays.asList(loginUser);
+        User loginUser = TestDataFactory.createUser();
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
         Product product = new ProductCreateUsecase().run(loginUser.id, input);

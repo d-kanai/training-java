@@ -1,4 +1,4 @@
-package features.product;
+package product.presentation;
 
 import product.presentation.ProductCreateInput;
 

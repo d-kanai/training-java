@@ -12,14 +12,30 @@ public class ProductRepository {
         if (product.id == null) {
             records.add(product);
         } else {
-            Product product1 = records.stream().filter(record -> record.id == product.id).findFirst().get();
-            product1 = product;
+            update(product);
         }
         return true;
     }
 
-    public Optional<Product> findById(UUID productId) {
+    private void update(Product product) {
+        //Arrays.asListで作成したリストが変更不可なので、listを作り直す
+        ArrayList<Product> newRecords = new ArrayList<>(records);
+        newRecords.removeIf(o -> o.id == product.id);
+        newRecords.add(product);
+        records = newRecords;
+    }
+
+    public Product findById(UUID loginUserId, UUID productId) {
+        // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
         Optional<Product> first = records.stream().filter(product -> product.id == productId).findFirst();
-        return first;
+        if (first.isPresent()) {
+            try {
+                return first.get().clone();
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            throw new RuntimeException("商品が存在しません");
+        }
     }
 }
