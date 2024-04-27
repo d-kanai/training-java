@@ -1,4 +1,6 @@
-package features.user;
+package features.user.domain;
+
+import features.user.presentation.SignupInput;
 
 public class User {
     public final String name;

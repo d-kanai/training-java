@@ -1,4 +1,4 @@
-package features.user;
+package features.user.presentation;
 
 public class SignupInput {
     public final String name;
