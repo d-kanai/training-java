@@ -4,11 +4,11 @@ import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import product.application.ProductPublishUsecase;
-import product.domain.Product;
-import product.domain.ProductRepository;
-import product.domain.ProductStatus;
-import product.presentation.ProductPublishInput;
+import features.product.application.ProductPublishUsecase;
+import features.product.domain.Product;
+import features.product.domain.ProductRepository;
+import features.product.domain.ProductStatus;
+import features.product.presentation.ProductPublishInput;
 
 import java.util.UUID;
 
@@ -69,23 +69,24 @@ public class ProductPublishUsecaseTest {
             fail("unexpected test fail");
         }
 
-        @Test
-        void すでに公開済みの場合() {
-            //given
-            User loginUser = TestDataFactory.createUser();
-            Product product = TestDataFactory.createProduct(loginUser.id);
-            ProductPublishInput input = new ProductPublishInput(product.id);
-            //when
-            try {
-                new ProductPublishUsecase().run(loginUser.id, input);
-                new ProductPublishUsecase().run(loginUser.id, input);
-            } catch (RuntimeException e) {
-                //then
-                assertEquals("すでに公開済みです", e.getMessage());
-                return;
-            }
-            fail("unexpected test fail");
-        }
+        // TODO: このテストがDraftProduct型を作ることによって不要になったはず
+//        @Test
+//        void すでに公開済みの場合() {
+//            //given
+//            User loginUser = TestDataFactory.createUser();
+//            Product product = TestDataFactory.createProduct(loginUser.id);
+//            ProductPublishInput input = new ProductPublishInput(product.id);
+//            //when
+//            try {
+//                new ProductPublishUsecase().run(loginUser.id, input);
+//                new ProductPublishUsecase().run(loginUser.id, input);
+//            } catch (RuntimeException e) {
+//                //then
+//                assertEquals("すでに公開済みです", e.getMessage());
+//                return;
+//            }
+//            fail("unexpected test fail");
+//        }
 
     }
 }

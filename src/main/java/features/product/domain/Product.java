@@ -1,6 +1,6 @@
-package product.domain;
+package features.product.domain;
 
-import product.presentation.ProductCreateInput;
+import features.product.presentation.ProductCreateInput;
 
 import java.util.UUID;
 
@@ -8,11 +8,11 @@ public class Product implements Cloneable {
     public final UUID id;
     public final UUID userId;
     public final String name;
-    private final int price;
+    public final int price;
     public ProductStatus status;
 
 
-    private Product(UUID id, UUID userId, ProductStatus status, String name, int price) {
+    protected Product(UUID id, UUID userId, ProductStatus status, String name, int price) {
         this.id = id;
         this.userId = userId;
         this.status = status;
@@ -29,12 +29,6 @@ public class Product implements Cloneable {
                 input.price
 
         );
-    }
-
-    public void publish(UUID loginUserId) {
-        if (loginUserId != userId) throw new RuntimeException("商品が存在しません");
-        if (status == ProductStatus.PUBLISHED) throw new RuntimeException("すでに公開済みです");
-        this.status = ProductStatus.PUBLISHED;
     }
 
     @Override

@@ -3,9 +3,9 @@ package helpers;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
 import features.user.presentation.SignupInput;
-import product.domain.Product;
-import product.domain.ProductRepository;
-import product.presentation.ProductCreateInput;
+import features.product.domain.Product;
+import features.product.domain.ProductRepository;
+import features.product.presentation.ProductCreateInput;
 
 import java.util.Arrays;
 import java.util.UUID;

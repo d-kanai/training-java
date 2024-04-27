@@ -5,13 +5,13 @@ import features.user.domain.User;
 import features.user.domain.UserRepository;
 import features.user.presentation.SignupInput;
 import org.junit.jupiter.api.Test;
-import product.application.ProductCreateUsecase;
-import product.application.ProductPublishUsecase;
-import product.domain.Product;
-import product.domain.ProductRepository;
-import product.domain.ProductStatus;
-import product.presentation.ProductCreateInput;
-import product.presentation.ProductPublishInput;
+import features.product.application.ProductCreateUsecase;
+import features.product.application.ProductPublishUsecase;
+import features.product.domain.Product;
+import features.product.domain.ProductRepository;
+import features.product.domain.ProductStatus;
+import features.product.presentation.ProductCreateInput;
+import features.product.presentation.ProductPublishInput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

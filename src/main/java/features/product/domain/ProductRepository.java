@@ -1,4 +1,4 @@
-package product.domain;
+package features.product.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,13 @@ public class ProductRepository {
         records = newRecords;
     }
 
-    public Product findById(UUID loginUserId, UUID productId) {
+    public DraftProduct findDraftById(UUID loginUserId, UUID productId) {
         // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
-        Optional<Product> first = records.stream().filter(product -> product.id == productId).findFirst();
+        Optional<Product> first = records.stream().filter(product -> product.id == productId && product.status == ProductStatus.DRAFT).findFirst();
         if (first.isPresent()) {
             try {
-                return first.get().clone();
+                Product clone = first.get().clone();
+                return DraftProduct.reconstruct(clone);
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }

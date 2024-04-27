@@ -1,6 +1,4 @@
-package product.presentation;
-
-import product.presentation.ProductCreateInput;
+package features.product.presentation;
 
 import java.util.UUID;
 

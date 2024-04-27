@@ -1,4 +1,4 @@
-package product.presentation;
+package features.product.presentation;
 
 public class ProductCreateInput {
     public final String name;

@@ -3,12 +3,10 @@ package features.product;
 import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
-import product.application.ProductCreateUsecase;
-import product.domain.Product;
-import product.domain.ProductRepository;
-import product.presentation.ProductCreateInput;
-
-import java.util.Arrays;
+import features.product.application.ProductCreateUsecase;
+import features.product.domain.Product;
+import features.product.domain.ProductRepository;
+import features.product.presentation.ProductCreateInput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
