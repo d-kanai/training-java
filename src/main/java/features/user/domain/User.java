@@ -9,6 +9,7 @@ public class User {
     public final String name;
 
     private User(UUID id, String name) {
+        this.id = id;
         this.name = name;
     }
 

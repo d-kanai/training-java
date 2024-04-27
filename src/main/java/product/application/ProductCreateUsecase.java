@@ -7,8 +7,9 @@ import product.presentation.ProductCreateInput;
 import java.util.UUID;
 
 public class ProductCreateUsecase {
-    public boolean run(UUID loginUserId, ProductCreateInput input) {
+    public Product run(UUID loginUserId, ProductCreateInput input) {
         Product product = Product.draft(loginUserId, input);
-        return new ProductRepository().save(product);
+        new ProductRepository().save(product);
+        return product;
     }
 }

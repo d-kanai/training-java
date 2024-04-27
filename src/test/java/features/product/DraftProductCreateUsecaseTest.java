@@ -1,10 +1,11 @@
-package product;
+package features.product;
 
 import features.user.domain.User;
 import features.user.domain.UserRepository;
 import features.user.presentation.SignupInput;
 import org.junit.jupiter.api.Test;
 import product.application.ProductCreateUsecase;
+import product.domain.Product;
 import product.domain.ProductRepository;
 import product.presentation.ProductCreateInput;
 
@@ -21,9 +22,9 @@ public class DraftProductCreateUsecaseTest {
         UserRepository.records = Arrays.asList(loginUser);
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
-        boolean actual = new ProductCreateUsecase().run(loginUser.id, input);
+        Product product = new ProductCreateUsecase().run(loginUser.id, input);
         //then
-        assertEquals(true, actual);
+        assertEquals("book", product.name);
         assertEquals(1, ProductRepository.records.size());
     }
 

@@ -1,4 +1,4 @@
-package user;
+package features.user;
 
 import features.user.application.UserListUsecase;
 import features.user.domain.User;

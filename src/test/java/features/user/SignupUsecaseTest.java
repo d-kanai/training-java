@@ -1,4 +1,4 @@
-package user;
+package features.user;
 
 import features.user.application.SignupUsecase;
 import features.user.presentation.SignupInput;
