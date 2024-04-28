@@ -19,17 +19,17 @@ public class Product implements Cloneable {
         this.name = name;
         this.price = price;
     }
-
-    public static Product draft(UUID loginUserId, ProductCreateInput input) {
+    public static Product reconstruct(UUID id, UUID userId, ProductStatus status, String name, int price) {
         return new Product(
-                UUID.randomUUID(),
-                loginUserId,
-                ProductStatus.DRAFT,
-                input.name,
-                input.price
-
+                id,
+                userId,
+                status,
+                name,
+                price
         );
     }
+
+
 
     @Override
     public Product clone() throws CloneNotSupportedException {
