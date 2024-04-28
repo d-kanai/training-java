@@ -1,6 +1,5 @@
 package features.product.domain;
 
-import features.product.presentation.ProductCreateInput;
 
 import java.util.UUID;
 
@@ -19,6 +18,7 @@ public class Product implements Cloneable {
         this.name = name;
         this.price = price;
     }
+
     public static Product reconstruct(UUID id, UUID userId, ProductStatus status, String name, int price) {
         return new Product(
                 id,
@@ -28,7 +28,6 @@ public class Product implements Cloneable {
                 price
         );
     }
-
 
 
     @Override
