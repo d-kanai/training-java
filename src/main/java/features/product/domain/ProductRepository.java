@@ -39,4 +39,26 @@ public class ProductRepository {
             throw new RuntimeException("商品が存在しません");
         }
     }
+
+    public Product findById(UUID productId) {
+        // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
+        Optional<Product> first = records.stream().filter(product -> product.id == productId && product.status == ProductStatus.PUBLISHED).findFirst();
+        if (first.isPresent()) {
+            try {
+                Product clone = first.get().clone();
+                return Product.reconstruct(
+                        clone.id,
+                        clone.userId,
+                        clone.status,
+                        clone.name,
+                        clone.price
+                );
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            throw new RuntimeException("商品が存在しません");
+        }
+
+    }
 }

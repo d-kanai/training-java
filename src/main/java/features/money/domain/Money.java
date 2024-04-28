@@ -1,11 +1,14 @@
 package features.money.domain;
 
+import features.product.domain.Product;
+
 import java.util.UUID;
 
 public class Money {
+
     public UUID id;
     public final UUID userId;
-    public final int value;
+    private final int value;
 
     private Money(UUID id, UUID userId, int value) {
         this.id = id;
@@ -15,5 +18,19 @@ public class Money {
 
     public static Money charge(UUID userId, int value) {
         return new Money(UUID.randomUUID(), userId, value);
+    }
+
+    public static Money use(UUID loginUserId, Product product) {
+        return new Money(UUID.randomUUID(), loginUserId, -product.price);
+
+    }
+
+    public static Money reconstruct(UUID id, UUID userId, int value) {
+        return new Money(id, userId, value);
+
+    }
+
+    public int value() {
+        return this.value;
     }
 }

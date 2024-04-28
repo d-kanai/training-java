@@ -21,7 +21,7 @@ public class ProductPublishUsecaseTest {
     void 商品を公開する() {
         //given
         User loginUser = TestDataFactory.createUser();
-        Product product = TestDataFactory.createProduct(loginUser.id);
+        Product product = TestDataFactory.createDraftProduct(loginUser.id);
         ProductPublishInput input = new ProductPublishInput(product.id);
         //when
         Product actual = new ProductPublishUsecase().run(loginUser.id, input);
@@ -55,7 +55,7 @@ public class ProductPublishUsecaseTest {
         void 人の商品は公開できない() {
             //given
             User loginUser = TestDataFactory.createUser();
-            Product product = TestDataFactory.createProduct(loginUser.id);
+            Product product = TestDataFactory.createDraftProduct(loginUser.id);
             User anotherUser = TestDataFactory.createUser();
             ProductPublishInput input = new ProductPublishInput(product.id);
             //when

@@ -23,7 +23,7 @@ public class MoneyChargeUsecaseTest {
         //when
         new MoneyChargeUsecase().run(loginUser.id, input);
         //then
-        assertEquals(10000, MoneyRepository.records.get(0).value);
+        assertEquals(10000, MoneyRepository.records.get(0).value());
     }
 
 }
