@@ -20,15 +20,6 @@ public class Product implements Cloneable {
         this.price = price;
     }
 
-    public static Product reconstruct(UUID id, UUID userId, ProductStatus status, String name, int price) {
-        return new Product(
-                id,
-                userId,
-                status,
-                name,
-                price
-        );
-    }
 
     public int discountedPrice(UserPlan userPlan) {
         return (int) Math.floor(this.price * userPlan.discountRate());

@@ -3,7 +3,8 @@ package e2e.steps;
 import features.moneyFlow.application.CurrentMoneyUsecase;
 import features.moneyFlow.application.MoneyChargeUsecase;
 import features.moneyFlow.presentation.MoneyChargeInput;
-import shared.MailSender;
+import features.product.domain.PublishedProduct;
+import helpers.FakeMailSender;
 import features.order.application.OrderHistoryUsecase;
 import features.order.domain.Order;
 import features.product.application.ProductCreateUsecase;
@@ -52,7 +53,7 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new NewOrderUsecase(new MailSender()).run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
+        new NewOrderUsecase(new FakeMailSender()).run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
     }
 
     public static void ユーザが10000万円チャージする() {
@@ -60,7 +61,7 @@ public class ProductSteps {
     }
 
     public static void _5000円の商品が登録されている() {
-        ProductRepository.records = Arrays.asList(Product.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000));
+        ProductRepository.records = Arrays.asList(PublishedProduct.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000));
     }
 
     public static void 購入履歴一覧に商品が表示されている() {

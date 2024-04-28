@@ -4,8 +4,8 @@ import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
 import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
-import features.product.domain.Product;
 import features.product.domain.ProductRepository;
+import features.product.domain.PublishedProduct;
 import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
@@ -32,7 +32,7 @@ public class NewOrderUsecase {
 
     public void run(UUID loginUserId, ProductPurchaseInput input) {
         User user = userRepository.findById(loginUserId);
-        Product product = productRepository.findById(input.productId);
+        PublishedProduct product = productRepository.findPublishedById(input.productId);
         MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
 
         OrderFactory.OrderResult orderResult = OrderFactory.newOrder(user, product, moneyFlows);

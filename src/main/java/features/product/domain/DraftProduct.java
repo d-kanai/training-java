@@ -27,13 +27,13 @@ public class DraftProduct extends Product {
         );
     }
 
-    public static DraftProduct reconstruct(Product product) {
+    public static DraftProduct reconstruct(UUID id, UUID userId, ProductStatus status, String name, int price) {
         return new DraftProduct(
-                product.id,
-                product.userId,
-                product.status,
-                product.name,
-                product.price
+                id,
+                userId,
+                status,
+                name,
+                price
         );
     }
 

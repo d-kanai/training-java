@@ -25,13 +25,19 @@ public class ProductRepository {
         records = newRecords;
     }
 
-    public DraftProduct findDraftById(UUID loginUserId, UUID productId) {
+    public DraftProduct findDraftById(UUID productId) {
         // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
         Optional<Product> first = records.stream().filter(product -> product.id == productId && product.status == ProductStatus.DRAFT).findFirst();
         if (first.isPresent()) {
             try {
                 Product clone = first.get().clone();
-                return DraftProduct.reconstruct(clone);
+                return DraftProduct.reconstruct(
+                        clone.id,
+                        clone.userId,
+                        clone.status,
+                        clone.name,
+                        clone.price
+                );
             } catch (CloneNotSupportedException e) {
                 throw new RuntimeException(e);
             }
@@ -40,13 +46,13 @@ public class ProductRepository {
         }
     }
 
-    public Product findById(UUID productId) {
+    public PublishedProduct findPublishedById(UUID productId) {
         // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
         Optional<Product> first = records.stream().filter(product -> product.id == productId && product.status == ProductStatus.PUBLISHED).findFirst();
         if (first.isPresent()) {
             try {
                 Product clone = first.get().clone();
-                return Product.reconstruct(
+                return PublishedProduct.reconstruct(
                         clone.id,
                         clone.userId,
                         clone.status,

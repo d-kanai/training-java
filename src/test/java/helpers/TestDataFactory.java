@@ -5,12 +5,10 @@ import features.moneyFlow.domain.MoneyFlowRepository;
 import features.order.domain.Order;
 import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
-import features.product.domain.ProductStatus;
+import features.product.domain.*;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
-import features.product.domain.Product;
-import features.product.domain.ProductRepository;
 
 import java.util.Arrays;
 import java.util.UUID;
@@ -19,7 +17,7 @@ import java.util.UUID;
 public class TestDataFactory {
 
     public static Product createDraftProduct(UUID userId) {
-        Product product = Product.reconstruct(
+        Product product = DraftProduct.reconstruct(
                 UUID.randomUUID(),
                 userId,
                 ProductStatus.DRAFT,
@@ -30,7 +28,7 @@ public class TestDataFactory {
         return product;
     }
     public static Product createPublishedProduct(UUID userId) {
-        Product product = Product.reconstruct(
+        Product product = PublishedProduct.reconstruct(
                 UUID.randomUUID(),
                 userId,
                 ProductStatus.PUBLISHED,
