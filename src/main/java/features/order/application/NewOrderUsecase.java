@@ -8,7 +8,10 @@ import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
+import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
+import shared.IMailSender;
+import shared.MailSender;
 
 import java.util.UUID;
 
@@ -18,9 +21,9 @@ public class NewOrderUsecase {
     private MoneyFlowRepository moneyFlowRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
-    private MailSender mailSender;
+    private IMailSender mailSender;
 
-    public NewOrderUsecase(MailSender mailSender) {
+    public NewOrderUsecase(IMailSender mailSender) {
         this.mailSender = mailSender;
         productRepository = new ProductRepository();
         moneyFlowRepository = new MoneyFlowRepository();
@@ -38,7 +41,9 @@ public class NewOrderUsecase {
         moneyFlowRepository.save(orderResult.usedMoneyFlow);
         orderRepository.save(orderResult.newOrder);
 
-        mailSender.send(user.email, "VIPへの特別商品ご案内");
+        if (user.userPlan == UserPlan.VIP) {
+            mailSender.send(user.email, "VIPへの特別商品ご案内");
+        }
     }
 
 }
