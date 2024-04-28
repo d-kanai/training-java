@@ -21,9 +21,6 @@ public class Product implements Cloneable {
     }
 
 
-    public int discountedPrice(UserPlan userPlan) {
-        return (int) Math.floor(this.price * userPlan.discountRate());
-    }
 
     @Override
     public Product clone() throws CloneNotSupportedException {

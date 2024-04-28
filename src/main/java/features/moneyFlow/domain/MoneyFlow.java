@@ -1,5 +1,7 @@
 package features.moneyFlow.domain;
 
+import features.product.domain.PublishedProduct;
+
 import java.util.UUID;
 
 public class MoneyFlow {
@@ -19,8 +21,8 @@ public class MoneyFlow {
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
-    public static MoneyFlow order(UUID loginUserId, int price) {
-        return new MoneyFlow(UUID.randomUUID(), loginUserId, -price);
+    public static MoneyFlow order(UUID loginUserId, PublishedProduct.DiscountedPrice price) {
+        return new MoneyFlow(UUID.randomUUID(), loginUserId, -price.value);
     }
 
     public static MoneyFlow reconstruct(UUID id, UUID userId, int value) {

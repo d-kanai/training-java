@@ -1,5 +1,7 @@
 package features.product.domain;
 
+import features.user.domain.UserPlan;
+
 import java.util.UUID;
 
 public class PublishedProduct extends Product {
@@ -18,8 +20,21 @@ public class PublishedProduct extends Product {
         );
     }
 
+    public DiscountedPrice discountedPrice(UserPlan userPlan) {
+        return new DiscountedPrice((int) Math.floor(this.price * userPlan.discountRate()));
+    }
+
+
     @Override
     public PublishedProduct clone() throws CloneNotSupportedException {
         return (PublishedProduct) super.clone();
+    }
+
+    public class DiscountedPrice {
+        public final int value;
+
+        public DiscountedPrice(int value) {
+            this.value = value;
+        }
     }
 }

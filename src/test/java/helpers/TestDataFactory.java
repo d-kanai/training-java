@@ -27,8 +27,9 @@ public class TestDataFactory {
         ProductRepository.records = Arrays.asList(product);
         return product;
     }
-    public static Product createPublishedProduct(UUID userId) {
-        Product product = PublishedProduct.reconstruct(
+
+    public static PublishedProduct createPublishedProduct(UUID userId) {
+        PublishedProduct product = PublishedProduct.reconstruct(
                 UUID.randomUUID(),
                 userId,
                 ProductStatus.PUBLISHED,
@@ -68,10 +69,10 @@ public class TestDataFactory {
         return MoneyFlowRepository.records.add(moneyFlow);
     }
 
-    public static Order createOrder(UUID userId, Product product) {
+    public static Order createOrder(User user, PublishedProduct product) {
         Order order = OrderFactory.reconstruct(
                 UUID.randomUUID(),
-                userId,
+                user,
                 product
         );
         OrderRepository.records.add(order);

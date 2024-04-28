@@ -1,6 +1,7 @@
 package features.moneyFlow.domain;
 
 import features.product.domain.Product;
+import features.product.domain.PublishedProduct;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class MoneyFlows {
                 .sum();
     }
 
-    public boolean hasEnoughMoney(Product product) {
+    public boolean hasEnoughMoney(PublishedProduct product) {
         return currentValue() < product.price;
     }
 }
