@@ -1,4 +1,4 @@
-package features.money.presentation;
+package features.moneyFlow.presentation;
 
 
 public class MoneyChargeInput {

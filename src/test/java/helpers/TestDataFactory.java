@@ -1,7 +1,7 @@
 package helpers;
 
-import features.money.domain.Money;
-import features.money.domain.MoneyRepository;
+import features.moneyFlow.domain.MoneyFlow;
+import features.moneyFlow.domain.MoneyFlowRepository;
 import features.product.domain.ProductStatus;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
@@ -44,11 +44,11 @@ public class TestDataFactory {
     }
 
     public static boolean createMoney(UUID userId) {
-        Money money = Money.reconstruct(
+        MoneyFlow moneyFlow = MoneyFlow.reconstruct(
                 UUID.randomUUID(),
                 userId,
                 10000
         );
-        return MoneyRepository.records.add(money);
+        return MoneyFlowRepository.records.add(moneyFlow);
     }
 }

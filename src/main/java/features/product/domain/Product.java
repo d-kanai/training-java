@@ -1,8 +1,9 @@
 package features.product.domain;
 
 
-import features.money.domain.Money;
-import features.money.domain.Monies;
+import features.moneyFlow.domain.MoneyFlow;
+import features.moneyFlow.domain.MoneyFlows;
+import features.order.domain.Order;
 
 import java.util.UUID;
 
@@ -38,8 +39,21 @@ public class Product implements Cloneable {
         return (Product) super.clone();
     }
 
-    public Money purchase(UUID loginUserId, Monies monies) {
-        if (monies.hasEnoughMoney(this)) throw new RuntimeException("チャージ残高が足りません");
-        return Money.use(loginUserId, this);
+    public PurchaseResult purchase(UUID loginUserId, MoneyFlows moneyFlows) {
+        if (moneyFlows.hasEnoughMoney(this)) throw new RuntimeException("チャージ残高が足りません");
+        MoneyFlow usedMoneyFlow = MoneyFlow.use(loginUserId, this);
+        Order purchasedOrder = Order.purchase(loginUserId, this.id);
+        return new PurchaseResult(usedMoneyFlow, purchasedOrder);
+    }
+
+    public class PurchaseResult {
+
+        public final MoneyFlow usedMoneyFlow;
+        public final Order purchasedOrder;
+
+        public PurchaseResult(MoneyFlow usedMoneyFlow, Order purchasedOrder) {
+            this.usedMoneyFlow = usedMoneyFlow;
+            this.purchasedOrder = purchasedOrder;
+        }
     }
 }

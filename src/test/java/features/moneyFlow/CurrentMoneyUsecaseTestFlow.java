@@ -1,13 +1,13 @@
-package features.money;
+package features.moneyFlow;
 
-import features.money.application.CurrentMoneyUsecase;
+import features.moneyFlow.application.CurrentMoneyUsecase;
 import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CurrentMoneyUsecaseTest {
+public class CurrentMoneyUsecaseTestFlow {
 
     @Test
     void チャージ残高を取得する() {

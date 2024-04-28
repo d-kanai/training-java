@@ -1,11 +1,8 @@
-package features.money;
+package features.moneyFlow;
 
-import features.money.application.MoneyChargeUsecase;
-import features.money.domain.MoneyRepository;
-import features.money.presentation.MoneyChargeInput;
-import features.product.domain.Product;
-import features.product.domain.ProductRepository;
-import features.product.domain.ProductStatus;
+import features.moneyFlow.application.MoneyChargeUsecase;
+import features.moneyFlow.domain.MoneyFlowRepository;
+import features.moneyFlow.presentation.MoneyChargeInput;
 import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
@@ -23,7 +20,7 @@ public class MoneyChargeUsecaseTest {
         //when
         new MoneyChargeUsecase().run(loginUser.id, input);
         //then
-        assertEquals(10000, MoneyRepository.records.get(0).value());
+        assertEquals(10000, MoneyFlowRepository.records.get(0).value());
     }
 
     @Test

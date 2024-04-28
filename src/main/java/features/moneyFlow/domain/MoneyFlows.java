@@ -1,20 +1,20 @@
-package features.money.domain;
+package features.moneyFlow.domain;
 
 import features.product.domain.Product;
 
 import java.util.List;
 
-public class Monies {
+public class MoneyFlows {
 
-    private final List<Money> items;
+    private final List<MoneyFlow> items;
 
-    public Monies(List<Money> items) {
+    public MoneyFlows(List<MoneyFlow> items) {
         this.items = items;
     }
 
     public int totalValue() {
         return items.stream()
-                .mapToInt(Money::value)
+                .mapToInt(MoneyFlow::value)
                 .sum();
     }
 

@@ -1,8 +1,8 @@
 package features.product.application;
 
-import features.money.domain.Money;
-import features.money.domain.MoneyRepository;
-import features.money.domain.Monies;
+import features.moneyFlow.domain.MoneyFlowRepository;
+import features.moneyFlow.domain.MoneyFlows;
+import features.order.domain.OrderRepository;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.presentation.ProductPurchaseInput;
@@ -12,17 +12,20 @@ import java.util.UUID;
 public class ProductPurchaseUsecase {
 
     private ProductRepository productRepository;
-    private MoneyRepository moneyRepository;
+    private MoneyFlowRepository moneyFlowRepository;
+    private OrderRepository orderRepository;
 
     public ProductPurchaseUsecase() {
         productRepository = new ProductRepository();
-        moneyRepository = new MoneyRepository();
+        moneyFlowRepository = new MoneyFlowRepository();
+        orderRepository = new OrderRepository();
     }
 
     public void run(UUID loginUserId, ProductPurchaseInput input) {
         Product product = productRepository.findById(input.productId);
-        Monies monies = moneyRepository.findByUserId(loginUserId);
-        Money usedMoney = product.purchase(loginUserId, monies);
-        new MoneyRepository().save(usedMoney);
+        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
+        Product.PurchaseResult purchaseResult = product.purchase(loginUserId, moneyFlows);
+        moneyFlowRepository.save(purchaseResult.usedMoneyFlow);
+        orderRepository.save(purchaseResult.purchasedOrder);
     }
 }
