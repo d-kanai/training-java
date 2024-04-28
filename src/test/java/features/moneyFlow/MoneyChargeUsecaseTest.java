@@ -33,7 +33,7 @@ public class MoneyChargeUsecaseTest {
             new MoneyChargeUsecase().run(loginUser.id, input);
         } catch (RuntimeException e) {
             //then
-            assertEquals("1度に１万円までしかチャージできません", e.getMessage());
+            assertEquals("1度に1万円までしかチャージできません", e.getMessage());
             return;
         }
         fail("unexpected test fail");

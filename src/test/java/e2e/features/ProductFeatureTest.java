@@ -6,7 +6,6 @@ import static e2e.steps.ProductSteps.*;
 
 public class ProductFeatureTest {
 
-
     @Test
     void ユーザが商品を公開する() {
         ユーザが新規登録してログイン();

@@ -39,7 +39,6 @@ public class DraftProduct extends Product {
 
     public void publish(UUID loginUserId) {
         if (loginUserId != userId) throw new RuntimeException("商品が存在しません");
-        if (status == ProductStatus.PUBLISHED) throw new RuntimeException("すでに公開済みです"); //TODO: DraftProductによって不要になったはず？
         this.status = ProductStatus.PUBLISHED;
     }
 

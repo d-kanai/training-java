@@ -27,10 +27,6 @@ public class UserRepository {
         records = newRecords;
     }
 
-    public List<User> findAll() {
-        return records;
-    }
-
     public User findById(UUID loginUserId) {
         //TODO: メモリ保持問題が起きている
         Optional<User> first = records.stream().filter(user -> user.id == loginUserId).findFirst();

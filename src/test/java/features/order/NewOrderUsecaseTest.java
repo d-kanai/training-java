@@ -7,12 +7,22 @@ import features.product.domain.Product;
 import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
 import helpers.TestDataFactory;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class NewOrderUsecaseTest {
+
+    @BeforeEach
+    void beforeAll() {
+        MoneyFlowRepository.records = new ArrayList<>();
+        OrderRepository.records = new ArrayList<>();
+    }
 
     @Test
     void 商品を購入する() {

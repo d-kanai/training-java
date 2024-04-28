@@ -69,25 +69,6 @@ public class ProductPublishUsecaseTest {
             fail("unexpected test fail");
         }
 
-        // TODO: このテストがDraftProduct型を作ることによって不要になったはず
-//        @Test
-//        void すでに公開済みの場合() {
-//            //given
-//            User loginUser = TestDataFactory.createUser();
-//            Product product = TestDataFactory.createProduct(loginUser.id);
-//            ProductPublishInput input = new ProductPublishInput(product.id);
-//            //when
-//            try {
-//                new ProductPublishUsecase().run(loginUser.id, input);
-//                new ProductPublishUsecase().run(loginUser.id, input);
-//            } catch (RuntimeException e) {
-//                //then
-//                assertEquals("すでに公開済みです", e.getMessage());
-//                return;
-//            }
-//            fail("unexpected test fail");
-//        }
-
     }
 }
 
