@@ -26,6 +26,22 @@ public class MoneyChargeUsecaseTest {
         assertEquals(10000, MoneyRepository.records.get(0).value());
     }
 
+    @Test
+    void _1万円より上は一度にチャージできない() {
+        //given
+        User loginUser = TestDataFactory.createUser();
+        MoneyChargeInput input = new MoneyChargeInput(10001);
+        //when
+        try {
+            new MoneyChargeUsecase().run(loginUser.id, input);
+        } catch (RuntimeException e) {
+            //then
+            assertEquals("1度に１万円までしかチャージできません", e.getMessage());
+            return;
+        }
+        fail("unexpected test fail");
+    }
+
 }
 
 

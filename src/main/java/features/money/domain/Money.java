@@ -17,6 +17,7 @@ public class Money {
     }
 
     public static Money charge(UUID userId, int value) {
+        if (value > 10000) throw new RuntimeException("1度に１万円までしかチャージできません");
         return new Money(UUID.randomUUID(), userId, value);
     }
 
