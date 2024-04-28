@@ -9,7 +9,6 @@ import features.product.domain.ProductStatus;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
-import features.user.presentation.SignupInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 

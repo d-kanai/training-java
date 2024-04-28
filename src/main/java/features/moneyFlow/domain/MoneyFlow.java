@@ -1,8 +1,5 @@
 package features.moneyFlow.domain;
 
-import features.user.domain.User;
-import features.user.domain.UserPlan;
-
 import java.util.UUID;
 
 public class MoneyFlow {
@@ -22,8 +19,8 @@ public class MoneyFlow {
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
-    public static MoneyFlow order(User loginUser, int price) {
-        return new MoneyFlow(UUID.randomUUID(), loginUser.id, -price);
+    public static MoneyFlow order(UUID loginUserId, int price) {
+        return new MoneyFlow(UUID.randomUUID(), loginUserId, -price);
     }
 
     public static MoneyFlow reconstruct(UUID id, UUID userId, int value) {
