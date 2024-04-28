@@ -1,4 +1,4 @@
-package features.money;
+package features.money.application;
 
 import features.money.domain.Monies;
 import features.money.domain.MoneyRepository;

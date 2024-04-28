@@ -1,21 +1,8 @@
 package e2e.features;
 
-import e2e.steps.UserContext;
-import features.money.CurrentMoneyUsecase;
-import features.money.application.MoneyChargeUsecase;
-import features.money.presentation.MoneyChargeInput;
-import features.product.application.ProductPurchaseUsecase;
-import features.product.domain.Product;
-import features.product.domain.ProductRepository;
-import features.product.domain.ProductStatus;
-import features.product.presentation.ProductPurchaseInput;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.UUID;
-
 import static e2e.steps.ProductSteps.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductFeatureTest {
 

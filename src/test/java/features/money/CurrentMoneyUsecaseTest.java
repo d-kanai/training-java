@@ -1,5 +1,6 @@
 package features.money;
 
+import features.money.application.CurrentMoneyUsecase;
 import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;

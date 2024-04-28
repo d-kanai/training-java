@@ -1,6 +1,6 @@
 package e2e.steps;
 
-import features.money.CurrentMoneyUsecase;
+import features.money.application.CurrentMoneyUsecase;
 import features.money.application.MoneyChargeUsecase;
 import features.money.presentation.MoneyChargeInput;
 import features.product.application.ProductCreateUsecase;
