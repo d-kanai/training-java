@@ -7,8 +7,15 @@ import features.money.presentation.MoneyChargeInput;
 import java.util.UUID;
 
 public class MoneyChargeUsecase {
+
+    private MoneyRepository moneyRepository;
+
+    public MoneyChargeUsecase() {
+        moneyRepository = new MoneyRepository();
+    }
+
     public void run(UUID userId, MoneyChargeInput input) {
         Money charge = Money.charge(userId, input.value);
-        new MoneyRepository().save(charge);
+        moneyRepository.save(charge);
     }
 }

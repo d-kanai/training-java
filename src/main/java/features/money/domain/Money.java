@@ -4,6 +4,7 @@ import features.product.domain.Product;
 
 import java.util.UUID;
 
+//TODO: 入出金両方なのでMoney出ない名前な気がする
 public class Money {
 
     public UUID id;

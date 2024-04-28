@@ -6,9 +6,15 @@ import features.user.domain.UserRepository;
 
 public class SignupUsecase {
 
+    private UserRepository userRepository;
+
+    public SignupUsecase() {
+        userRepository = new UserRepository();
+    }
+
     public User run(SignupInput signupInput) {
         User user = User.signup(signupInput);
-        new UserRepository().save(user);
+        userRepository.save(user);
         return user;
     }
 }
