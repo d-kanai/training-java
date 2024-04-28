@@ -8,8 +8,7 @@ import java.util.UUID;
 
 public class OrderHistoryUsecase {
     public List<Order> run(UUID loginUserId) {
-        List<Order> orders = new OrderRepository().findByUserId(loginUserId);
-        return orders;
+        return new OrderRepository().findByUserId(loginUserId);
 
     }
 }

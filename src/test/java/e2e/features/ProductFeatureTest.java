@@ -28,9 +28,5 @@ public class ProductFeatureTest {
         購入履歴一覧に商品が表示されている();
     }
 
-    private void 購入履歴一覧に商品が表示されている() {
-
-    }
-
 
 }

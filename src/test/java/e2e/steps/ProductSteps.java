@@ -3,6 +3,8 @@ package e2e.steps;
 import features.moneyFlow.application.CurrentMoneyUsecase;
 import features.moneyFlow.application.MoneyChargeUsecase;
 import features.moneyFlow.presentation.MoneyChargeInput;
+import features.order.OrderHistoryUsecase;
+import features.order.domain.Order;
 import features.product.application.ProductCreateUsecase;
 import features.product.application.ProductPublishUsecase;
 import features.order.application.NewOrderUsecase;
@@ -17,6 +19,7 @@ import features.user.domain.User;
 import features.user.presentation.SignupInput;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,6 +60,12 @@ public class ProductSteps {
 
     public static void _5000円の商品が登録されている() {
         ProductRepository.records = Arrays.asList(Product.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000));
+    }
+
+    public static void 購入履歴一覧に商品が表示されている() {
+        List<Order> run = new OrderHistoryUsecase().run(UserContext.loginUserId);
+        assertEquals("book", run.get(0).product.name);
+
     }
 
 }
