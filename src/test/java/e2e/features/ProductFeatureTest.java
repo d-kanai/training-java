@@ -40,20 +40,5 @@ public class ProductFeatureTest {
         ユーザのチャージ残高が5000円になっている();
     }
 
-    private void ユーザのチャージ残高が5000円になっている() {
-        assertEquals(5000, new CurrentMoneyUsecase().run(UserContext.loginUserId));
-    }
-
-    private void ユーザが購入する() {
-        new ProductPurchaseUsecase().run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
-    }
-
-    private void ユーザが10000万円チャージする() {
-        new MoneyChargeUsecase().run(UserContext.loginUserId, new MoneyChargeInput(10000));
-    }
-
-    private void _5000円の商品が登録されている() {
-        ProductRepository.records = Arrays.asList(Product.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000));
-    }
 
 }
