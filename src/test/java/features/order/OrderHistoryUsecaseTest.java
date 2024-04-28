@@ -1,10 +1,8 @@
 package features.order;
 
-import features.moneyFlow.domain.MoneyFlowRepository;
-import features.order.application.NewOrderUsecase;
+import features.order.application.OrderHistoryUsecase;
 import features.order.domain.Order;
 import features.product.domain.Product;
-import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
@@ -29,6 +27,7 @@ public class OrderHistoryUsecaseTest {
         assertEquals(2, actual.size());
         assertEquals("book", actual.get(0).product.name);
         assertEquals(1000, actual.get(0).product.price);
+        assertEquals(1000, actual.get(0).orderedPrice);
     }
 
 

@@ -1,9 +1,5 @@
 package features.product.domain;
 
-
-import features.moneyFlow.domain.MoneyFlow;
-import features.moneyFlow.domain.MoneyFlows;
-import features.order.domain.Order;
 import features.user.domain.UserPlan;
 
 import java.util.UUID;

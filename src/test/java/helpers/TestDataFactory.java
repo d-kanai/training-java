@@ -3,6 +3,7 @@ package helpers;
 import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.order.domain.Order;
+import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
 import features.product.domain.ProductStatus;
 import features.user.domain.User;
@@ -71,7 +72,7 @@ public class TestDataFactory {
     }
 
     public static Order createOrder(UUID userId, Product product) {
-        Order order = Order.reconstruct(
+        Order order = OrderFactory.reconstruct(
                 UUID.randomUUID(),
                 userId,
                 product

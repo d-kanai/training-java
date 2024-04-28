@@ -3,7 +3,7 @@ package e2e.steps;
 import features.moneyFlow.application.CurrentMoneyUsecase;
 import features.moneyFlow.application.MoneyChargeUsecase;
 import features.moneyFlow.presentation.MoneyChargeInput;
-import features.order.OrderHistoryUsecase;
+import features.order.application.OrderHistoryUsecase;
 import features.order.domain.Order;
 import features.product.application.ProductCreateUsecase;
 import features.product.application.ProductPublishUsecase;

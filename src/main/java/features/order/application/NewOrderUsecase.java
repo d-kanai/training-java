@@ -2,7 +2,7 @@ package features.order.application;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
-import features.order.domain.Order;
+import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
@@ -31,7 +31,7 @@ public class NewOrderUsecase {
         Product product = productRepository.findById(input.productId);
         MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
 
-        Order.OrderResult orderResult = Order.newOrder(user, product, moneyFlows);
+        OrderFactory.OrderResult orderResult = OrderFactory.newOrder(user, product, moneyFlows);
 
         moneyFlowRepository.save(orderResult.usedMoneyFlow);
         orderRepository.save(orderResult.newOrder);
