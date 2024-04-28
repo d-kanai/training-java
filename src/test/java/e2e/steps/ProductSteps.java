@@ -53,7 +53,7 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new NewOrderUsecase(new FakeMailSender()).run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
+        new NewOrderUsecase().run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
     }
 
     public static void ユーザが10000万円チャージする() {

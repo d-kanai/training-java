@@ -42,4 +42,13 @@ public class UserRepository {
         }
         throw new RuntimeException("STANDARD ユーザが存在しません");
     }
+    public VipUser findVipById(UUID loginUserId) {
+        //TODO: メモリ保持問題が起きている
+        Optional<User> first = records.stream().filter(user -> user.id == loginUserId && user.userPlan == UserPlan.VIP).findFirst();
+        if (first.isPresent()) {
+            User user = first.get();
+            return VipUser.reconstruct(user.id, user.name, user.userPlan);
+        }
+        throw new RuntimeException("VIP ユーザが存在しません");
+    }
 }

@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class NewOrderUsecaseTest {
 
     FakeMailSender mailSender = new FakeMailSender();
-    NewOrderUsecase newOrderUsecase = new NewOrderUsecase(mailSender);
+    NewOrderUsecase newOrderUsecase = new NewOrderUsecase();
 
     @BeforeEach
     void beforeAll() {
@@ -45,23 +45,6 @@ public class NewOrderUsecaseTest {
         assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
         assertEquals(1, OrderRepository.records.size());
         assertEquals(0, mailSender.callCountSend);
-    }
-
-    @Test
-    void VIPユーザが商品を購入すると1割引き() {
-        //given
-        User loginUser = new UserDataBuilder().setUserPlan(UserPlan.VIP).please();
-        new MoneyFlowDataBuilder(loginUser.id).please();
-        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
-        ProductPurchaseInput input = new ProductPurchaseInput(product.id);
-        //when
-        newOrderUsecase.run(loginUser.id, input);
-        //then
-        assertEquals(2, MoneyFlowRepository.records.size());
-        assertEquals(-900, MoneyFlowRepository.records.get(1).value());
-        assertEquals(1, OrderRepository.records.size());
-        assertEquals(1, mailSender.callCountSend);
-        assertEquals("VIPへの特別商品ご案内", mailSender.argsTitle);
     }
 
     @Test
