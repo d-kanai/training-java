@@ -5,7 +5,7 @@ import features.moneyFlow.application.MoneyChargeUsecase;
 import features.moneyFlow.presentation.MoneyChargeInput;
 import features.product.application.ProductCreateUsecase;
 import features.product.application.ProductPublishUsecase;
-import features.product.application.ProductPurchaseUsecase;
+import features.order.application.NewOrderUsecase;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.domain.ProductStatus;
@@ -48,7 +48,7 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new ProductPurchaseUsecase().run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
+        new NewOrderUsecase().run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
     }
 
     public static void ユーザが10000万円チャージする() {

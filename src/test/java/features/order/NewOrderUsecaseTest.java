@@ -1,8 +1,8 @@
-package features.product;
+package features.order;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.order.domain.OrderRepository;
-import features.product.application.ProductPurchaseUsecase;
+import features.order.application.NewOrderUsecase;
 import features.product.domain.Product;
 import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ProductPurchaseUsecaseTest {
+public class NewOrderUsecaseTest {
 
     @Test
     void 商品を購入する() {
@@ -22,7 +22,7 @@ public class ProductPurchaseUsecaseTest {
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
         TestDataFactory.createMoneyFlow(loginUser.id);
         //when
-        new ProductPurchaseUsecase().run(loginUser.id, input);
+        new NewOrderUsecase().run(loginUser.id, input);
         //then
         assertEquals(2, MoneyFlowRepository.records.size());
         assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
@@ -37,7 +37,7 @@ public class ProductPurchaseUsecaseTest {
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
         //when
         try {
-            new ProductPurchaseUsecase().run(loginUser.id, input);
+            new NewOrderUsecase().run(loginUser.id, input);
         } catch (RuntimeException e) {
             //then
             assertEquals("チャージ残高が足りません", e.getMessage());

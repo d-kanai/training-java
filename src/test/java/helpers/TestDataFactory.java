@@ -2,6 +2,8 @@ package helpers;
 
 import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlowRepository;
+import features.order.domain.Order;
+import features.order.domain.OrderRepository;
 import features.product.domain.ProductStatus;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
@@ -50,5 +52,15 @@ public class TestDataFactory {
                 10000
         );
         return MoneyFlowRepository.records.add(moneyFlow);
+    }
+
+    public static Order createOrder(UUID userId, Product product) {
+        Order order = Order.reconstruct(
+                UUID.randomUUID(),
+                userId,
+                product
+        );
+        OrderRepository.records.add(order);
+        return order;
     }
 }

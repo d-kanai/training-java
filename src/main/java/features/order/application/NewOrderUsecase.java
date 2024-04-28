@@ -1,4 +1,4 @@
-package features.product.application;
+package features.order.application;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
@@ -10,13 +10,13 @@ import features.product.presentation.ProductPurchaseInput;
 
 import java.util.UUID;
 
-public class ProductPurchaseUsecase {
+public class NewOrderUsecase {
 
     private ProductRepository productRepository;
     private MoneyFlowRepository moneyFlowRepository;
     private OrderRepository orderRepository;
 
-    public ProductPurchaseUsecase() {
+    public NewOrderUsecase() {
         productRepository = new ProductRepository();
         moneyFlowRepository = new MoneyFlowRepository();
         orderRepository = new OrderRepository();

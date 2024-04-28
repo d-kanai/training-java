@@ -10,13 +10,13 @@ public class Order {
 
     public final UUID id;
     public final UUID userId;
-    public final UUID productId;
+    public final Product product;
 
 
-    private Order(UUID id, UUID userId, UUID productId) {
+    private Order(UUID id, UUID userId, Product product) {
         this.id = id;
         this.userId = userId;
-        this.productId = productId;
+        this.product = product;
     }
 
     public static OrderResult newOrder(UUID loginUserId, Product product, MoneyFlows moneyFlows) {
@@ -25,9 +25,14 @@ public class Order {
         Order purchasedOrder = new Order(
                 UUID.randomUUID(),
                 loginUserId,
-                product.id
+                product
         );
         return new OrderResult(usedMoneyFlow, purchasedOrder);
+
+    }
+
+    public static Order reconstruct(UUID uuid, UUID userId, Product product) {
+        return new Order(uuid, userId, product);
 
     }
 
