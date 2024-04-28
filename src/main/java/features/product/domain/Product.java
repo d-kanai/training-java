@@ -1,6 +1,9 @@
 package features.product.domain;
 
 
+import features.money.domain.Money;
+import features.money.domain.Monies;
+
 import java.util.UUID;
 
 public class Product implements Cloneable {
@@ -33,5 +36,10 @@ public class Product implements Cloneable {
     @Override
     public Product clone() throws CloneNotSupportedException {
         return (Product) super.clone();
+    }
+
+    public Money purchase(UUID loginUserId, Monies monies) {
+        if (monies.hasEnoughMoney(this)) throw new RuntimeException("チャージ残高が足りません");
+        return Money.use(loginUserId, this);
     }
 }

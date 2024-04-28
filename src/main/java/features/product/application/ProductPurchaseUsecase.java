@@ -13,8 +13,7 @@ public class ProductPurchaseUsecase {
     public void run(UUID loginUserId, ProductPurchaseInput input) {
         Product product = new ProductRepository().findById(input.productId);
         Monies monies = new MoneyRepository().findByUserId(loginUserId);
-        if (monies.hasEnoughMoney(product)) throw new RuntimeException("チャージ残高が足りません");
-        Money usedMoney = Money.use(loginUserId, product);
+        Money usedMoney = product.purchase(loginUserId, monies);
         new MoneyRepository().save(usedMoney);
     }
 }
