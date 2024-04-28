@@ -3,6 +3,7 @@ package features.order.domain;
 import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlows;
 import features.product.domain.Product;
+import features.user.domain.User;
 
 import java.util.UUID;
 
@@ -11,28 +12,33 @@ public class Order {
     public final UUID id;
     public final UUID userId;
     public final Product product;
+    private final int price;
 
 
-    private Order(UUID id, UUID userId, Product product) {
+    private Order(UUID id, UUID userId, Product product, int price) {
         this.id = id;
         this.userId = userId;
         this.product = product;
+        this.price = price;
     }
 
-    public static OrderResult newOrder(UUID loginUserId, Product product, MoneyFlows moneyFlows) {
+    public static OrderResult newOrder(User loginUser, Product product, MoneyFlows moneyFlows) {
         if (moneyFlows.hasEnoughMoney(product)) throw new RuntimeException("チャージ残高が足りません");
-        MoneyFlow usedMoneyFlow = MoneyFlow.use(loginUserId, product);
+        int discountedPrice = product.discountedPrice(loginUser.userPlan);
+
+        MoneyFlow usedMoneyFlow = MoneyFlow.order(loginUser, discountedPrice);
         Order purchasedOrder = new Order(
                 UUID.randomUUID(),
-                loginUserId,
-                product
+                loginUser.id,
+                product,
+                discountedPrice
         );
         return new OrderResult(usedMoneyFlow, purchasedOrder);
 
     }
 
     public static Order reconstruct(UUID uuid, UUID userId, Product product) {
-        return new Order(uuid, userId, product);
+        return new Order(uuid, userId, product, product.price);
 
     }
 

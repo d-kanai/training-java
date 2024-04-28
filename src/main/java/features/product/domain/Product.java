@@ -4,6 +4,7 @@ package features.product.domain;
 import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlows;
 import features.order.domain.Order;
+import features.user.domain.UserPlan;
 
 import java.util.UUID;
 
@@ -33,9 +34,12 @@ public class Product implements Cloneable {
         );
     }
 
+    public int discountedPrice(UserPlan userPlan) {
+        return (int) Math.floor(this.price * userPlan.discountRate());
+    }
+
     @Override
     public Product clone() throws CloneNotSupportedException {
         return (Product) super.clone();
     }
-
 }

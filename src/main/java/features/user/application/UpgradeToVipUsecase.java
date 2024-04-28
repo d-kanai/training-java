@@ -3,7 +3,6 @@ package features.user.application;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
 
-import java.util.List;
 import java.util.UUID;
 
 public class UpgradeToVipUsecase {

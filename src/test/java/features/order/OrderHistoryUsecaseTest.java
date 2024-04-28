@@ -28,6 +28,7 @@ public class OrderHistoryUsecaseTest {
         //then
         assertEquals(2, actual.size());
         assertEquals("book", actual.get(0).product.name);
+        assertEquals(1000, actual.get(0).product.price);
     }
 
 

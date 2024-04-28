@@ -6,6 +6,7 @@ import features.order.domain.Order;
 import features.order.domain.OrderRepository;
 import features.product.domain.ProductStatus;
 import features.user.domain.User;
+import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
 import features.user.presentation.SignupInput;
 import features.product.domain.Product;
@@ -14,6 +15,7 @@ import features.product.domain.ProductRepository;
 import java.util.Arrays;
 import java.util.UUID;
 
+//TODO: Builderにして分ける、重複排除
 public class TestDataFactory {
 
     public static Product createDraftProduct(UUID userId) {
@@ -40,7 +42,21 @@ public class TestDataFactory {
     }
 
     public static User createUser() {
-        User user = User.signup(new SignupInput("tanaka"));
+        User user = User.reconstruct(
+                UUID.randomUUID(),
+                "tanaka",
+                UserPlan.STANDARD
+        );
+        UserRepository.records.add(user);
+        return user;
+    }
+
+    public static User createVipUser() {
+        User user = User.reconstruct(
+                UUID.randomUUID(),
+                "tanaka",
+                UserPlan.VIP
+        );
         UserRepository.records.add(user);
         return user;
     }

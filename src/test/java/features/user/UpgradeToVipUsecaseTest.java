@@ -1,14 +1,12 @@
 package features.user;
 
 import features.user.application.UpgradeToVipUsecase;
-import features.user.application.UserListUsecase;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
 import helpers.TestDataFactory;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,6 +1,7 @@
 package features.moneyFlow.domain;
 
-import features.product.domain.Product;
+import features.user.domain.User;
+import features.user.domain.UserPlan;
 
 import java.util.UUID;
 
@@ -21,8 +22,8 @@ public class MoneyFlow {
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
-    public static MoneyFlow use(UUID loginUserId, Product product) {
-        return new MoneyFlow(UUID.randomUUID(), loginUserId, -product.price);
+    public static MoneyFlow order(User loginUser, int price) {
+        return new MoneyFlow(UUID.randomUUID(), loginUser.id, -price);
 
     }
 

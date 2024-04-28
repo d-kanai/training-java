@@ -23,6 +23,14 @@ public class User {
         );
     }
 
+    public static User reconstruct(UUID uuid, String name, UserPlan userPlan) {
+        return new User(
+                uuid,
+                name,
+                userPlan
+        );
+    }
+
     public void upgradeToVip() {
         userPlan = UserPlan.VIP;
     }

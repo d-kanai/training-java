@@ -30,6 +30,21 @@ public class NewOrderUsecaseTest {
     }
 
     @Test
+    void VIPユーザが商品を購入すると1割引き() {
+        //given
+        User loginUser = TestDataFactory.createVipUser();
+        TestDataFactory.createMoneyFlow(loginUser.id);
+        Product product = TestDataFactory.createPublishedProduct(loginUser.id);
+        ProductPurchaseInput input = new ProductPurchaseInput(product.id);
+        //when
+        new NewOrderUsecase().run(loginUser.id, input);
+        //then
+        assertEquals(2, MoneyFlowRepository.records.size());
+        assertEquals(-900, MoneyFlowRepository.records.get(1).value());
+        assertEquals(1, OrderRepository.records.size());
+    }
+
+    @Test
     void 残高不足で購入できない() {
         //given
         User loginUser = TestDataFactory.createUser();
