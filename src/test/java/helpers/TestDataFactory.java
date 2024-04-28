@@ -43,7 +43,7 @@ public class TestDataFactory {
         return user;
     }
 
-    public static boolean createMoney(UUID userId) {
+    public static boolean createMoneyFlow(UUID userId) {
         MoneyFlow moneyFlow = MoneyFlow.reconstruct(
                 UUID.randomUUID(),
                 userId,

@@ -13,8 +13,8 @@ public class CurrentMoneyUsecaseTestFlow {
     void チャージ残高を取得する() {
         //given
         User loginUser = TestDataFactory.createUser();
-        TestDataFactory.createMoney(loginUser.id);
-        TestDataFactory.createMoney(loginUser.id);
+        TestDataFactory.createMoneyFlow(loginUser.id);
+        TestDataFactory.createMoneyFlow(loginUser.id);
         //when
         int totalValue = new CurrentMoneyUsecase().run(loginUser.id);
         //then

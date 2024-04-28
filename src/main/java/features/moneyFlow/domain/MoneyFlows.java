@@ -12,13 +12,13 @@ public class MoneyFlows {
         this.items = items;
     }
 
-    public int totalValue() {
+    public int currentValue() {
         return items.stream()
                 .mapToInt(MoneyFlow::value)
                 .sum();
     }
 
     public boolean hasEnoughMoney(Product product) {
-        return totalValue() < product.price;
+        return currentValue() < product.price;
     }
 }

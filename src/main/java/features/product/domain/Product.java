@@ -33,27 +33,9 @@ public class Product implements Cloneable {
         );
     }
 
-
     @Override
     public Product clone() throws CloneNotSupportedException {
         return (Product) super.clone();
     }
 
-    public PurchaseResult purchase(UUID loginUserId, MoneyFlows moneyFlows) {
-        if (moneyFlows.hasEnoughMoney(this)) throw new RuntimeException("チャージ残高が足りません");
-        MoneyFlow usedMoneyFlow = MoneyFlow.use(loginUserId, this);
-        Order purchasedOrder = Order.purchase(loginUserId, this.id);
-        return new PurchaseResult(usedMoneyFlow, purchasedOrder);
-    }
-
-    public class PurchaseResult {
-
-        public final MoneyFlow usedMoneyFlow;
-        public final Order purchasedOrder;
-
-        public PurchaseResult(MoneyFlow usedMoneyFlow, Order purchasedOrder) {
-            this.usedMoneyFlow = usedMoneyFlow;
-            this.purchasedOrder = purchasedOrder;
-        }
-    }
 }

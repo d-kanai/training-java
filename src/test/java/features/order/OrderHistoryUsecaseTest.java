@@ -19,7 +19,7 @@ public class OrderHistoryUsecaseTest {
         User loginUser = TestDataFactory.createUser();
         Product product = TestDataFactory.createPublishedProduct(loginUser.id);
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
-        TestDataFactory.createMoney(loginUser.id);
+        TestDataFactory.createMoneyFlow(loginUser.id);
         //when
         new ProductPurchaseUsecase().run(loginUser.id, input);
         //then

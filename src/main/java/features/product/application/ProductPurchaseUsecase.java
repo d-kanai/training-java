@@ -2,6 +2,7 @@ package features.product.application;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
+import features.order.domain.Order;
 import features.order.domain.OrderRepository;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
@@ -24,8 +25,8 @@ public class ProductPurchaseUsecase {
     public void run(UUID loginUserId, ProductPurchaseInput input) {
         Product product = productRepository.findById(input.productId);
         MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
-        Product.PurchaseResult purchaseResult = product.purchase(loginUserId, moneyFlows);
-        moneyFlowRepository.save(purchaseResult.usedMoneyFlow);
-        orderRepository.save(purchaseResult.purchasedOrder);
+        Order.OrderResult orderResult = Order.newOrder(loginUserId, product, moneyFlows);
+        moneyFlowRepository.save(orderResult.usedMoneyFlow);
+        orderRepository.save(orderResult.newOrder);
     }
 }

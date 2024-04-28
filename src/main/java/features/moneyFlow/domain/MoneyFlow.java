@@ -11,13 +11,13 @@ public class MoneyFlow {
     private final int value;
 
     private MoneyFlow(UUID id, UUID userId, int value) {
+        if (value > 10000) throw new RuntimeException("1度に1万円までしかチャージできません");
         this.id = id;
         this.userId = userId;
         this.value = value;
     }
 
     public static MoneyFlow charge(UUID userId, int value) {
-        if (value > 10000) throw new RuntimeException("1度に１万円までしかチャージできません");
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
