@@ -11,7 +11,6 @@ import features.user.domain.User;
 import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
 import shared.IMailSender;
-import shared.MailSender;
 
 import java.util.UUID;
 
