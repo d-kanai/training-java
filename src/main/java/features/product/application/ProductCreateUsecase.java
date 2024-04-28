@@ -16,7 +16,7 @@ public class ProductCreateUsecase {
     }
 
     public Product run(UUID loginUserId, ProductCreateInput input) {
-        Product product = DraftProduct.create(loginUserId, input);
+        Product product = DraftProduct.newDraft(loginUserId, input);
         productRepository.save(product);
         return product;
     }

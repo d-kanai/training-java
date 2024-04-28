@@ -16,7 +16,7 @@ public class DraftProduct extends Product {
         );
     }
 
-    public static DraftProduct create(UUID loginUserId, ProductCreateInput input) {
+    public static DraftProduct newDraft(UUID loginUserId, ProductCreateInput input) {
         return new DraftProduct(
                 UUID.randomUUID(),
                 loginUserId,
@@ -37,9 +37,15 @@ public class DraftProduct extends Product {
         );
     }
 
-    public void publish(UUID loginUserId) {
+    public Product publish(UUID loginUserId) {
         if (loginUserId != userId) throw new RuntimeException("商品が存在しません");
-        this.status = ProductStatus.PUBLISHED;
+        return new Product(
+                this.id,
+                this.userId,
+                ProductStatus.PUBLISHED,
+                this.name,
+                this.price
+        );
     }
 
     @Override
