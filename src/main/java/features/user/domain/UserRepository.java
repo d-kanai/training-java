@@ -1,7 +1,5 @@
 package features.user.domain;
 
-import features.product.domain.Product;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -1,17 +1,27 @@
 package features.user;
 
+import features.moneyFlow.domain.MoneyFlowRepository;
 import features.user.application.UpgradeToVipUsecase;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import features.user.domain.UserRepository;
 import features.moneyFlow.MoneyFlowDataBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class UpgradeToVipUsecaseTest {
+
+    @BeforeEach
+    void setup() {
+        UserRepository.records = new ArrayList<>();
+        MoneyFlowRepository.records = new ArrayList<>();
+    }
 
     @Test
     void _1万以上購入してVIPになる() {
