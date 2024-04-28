@@ -18,8 +18,10 @@ public class NewOrderUsecase {
     private MoneyFlowRepository moneyFlowRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
+    private MailSender mailSender;
 
-    public NewOrderUsecase() {
+    public NewOrderUsecase(MailSender mailSender) {
+        this.mailSender = mailSender;
         productRepository = new ProductRepository();
         moneyFlowRepository = new MoneyFlowRepository();
         orderRepository = new OrderRepository();
@@ -35,5 +37,8 @@ public class NewOrderUsecase {
 
         moneyFlowRepository.save(orderResult.usedMoneyFlow);
         orderRepository.save(orderResult.newOrder);
+
+        mailSender.send(user.email, "VIPへの特別商品ご案内");
     }
+
 }

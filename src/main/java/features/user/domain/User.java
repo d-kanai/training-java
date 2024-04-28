@@ -8,6 +8,7 @@ public class User {
     public UUID id;
     public final String name;
     public UserPlan userPlan;
+    public String email;
 
     private User(UUID id, String name, UserPlan userPlan) {
         this.id = id;
