@@ -6,8 +6,9 @@ import features.user.domain.UserRepository;
 
 public class SignupUsecase {
 
-    public boolean run(SignupInput signupInput) {
+    public User run(SignupInput signupInput) {
         User user = User.signup(signupInput);
-        return new UserRepository().save(user);
+        new UserRepository().save(user);
+        return user;
     }
 }
