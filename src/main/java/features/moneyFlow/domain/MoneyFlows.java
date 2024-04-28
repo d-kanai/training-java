@@ -18,6 +18,13 @@ public class MoneyFlows {
                 .sum();
     }
 
+    public int sumOfUsed() {
+        return -items.stream()
+                .filter(moneyFlow -> moneyFlow.value() < 0)
+                .mapToInt(MoneyFlow::value)
+                .sum();
+    }
+
     public boolean hasEnoughMoney(PublishedProduct product) {
         return currentValue() < product.price;
     }
