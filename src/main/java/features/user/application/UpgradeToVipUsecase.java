@@ -2,8 +2,7 @@ package features.user.application;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
-import features.user.domain.User;
-import features.user.domain.UserRepository;
+import features.user.domain.*;
 
 import java.util.UUID;
 
@@ -19,11 +18,9 @@ public class UpgradeToVipUsecase {
     }
 
     public void run(UUID loginUserId) {
-        User user = userRepository.findById(loginUserId);
+        StandardUser user = userRepository.findStandardById(loginUserId);
         MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(user.id);
-
-        user.upgradeToVip(moneyFlows);
-
-        userRepository.save(user);
+        VipUser vipUser = user.challengeVip(moneyFlows).upgradeToVip();
+        userRepository.save(vipUser);
     }
 }

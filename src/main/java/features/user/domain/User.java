@@ -11,7 +11,7 @@ public class User {
     public UserPlan userPlan;
     public String email;
 
-    private User(UUID id, String name, UserPlan userPlan) {
+    protected User(UUID id, String name, UserPlan userPlan) {
         this.id = id;
         this.name = name;
         this.userPlan = userPlan;
@@ -33,8 +33,5 @@ public class User {
         );
     }
 
-    public void upgradeToVip(MoneyFlows moneyFlows) {
-        if (moneyFlows.currentValue() < 10000) throw new RuntimeException("VIPになる条件を満たしていません");
-        userPlan = UserPlan.VIP;
-    }
+
 }

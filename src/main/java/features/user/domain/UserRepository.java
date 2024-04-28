@@ -33,4 +33,13 @@ public class UserRepository {
         }
         throw new RuntimeException("ユーザが存在しません");
     }
+    public StandardUser findStandardById(UUID loginUserId) {
+        //TODO: メモリ保持問題が起きている
+        Optional<User> first = records.stream().filter(user -> user.id == loginUserId && user.userPlan == UserPlan.STANDARD).findFirst();
+        if (first.isPresent()) {
+            User user = first.get();
+            return StandardUser.reconstruct(user.id, user.name, user.userPlan);
+        }
+        throw new RuntimeException("STANDARD ユーザが存在しません");
+    }
 }
