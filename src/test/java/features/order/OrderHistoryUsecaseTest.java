@@ -2,10 +2,10 @@ package features.order;
 
 import features.order.application.OrderHistoryUsecase;
 import features.order.domain.Order;
-import features.product.domain.Product;
 import features.product.domain.PublishedProduct;
 import features.user.domain.User;
-import helpers.TestDataFactory;
+import features.product.ProductDataBuilder;
+import features.user.UserDataBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -18,10 +18,10 @@ public class OrderHistoryUsecaseTest {
     @Test
     void 購入履歴を取得する() {
         //given
-        User loginUser = TestDataFactory.createUser();
-        PublishedProduct product = TestDataFactory.createPublishedProduct(loginUser.id);
-        TestDataFactory.createOrder(loginUser, product);
-        TestDataFactory.createOrder(loginUser, product);
+        User loginUser = new UserDataBuilder().please();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+        new OrderDataBuilder(loginUser, product).please();
+        new OrderDataBuilder(loginUser, product).please();
         //when
         List<Order> actual = new OrderHistoryUsecase().run(loginUser.id);
         //then

@@ -11,7 +11,7 @@ public class MoneyFlow {
     private final int value;
 
     private MoneyFlow(UUID id, UUID userId, int value) {
-        if (value > 10000) throw new RuntimeException("1度に1万円までしかチャージできません");
+        if (value > 30000) throw new RuntimeException("1度に3万円までしかチャージできません");
         this.id = id;
         this.userId = userId;
         this.value = value;

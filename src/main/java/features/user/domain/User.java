@@ -1,5 +1,6 @@
 package features.user.domain;
 
+import features.moneyFlow.domain.MoneyFlows;
 import features.user.presentation.SignupInput;
 
 import java.util.UUID;
@@ -32,7 +33,8 @@ public class User {
         );
     }
 
-    public void upgradeToVip() {
+    public void upgradeToVip(MoneyFlows moneyFlows) {
+        if (moneyFlows.currentValue() < 10000) throw new RuntimeException("VIPになる条件を満たしていません");
         userPlan = UserPlan.VIP;
     }
 }

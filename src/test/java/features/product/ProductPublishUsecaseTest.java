@@ -1,7 +1,8 @@
 package features.product;
 
+import features.product.domain.DraftProduct;
 import features.user.domain.User;
-import helpers.TestDataFactory;
+import features.user.UserDataBuilder;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import features.product.application.ProductPublishUsecase;
@@ -20,8 +21,8 @@ public class ProductPublishUsecaseTest {
     @Test
     void 商品を公開する() {
         //given
-        User loginUser = TestDataFactory.createUser();
-        Product product = TestDataFactory.createDraftProduct(loginUser.id);
+        User loginUser = new UserDataBuilder().please();
+        DraftProduct product = new ProductDataBuilder(loginUser.id).pleaseAsDraft();
         ProductPublishInput input = new ProductPublishInput(product.id);
         //when
         Product actual = new ProductPublishUsecase().run(loginUser.id, input);
@@ -38,7 +39,7 @@ public class ProductPublishUsecaseTest {
         @Test
         void 存在しない商品() {
             //given
-            User loginUser = TestDataFactory.createUser();
+            User loginUser = new UserDataBuilder().please();
             ProductPublishInput input = new ProductPublishInput(UUID.randomUUID());
             //when
             try {
@@ -54,9 +55,9 @@ public class ProductPublishUsecaseTest {
         @Test
         void 人の商品は公開できない() {
             //given
-            User loginUser = TestDataFactory.createUser();
-            Product product = TestDataFactory.createDraftProduct(loginUser.id);
-            User anotherUser = TestDataFactory.createUser();
+            User loginUser = new UserDataBuilder().please();
+            Product product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+            User anotherUser = new UserDataBuilder().please();
             ProductPublishInput input = new ProductPublishInput(product.id);
             //when
             try {

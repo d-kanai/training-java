@@ -1,13 +1,17 @@
 package features.order;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
+import features.product.domain.PublishedProduct;
+import features.user.domain.UserPlan;
 import helpers.FakeMailSender;
 import features.order.domain.OrderRepository;
 import features.order.application.NewOrderUsecase;
 import features.product.domain.Product;
 import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
-import helpers.TestDataFactory;
+import features.moneyFlow.MoneyFlowDataBuilder;
+import features.product.ProductDataBuilder;
+import features.user.UserDataBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +34,10 @@ public class NewOrderUsecaseTest {
     @Test
     void 商品を購入する() {
         //given
-        User loginUser = TestDataFactory.createUser();
-        Product product = TestDataFactory.createPublishedProduct(loginUser.id);
+        User loginUser = new UserDataBuilder().please();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
-        TestDataFactory.createMoneyFlow(loginUser.id);
+        new MoneyFlowDataBuilder(loginUser.id).please();
         //when
         newOrderUsecase.run(loginUser.id, input);
         //then
@@ -46,9 +50,9 @@ public class NewOrderUsecaseTest {
     @Test
     void VIPユーザが商品を購入すると1割引き() {
         //given
-        User loginUser = TestDataFactory.createVipUser();
-        TestDataFactory.createMoneyFlow(loginUser.id);
-        Product product = TestDataFactory.createPublishedProduct(loginUser.id);
+        User loginUser = new UserDataBuilder().setUserPlan(UserPlan.VIP).please();
+        new MoneyFlowDataBuilder(loginUser.id).please();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
         //when
         newOrderUsecase.run(loginUser.id, input);
@@ -63,8 +67,8 @@ public class NewOrderUsecaseTest {
     @Test
     void 残高不足で購入できない() {
         //given
-        User loginUser = TestDataFactory.createUser();
-        Product product = TestDataFactory.createPublishedProduct(loginUser.id);
+        User loginUser = new UserDataBuilder().please();
+        Product product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
         ProductPurchaseInput input = new ProductPurchaseInput(product.id);
         //when
         try {
