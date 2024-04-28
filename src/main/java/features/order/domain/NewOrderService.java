@@ -4,7 +4,6 @@ import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
 import features.product.domain.ProductRepository;
 import features.product.domain.PublishedProduct;
-import features.product.presentation.ProductPurchaseInput;
 import features.user.domain.User;
 
 import java.util.UUID;
