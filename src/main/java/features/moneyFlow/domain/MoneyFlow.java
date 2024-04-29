@@ -6,8 +6,9 @@ import java.util.UUID;
 
 public class MoneyFlow {
 
-    public UUID id;
-    public final UUID userId;
+    private UUID id;
+    private final UUID userId;
+
     private final int value;
 
     private MoneyFlow(UUID id, UUID userId, int value) {
@@ -15,6 +16,10 @@ public class MoneyFlow {
         this.id = id;
         this.userId = userId;
         this.value = value;
+    }
+
+    public UUID userId() {
+        return userId;
     }
 
     public static MoneyFlow charge(UUID userId, int value) {
