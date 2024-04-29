@@ -34,11 +34,11 @@ public class NewOrderForStandardUsecaseTest {
     void 商品を購入する() {
         //given
         User loginUser = new UserDataBuilder().please();
-        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
         NewOrderInput input = new NewOrderInput(product.id);
-        new MoneyFlowDataBuilder(loginUser.id).please();
+        new MoneyFlowDataBuilder(loginUser.id()).please();
         //when
-        newOrderForStandardUsecase.run(loginUser.id, input);
+        newOrderForStandardUsecase.run(loginUser.id(), input);
         //then
         assertEquals(2, MoneyFlowRepository.records.size());
         assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
@@ -50,11 +50,11 @@ public class NewOrderForStandardUsecaseTest {
     void 残高不足で購入できない() {
         //given
         User loginUser = new UserDataBuilder().please();
-        Product product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+        Product product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
         NewOrderInput input = new NewOrderInput(product.id);
         //when
         try {
-            newOrderForStandardUsecase.run(loginUser.id, input);
+            newOrderForStandardUsecase.run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             assertEquals("チャージ残高が足りません", e.getMessage());

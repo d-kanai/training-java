@@ -11,10 +11,10 @@ public class OrderFactory {
 
     public static Order newOrder(User loginUser, PublishedProduct product, MoneyFlows moneyFlows) {
         if (moneyFlows.hasEnoughMoney(product)) throw new RuntimeException("チャージ残高が足りません");
-        PublishedProduct.DiscountedPrice discountedPrice = product.discountedPrice(loginUser.userPlan);
+        PublishedProduct.DiscountedPrice discountedPrice = product.discountedPrice(loginUser.userPlan());
         return new Order(
                 UUID.randomUUID(),
-                loginUser.id,
+                loginUser.id(),
                 product,
                 discountedPrice
         );
@@ -22,7 +22,7 @@ public class OrderFactory {
     }
 
     public static Order reconstruct(UUID uuid, User user, PublishedProduct product) {
-        return new Order(uuid, user.id, product, product.discountedPrice(user.userPlan));
+        return new Order(uuid, user.id(), product, product.discountedPrice(user.userPlan()));
 
     }
 }

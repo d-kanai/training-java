@@ -27,26 +27,26 @@ public class UpgradeToVipUsecaseTest {
     void _1万以上購入してVIPになる() {
         //given
         User loginUser = new UserDataBuilder().please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(10000).please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(-5000).please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(-5000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(10000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(-5000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(-5000).please();
         //when
-        new UpgradeToVipUsecase().run(loginUser.id);
+        new UpgradeToVipUsecase().run(loginUser.id());
         //then
         assertEquals(1, UserRepository.records.size());
-        assertEquals(UserPlan.VIP, UserRepository.records.get(0).userPlan);
+        assertEquals(UserPlan.VIP, UserRepository.records.get(0).userPlan());
     }
 
     @Test
     void _1万未満の購入履歴ではVIPになれない() {
         //given
         User loginUser = new UserDataBuilder().please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(10000).please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(-5000).please();
-        new MoneyFlowDataBuilder(loginUser.id).setPrice(-4999).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(10000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(-5000).please();
+        new MoneyFlowDataBuilder(loginUser.id()).setPrice(-4999).please();
         //when
         try {
-            new UpgradeToVipUsecase().run(loginUser.id);
+            new UpgradeToVipUsecase().run(loginUser.id());
         } catch (RuntimeException e) {
             //then
             assertEquals("VIPになる条件を満たしていません", e.getMessage());

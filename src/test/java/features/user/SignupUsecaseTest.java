@@ -17,8 +17,8 @@ public class SignupUsecaseTest {
         //when
         User actual = new SignupUsecase().run(signupInput);
         //then
-        assertEquals("d.kanai", actual.name);
+        assertEquals("d.kanai", actual.name());
         assertEquals(1, UserRepository.records.size());
-        assertEquals("d.kanai", UserRepository.records.get(0).name);
+        assertEquals("d.kanai", UserRepository.records.get(0).name());
     }
 }

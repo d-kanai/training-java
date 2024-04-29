@@ -1,15 +1,30 @@
 package features.user.domain;
 
-import features.moneyFlow.domain.MoneyFlows;
 import features.user.presentation.SignupInput;
 
 import java.util.UUID;
 
 public class User {
-    public UUID id;
-    public final String name;
-    public UserPlan userPlan;
-    public String email;
+    private UUID id;
+    private final String name;
+    private UserPlan userPlan;
+    private String email;
+
+    public UUID id() {
+        return id;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public UserPlan userPlan() {
+        return userPlan;
+    }
+
+    public String email() {
+        return email;
+    }
 
     protected User(UUID id, String name, UserPlan userPlan) {
         this.id = id;

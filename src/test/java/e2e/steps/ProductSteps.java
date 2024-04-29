@@ -30,7 +30,7 @@ public class ProductSteps {
     public static void ユーザが新規登録してログイン() {
         SignupInput signupInput = new SignupInput("d.kanai");
         User user = new SignupUsecase().run(signupInput);
-        UserContext.loginUserId = user.id;
+        UserContext.loginUserId = user.id();
     }
 
     public static void ユーザが商品をドラフトで登録() {

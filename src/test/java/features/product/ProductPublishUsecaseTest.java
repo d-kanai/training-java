@@ -22,10 +22,10 @@ public class ProductPublishUsecaseTest {
     void 商品を公開する() {
         //given
         User loginUser = new UserDataBuilder().please();
-        DraftProduct product = new ProductDataBuilder(loginUser.id).pleaseAsDraft();
+        DraftProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsDraft();
         ProductPublishInput input = new ProductPublishInput(product.id);
         //when
-        Product actual = new ProductPublishUsecase().run(loginUser.id, input);
+        Product actual = new ProductPublishUsecase().run(loginUser.id(), input);
         //then
         assertEquals(ProductStatus.PUBLISHED, actual.status);
         assertEquals(1, ProductRepository.records.size());
@@ -43,7 +43,7 @@ public class ProductPublishUsecaseTest {
             ProductPublishInput input = new ProductPublishInput(UUID.randomUUID());
             //when
             try {
-                new ProductPublishUsecase().run(loginUser.id, input);
+                new ProductPublishUsecase().run(loginUser.id(), input);
             } catch (RuntimeException e) {
                 //then
                 assertEquals("商品が存在しません", e.getMessage());
@@ -56,12 +56,12 @@ public class ProductPublishUsecaseTest {
         void 人の商品は公開できない() {
             //given
             User loginUser = new UserDataBuilder().please();
-            Product product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+            Product product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
             User anotherUser = new UserDataBuilder().please();
             ProductPublishInput input = new ProductPublishInput(product.id);
             //when
             try {
-                new ProductPublishUsecase().run(anotherUser.id, input);
+                new ProductPublishUsecase().run(anotherUser.id(), input);
             } catch (RuntimeException e) {
                 //then
                 assertEquals("商品が存在しません", e.getMessage());

@@ -19,11 +19,11 @@ public class OrderHistoryUsecaseTest {
     void 購入履歴を取得する() {
         //given
         User loginUser = new UserDataBuilder().please();
-        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
         new OrderDataBuilder(loginUser, product).please();
         new OrderDataBuilder(loginUser, product).please();
         //when
-        List<Order> actual = new OrderHistoryUsecase().run(loginUser.id);
+        List<Order> actual = new OrderHistoryUsecase().run(loginUser.id());
         //then
         assertEquals(2, actual.size());
         assertEquals("book", actual.get(0).product.name);

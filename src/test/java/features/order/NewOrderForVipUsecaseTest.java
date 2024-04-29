@@ -34,11 +34,11 @@ public class NewOrderForVipUsecaseTest {
     void VIPユーザが商品を購入すると1割引き() {
         //given
         User loginUser = new UserDataBuilder().setUserPlan(UserPlan.VIP).please();
-        new MoneyFlowDataBuilder(loginUser.id).please();
-        PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
+        new MoneyFlowDataBuilder(loginUser.id()).please();
+        PublishedProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
         NewOrderInput input = new NewOrderInput(product.id);
         //when
-        newOrderForVipUsecase.run(loginUser.id, input);
+        newOrderForVipUsecase.run(loginUser.id(), input);
         //then
         assertEquals(2, MoneyFlowRepository.records.size());
         assertEquals(-900, MoneyFlowRepository.records.get(1).value());

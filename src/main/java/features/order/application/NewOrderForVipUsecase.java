@@ -23,7 +23,7 @@ public class NewOrderForVipUsecase {
     public void run(UUID loginUserId, NewOrderInput input) {
         VipUser user = userRepository.findVipById(loginUserId);
         newOrder.run(input.productId, user);
-        mailSender.send(user.email, "VIPへの特別商品ご案内");
+        mailSender.send(user.email(), "VIPへの特別商品ご案内");
     }
 
 }

@@ -18,7 +18,7 @@ public class MoneyChargeUsecaseTest {
         User loginUser = new UserDataBuilder().please();
         MoneyChargeInput input = new MoneyChargeInput(30000);
         //when
-        new MoneyChargeUsecase().run(loginUser.id, input);
+        new MoneyChargeUsecase().run(loginUser.id(), input);
         //then
         assertEquals(30000, MoneyFlowRepository.records.get(0).value());
     }
@@ -30,7 +30,7 @@ public class MoneyChargeUsecaseTest {
         MoneyChargeInput input = new MoneyChargeInput(30001);
         //when
         try {
-            new MoneyChargeUsecase().run(loginUser.id, input);
+            new MoneyChargeUsecase().run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             assertEquals("1度に3万円までしかチャージできません", e.getMessage());

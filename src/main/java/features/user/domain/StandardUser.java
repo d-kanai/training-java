@@ -21,9 +21,9 @@ public class StandardUser extends User {
         int i = moneyFlows.sumOfUsed();
         if (i < 10000) throw new RuntimeException("VIPになる条件を満たしていません");
         return PotentiallyVipUser.reconstruct(
-                this.id,
-                this.name,
-                this.userPlan
+                this.id(),
+                this.name(),
+                this.userPlan()
         );
     }
 }

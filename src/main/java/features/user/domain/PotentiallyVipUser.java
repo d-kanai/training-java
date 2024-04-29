@@ -17,8 +17,8 @@ public class PotentiallyVipUser extends User {
 
     public VipUser upgradeToVip() {
         return VipUser.reconstruct(
-                this.id,
-                this.name,
+                this.id(),
+                this.name(),
                 UserPlan.VIP
         );
     }

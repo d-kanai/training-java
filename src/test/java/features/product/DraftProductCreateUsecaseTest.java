@@ -18,7 +18,7 @@ public class DraftProductCreateUsecaseTest {
         User loginUser = new UserDataBuilder().please();
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
-        Product product = new ProductCreateUsecase().run(loginUser.id, input);
+        Product product = new ProductCreateUsecase().run(loginUser.id(), input);
         //then
         assertEquals("book", product.name);
         assertEquals(1, ProductRepository.records.size());
