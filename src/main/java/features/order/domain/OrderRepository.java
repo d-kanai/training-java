@@ -13,6 +13,6 @@ public class OrderRepository {
     }
 
     public List<Order> findByUserId(UUID loginUserId) {
-        return records.stream().filter(order -> order.userId == loginUserId).collect(Collectors.toList());
+        return records.stream().filter(order -> order.userId() == loginUserId).collect(Collectors.toList());
     }
 }

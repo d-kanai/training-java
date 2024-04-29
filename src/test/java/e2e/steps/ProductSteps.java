@@ -65,7 +65,7 @@ public class ProductSteps {
 
     public static void 購入履歴一覧に商品が表示されている() {
         List<Order> run = new OrderHistoryUsecase().run(UserContext.loginUserId);
-        assertEquals("book", run.get(0).product.name);
+        assertEquals("book", run.get(0).product().name);
 
     }
 

@@ -5,12 +5,10 @@ import features.product.domain.PublishedProduct;
 import java.util.UUID;
 
 public class Order {
-
-    public final UUID id;
-    public final UUID userId;
-    public final PublishedProduct product;
-    public PublishedProduct.DiscountedPrice orderedPrice;
-
+    private final UUID id;
+    private final UUID userId;
+    private final PublishedProduct product;
+    private PublishedProduct.DiscountedPrice orderedPrice;
 
     Order(UUID id, UUID userId, PublishedProduct product, PublishedProduct.DiscountedPrice price) {
         this.id = id;
@@ -19,4 +17,13 @@ public class Order {
         this.orderedPrice = price;
     }
 
+    public UUID userId() {
+        return userId;
+    }
+    public PublishedProduct product() {
+        return product;
+    }
+    public PublishedProduct.DiscountedPrice orderedPrice() {
+        return orderedPrice;
+    }
 }
