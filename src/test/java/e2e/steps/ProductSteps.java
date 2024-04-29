@@ -40,11 +40,11 @@ public class ProductSteps {
 
     public static void ユーザが商品を公開() {
         Product product = ProductRepository.records.get(0);
-        new ProductPublishUsecase().run(UserContext.loginUserId, new ProductPublishInput(product.id));
+        new ProductPublishUsecase().run(UserContext.loginUserId, new ProductPublishInput(product.id()));
     }
 
     public static void 商品が公開して登録されていること() {
-        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status);
+        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status());
     }
 
     public static void ユーザのチャージ残高が5000円になっている() {
@@ -52,7 +52,7 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new NewOrderForStandardUsecase().run(UserContext.loginUserId, new NewOrderInput(ProductRepository.records.get(0).id));
+        new NewOrderForStandardUsecase().run(UserContext.loginUserId, new NewOrderInput(ProductRepository.records.get(0).id()));
     }
 
     public static void ユーザが10000万円チャージする() {
@@ -65,7 +65,7 @@ public class ProductSteps {
 
     public static void 購入履歴一覧に商品が表示されている() {
         List<Order> run = new OrderHistoryUsecase().run(UserContext.loginUserId);
-        assertEquals("book", run.get(0).product().name);
+        assertEquals("book", run.get(0).product().name());
 
     }
 

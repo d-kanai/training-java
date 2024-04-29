@@ -26,8 +26,8 @@ public class OrderHistoryUsecaseTest {
         List<Order> actual = new OrderHistoryUsecase().run(loginUser.id());
         //then
         assertEquals(2, actual.size());
-        assertEquals("book", actual.get(0).product().name);
-        assertEquals(1000, actual.get(0).product().price);
+        assertEquals("book", actual.get(0).product().name());
+        assertEquals(1000, actual.get(0).product().price());
         assertEquals(1000, actual.get(0).orderedPrice().value);
     }
 

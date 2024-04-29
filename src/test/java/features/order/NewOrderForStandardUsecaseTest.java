@@ -35,7 +35,7 @@ public class NewOrderForStandardUsecaseTest {
         //given
         User loginUser = new UserDataBuilder().please();
         PublishedProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
-        NewOrderInput input = new NewOrderInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id());
         new MoneyFlowDataBuilder(loginUser.id()).please();
         //when
         newOrderForStandardUsecase.run(loginUser.id(), input);
@@ -51,7 +51,7 @@ public class NewOrderForStandardUsecaseTest {
         //given
         User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
-        NewOrderInput input = new NewOrderInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id());
         //when
         try {
             newOrderForStandardUsecase.run(loginUser.id(), input);

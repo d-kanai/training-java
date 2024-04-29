@@ -21,7 +21,7 @@ public class PublishedProduct extends Product {
     }
 
     public DiscountedPrice discountedPrice(UserPlan userPlan) {
-        return new DiscountedPrice((int) Math.floor(this.price * userPlan.discountRate()));
+        return new DiscountedPrice((int) Math.floor(this.price() * userPlan.discountRate()));
     }
 
 

@@ -26,6 +26,6 @@ public class MoneyFlows {
     }
 
     public boolean hasEnoughMoney(PublishedProduct product) {
-        return currentValue() < product.price;
+        return currentValue() < product.price();
     }
 }

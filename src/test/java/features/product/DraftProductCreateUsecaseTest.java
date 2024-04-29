@@ -20,7 +20,7 @@ public class DraftProductCreateUsecaseTest {
         //when
         Product product = new ProductCreateUsecase().run(loginUser.id(), input);
         //then
-        assertEquals("book", product.name);
+        assertEquals("book", product.name());
         assertEquals(1, ProductRepository.records.size());
     }
 

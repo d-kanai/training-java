@@ -36,7 +36,7 @@ public class NewOrderForVipUsecaseTest {
         User loginUser = new UserDataBuilder().setUserPlan(UserPlan.VIP).please();
         new MoneyFlowDataBuilder(loginUser.id()).please();
         PublishedProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
-        NewOrderInput input = new NewOrderInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id());
         //when
         newOrderForVipUsecase.run(loginUser.id(), input);
         //then

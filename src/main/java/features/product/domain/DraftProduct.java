@@ -38,13 +38,13 @@ public class DraftProduct extends Product {
     }
 
     public Product publish(UUID loginUserId) {
-        if (loginUserId != userId) throw new RuntimeException("商品が存在しません");
+        if (loginUserId != userId()) throw new RuntimeException("商品が存在しません");
         return new Product(
-                this.id,
-                this.userId,
+                this.id(),
+                this.userId(),
                 ProductStatus.PUBLISHED,
-                this.name,
-                this.price
+                this.name(),
+                this.price()
         );
     }
 

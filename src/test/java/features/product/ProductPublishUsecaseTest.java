@@ -23,13 +23,13 @@ public class ProductPublishUsecaseTest {
         //given
         User loginUser = new UserDataBuilder().please();
         DraftProduct product = new ProductDataBuilder(loginUser.id()).pleaseAsDraft();
-        ProductPublishInput input = new ProductPublishInput(product.id);
+        ProductPublishInput input = new ProductPublishInput(product.id());
         //when
         Product actual = new ProductPublishUsecase().run(loginUser.id(), input);
         //then
-        assertEquals(ProductStatus.PUBLISHED, actual.status);
+        assertEquals(ProductStatus.PUBLISHED, actual.status());
         assertEquals(1, ProductRepository.records.size());
-        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status);
+        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status());
     }
 
 
@@ -58,7 +58,7 @@ public class ProductPublishUsecaseTest {
             User loginUser = new UserDataBuilder().please();
             Product product = new ProductDataBuilder(loginUser.id()).pleaseAsPublished();
             User anotherUser = new UserDataBuilder().please();
-            ProductPublishInput input = new ProductPublishInput(product.id);
+            ProductPublishInput input = new ProductPublishInput(product.id());
             //when
             try {
                 new ProductPublishUsecase().run(anotherUser.id(), input);
