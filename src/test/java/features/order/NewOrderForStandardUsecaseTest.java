@@ -2,12 +2,11 @@ package features.order;
 
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.product.domain.PublishedProduct;
-import features.user.domain.UserPlan;
 import helpers.FakeMailSender;
 import features.order.domain.OrderRepository;
-import features.order.application.NewOrderUsecase;
+import features.order.application.NewOrderForStandardUsecase;
 import features.product.domain.Product;
-import features.product.presentation.ProductPurchaseInput;
+import features.product.presentation.NewOrderInput;
 import features.user.domain.User;
 import features.moneyFlow.MoneyFlowDataBuilder;
 import features.product.ProductDataBuilder;
@@ -20,10 +19,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class NewOrderUsecaseTest {
+public class NewOrderForStandardUsecaseTest {
 
     FakeMailSender mailSender = new FakeMailSender();
-    NewOrderUsecase newOrderUsecase = new NewOrderUsecase();
+    NewOrderForStandardUsecase newOrderForStandardUsecase = new NewOrderForStandardUsecase();
 
     @BeforeEach
     void beforeAll() {
@@ -36,10 +35,10 @@ public class NewOrderUsecaseTest {
         //given
         User loginUser = new UserDataBuilder().please();
         PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
-        ProductPurchaseInput input = new ProductPurchaseInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id);
         new MoneyFlowDataBuilder(loginUser.id).please();
         //when
-        newOrderUsecase.run(loginUser.id, input);
+        newOrderForStandardUsecase.run(loginUser.id, input);
         //then
         assertEquals(2, MoneyFlowRepository.records.size());
         assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
@@ -52,10 +51,10 @@ public class NewOrderUsecaseTest {
         //given
         User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
-        ProductPurchaseInput input = new ProductPurchaseInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id);
         //when
         try {
-            newOrderUsecase.run(loginUser.id, input);
+            newOrderForStandardUsecase.run(loginUser.id, input);
         } catch (RuntimeException e) {
             //then
             assertEquals("チャージ残高が足りません", e.getMessage());

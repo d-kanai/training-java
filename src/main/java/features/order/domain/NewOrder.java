@@ -1,5 +1,6 @@
 package features.order.domain;
 
+import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.domain.MoneyFlows;
 import features.product.domain.ProductRepository;
@@ -8,25 +9,26 @@ import features.user.domain.User;
 
 import java.util.UUID;
 
-public class NewOrderService {
+public class NewOrder {
     private ProductRepository productRepository;
     private MoneyFlowRepository moneyFlowRepository;
     private OrderRepository orderRepository;
 
-    public NewOrderService() {
+    public NewOrder() {
         productRepository = new ProductRepository();
         moneyFlowRepository = new MoneyFlowRepository();
         orderRepository = new OrderRepository();
     }
 
-    public void run(UUID productId, User user) {
+    public void run(UUID productId, User loginUser) {
         PublishedProduct product = productRepository.findPublishedById(productId);
-        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(user.id);
+        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUser.id);
 
-        OrderFactory.OrderResult orderResult = OrderFactory.newOrder(user, product, moneyFlows);
+        Order orderResult = OrderFactory.newOrder(loginUser, product, moneyFlows);
+        MoneyFlow usedMoneyFlow = MoneyFlow.order(loginUser.id, product.discountedPrice(loginUser.userPlan));
 
-        moneyFlowRepository.save(orderResult.usedMoneyFlow);
-        orderRepository.save(orderResult.newOrder);
+        moneyFlowRepository.save(usedMoneyFlow);
+        orderRepository.save(orderResult);
     }
 
 }

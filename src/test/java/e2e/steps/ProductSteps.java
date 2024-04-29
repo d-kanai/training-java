@@ -4,18 +4,17 @@ import features.moneyFlow.application.CurrentMoneyUsecase;
 import features.moneyFlow.application.MoneyChargeUsecase;
 import features.moneyFlow.presentation.MoneyChargeInput;
 import features.product.domain.PublishedProduct;
-import helpers.FakeMailSender;
 import features.order.application.OrderHistoryUsecase;
 import features.order.domain.Order;
 import features.product.application.ProductCreateUsecase;
 import features.product.application.ProductPublishUsecase;
-import features.order.application.NewOrderUsecase;
+import features.order.application.NewOrderForStandardUsecase;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.domain.ProductStatus;
 import features.product.presentation.ProductCreateInput;
 import features.product.presentation.ProductPublishInput;
-import features.product.presentation.ProductPurchaseInput;
+import features.product.presentation.NewOrderInput;
 import features.user.application.SignupUsecase;
 import features.user.domain.User;
 import features.user.presentation.SignupInput;
@@ -53,7 +52,7 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new NewOrderUsecase().run(UserContext.loginUserId, new ProductPurchaseInput(ProductRepository.records.get(0).id));
+        new NewOrderForStandardUsecase().run(UserContext.loginUserId, new NewOrderInput(ProductRepository.records.get(0).id));
     }
 
     public static void ユーザが10000万円チャージする() {

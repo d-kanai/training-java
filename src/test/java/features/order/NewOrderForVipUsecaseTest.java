@@ -6,7 +6,7 @@ import features.order.application.NewOrderForVipUsecase;
 import features.order.domain.OrderRepository;
 import features.product.ProductDataBuilder;
 import features.product.domain.PublishedProduct;
-import features.product.presentation.ProductPurchaseInput;
+import features.product.presentation.NewOrderInput;
 import features.user.UserDataBuilder;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
@@ -36,7 +36,7 @@ public class NewOrderForVipUsecaseTest {
         User loginUser = new UserDataBuilder().setUserPlan(UserPlan.VIP).please();
         new MoneyFlowDataBuilder(loginUser.id).please();
         PublishedProduct product = new ProductDataBuilder(loginUser.id).pleaseAsPublished();
-        ProductPurchaseInput input = new ProductPurchaseInput(product.id);
+        NewOrderInput input = new NewOrderInput(product.id);
         //when
         newOrderForVipUsecase.run(loginUser.id, input);
         //then
