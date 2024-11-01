@@ -25,7 +25,6 @@ public class ProductDataBuilder {
                 1000
         );
         new ProductRepository().save(product);
-        ProductRepository.records = Arrays.asList(product);
         return product;
     }
 
@@ -38,9 +37,6 @@ public class ProductDataBuilder {
                 1000
         );
         new ProductRepository().save(product);
-
-        //TODO delete
-        ProductRepository.records = Arrays.asList(product);
         return product;
     }
 

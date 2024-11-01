@@ -31,7 +31,6 @@ public class UserDataBuilder {
                 user.name(),
                 user.userPlan()
         ));
-        UserRepository.records.add(user);
         return user;
     }
 

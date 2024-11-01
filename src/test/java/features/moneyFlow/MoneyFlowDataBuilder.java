@@ -34,7 +34,6 @@ public class MoneyFlowDataBuilder {
                 moneyFlow.userId(),
                 moneyFlow.value()
         ));
-        MoneyFlowRepository.records.add(moneyFlow);
         return moneyFlow;
     }
 

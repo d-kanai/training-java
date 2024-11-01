@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CurrentMoneyUsecaseTestFlow extends TestBase {
+public class CurrentMoneyFlowUsecaseTest extends TestBase {
 
     @Test
     void チャージ残高を取得する() {

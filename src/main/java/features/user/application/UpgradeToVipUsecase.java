@@ -18,7 +18,7 @@ public class UpgradeToVipUsecase {
     }
 
     public void run(UUID loginUserId) {
-        StandardUser user = userRepository.findStandardById(loginUserId);
+        StandardUser user = userRepository.findStandardByIdFromDb(loginUserId);
         MoneyFlows moneyFlows = moneyFlowRepository.findByUserIdFromDb(user.id());
         VipUser vipUser = user.challengeVip(moneyFlows).upgradeToVip();
         userRepository.update2(vipUser);

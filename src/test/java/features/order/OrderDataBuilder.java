@@ -33,7 +33,6 @@ public class OrderDataBuilder {
                 order.userId(),
                 order.product().id()
         ));
-        OrderRepository.records.add(order);
         return order;
     }
 
