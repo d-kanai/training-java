@@ -15,10 +15,11 @@ public class ProductCreateUsecaseTest {
     @Test
     void 商品登録() {
         SqliteDatabase db = new SqliteDatabase();
+        db.execute("delete from products");
         //given
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
-        new ProductCreateUsecase().run(UUID.randomUUID(), input);
+        new ProductCreateUsecase().run(input);
         //then
         Records records = db.find("select * from products");
         assertEquals(1, records.size());

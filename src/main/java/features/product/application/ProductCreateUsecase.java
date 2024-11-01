@@ -1,11 +1,11 @@
 package features.product.application;
 
+import features.product.domain.ProductRepository;
 import features.product.presentation.ProductCreateInput;
-
-import java.util.UUID;
 
 public class ProductCreateUsecase {
 
-    public void run(UUID loginUserId, ProductCreateInput input) {
+    public void run(ProductCreateInput input) {
+        new ProductRepository().save(input);
     }
 }
