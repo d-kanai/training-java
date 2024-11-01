@@ -33,14 +33,6 @@ public class UserRepository {
         records = newRecords;
     }
 
-    public User findById(UUID loginUserId) {
-        //TODO: メモリ保持問題が起きている
-        Optional<User> first = records.stream().filter(user -> user.id() == loginUserId).findFirst();
-        if (first.isPresent()) {
-            return first.get();
-        }
-        throw new RuntimeException("ユーザが存在しません");
-    }
 
     public StandardUser findStandardByIdFromDb(UUID loginUserId) {
         Records records = db.find(String.format(

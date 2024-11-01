@@ -14,7 +14,7 @@ public class CurrentMoneyUsecase {
     }
 
     public int run(UUID loginUserId) {
-        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
+        MoneyFlows moneyFlows = moneyFlowRepository.findByUserIdFromDb(loginUserId);
         return moneyFlows.currentValue();
 
     }

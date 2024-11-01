@@ -6,6 +6,7 @@ import features.product.domain.PublishedProduct;
 import features.user.domain.User;
 import features.product.ProductDataBuilder;
 import features.user.UserDataBuilder;
+import helpers.TestBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class OrderHistoryUsecaseTest {
+public class OrderHistoryUsecaseTest extends TestBase {
 
     @Test
     void 購入履歴を取得する() {

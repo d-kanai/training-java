@@ -5,6 +5,7 @@ import features.order.domain.OrderFactory;
 import features.order.domain.OrderRepository;
 import features.product.domain.PublishedProduct;
 import features.user.domain.User;
+import shared.SqliteDatabase;
 
 import java.util.UUID;
 
@@ -12,6 +13,8 @@ public class OrderDataBuilder {
 
     private final User user;
     private final PublishedProduct product;
+
+    private SqliteDatabase db = new SqliteDatabase();
 
     public OrderDataBuilder(User user, PublishedProduct product) {
         this.user = user;
@@ -24,6 +27,12 @@ public class OrderDataBuilder {
                 user,
                 product
         );
+        db.execute(String.format(
+                "INSERT INTO orders (id, userId, productId) VALUES ('%s', '%s', '%s')",
+                order.id(),
+                order.userId(),
+                order.product().id()
+        ));
         OrderRepository.records.add(order);
         return order;
     }
