@@ -1,22 +1,18 @@
 package features.order;
 
 import features.moneyFlow.MoneyFlowDataBuilder;
-import features.moneyFlow.domain.MoneyFlowRepository;
 import features.order.application.NewOrderForVipUsecase;
-import features.order.domain.OrderRepository;
 import features.product.ProductDataBuilder;
 import features.product.domain.PublishedProduct;
-import features.product.presentation.NewOrderInput;
+import features.order.presentation.NewOrderInput;
 import features.user.UserDataBuilder;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import helpers.FakeMailSender;
 import helpers.TestBase;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.Records;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

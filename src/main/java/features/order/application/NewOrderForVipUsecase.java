@@ -1,7 +1,7 @@
 package features.order.application;
 
 import features.order.domain.NewOrder;
-import features.product.presentation.NewOrderInput;
+import features.order.presentation.NewOrderInput;
 import features.user.domain.UserRepository;
 import features.user.domain.VipUser;
 import shared.IMailSender;
