@@ -11,6 +11,7 @@ import features.user.domain.User;
 import features.moneyFlow.MoneyFlowDataBuilder;
 import features.product.ProductDataBuilder;
 import features.user.UserDataBuilder;
+import helpers.TestBase;
 import helpers.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,21 +24,10 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class NewOrderForStandardUsecaseTest {
+public class NewOrderForStandardUsecaseTest extends TestBase {
 
     FakeMailSender mailSender = new FakeMailSender();
     NewOrderForStandardUsecase newOrderForStandardUsecase = new NewOrderForStandardUsecase();
-
-    SqliteDatabase db = new SqliteDatabase();
-
-    @BeforeEach
-    void beforeAll() {
-        TestHelper.resetTables();
-
-        //TODO delete
-        MoneyFlowRepository.records = new ArrayList<>();
-        OrderRepository.records = new ArrayList<>();
-    }
 
     @Test
     void 商品を購入する() {

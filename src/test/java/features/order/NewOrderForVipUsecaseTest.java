@@ -11,24 +11,21 @@ import features.user.UserDataBuilder;
 import features.user.domain.User;
 import features.user.domain.UserPlan;
 import helpers.FakeMailSender;
+import helpers.TestBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import shared.Records;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class NewOrderForVipUsecaseTest {
+public class NewOrderForVipUsecaseTest extends TestBase {
 
     FakeMailSender mailSender = new FakeMailSender();
     NewOrderForVipUsecase newOrderForVipUsecase = new NewOrderForVipUsecase(mailSender);
-
-    @BeforeEach
-    void beforeAll() {
-        MoneyFlowRepository.records = new ArrayList<>();
-        OrderRepository.records = new ArrayList<>();
-    }
 
     @Test
     void VIPユーザが商品を購入すると1割引き() {
@@ -40,9 +37,12 @@ public class NewOrderForVipUsecaseTest {
         //when
         newOrderForVipUsecase.run(loginUser.id(), input);
         //then
-        assertEquals(2, MoneyFlowRepository.records.size());
-        assertEquals(-900, MoneyFlowRepository.records.get(1).value());
-        assertEquals(1, OrderRepository.records.size());
+        Records moneyFlows = db.find("select * from moneyFlows");
+        assertEquals(2, moneyFlows.items.size());
+        assertEquals(-900, ((Map) moneyFlows.items.get(1)).get("value"));
+        Records orders = db.find("select * from orders");
+        assertEquals(1, orders.size());
+
         assertEquals(1, mailSender.callCountSend);
         assertEquals("VIPへの特別商品ご案内", mailSender.argsTitle);
     }

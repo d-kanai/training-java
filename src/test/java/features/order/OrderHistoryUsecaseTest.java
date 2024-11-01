@@ -31,6 +31,4 @@ public class OrderHistoryUsecaseTest extends TestBase {
         assertEquals(1000, actual.get(0).product().price());
         assertEquals(1000, actual.get(0).orderedPrice().value);
     }
-
-
 }

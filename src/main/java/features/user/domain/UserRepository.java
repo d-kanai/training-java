@@ -56,13 +56,15 @@ public class UserRepository {
         throw new RuntimeException("STANDARD ユーザが存在しません");
     }
 
-    public VipUser findVipById(UUID loginUserId) {
-        //TODO: メモリ保持問題が起きている
-        Optional<User> first = records.stream().filter(user -> user.id() == loginUserId && user.userPlan() == UserPlan.VIP).findFirst();
-        if (first.isPresent()) {
-            User user = first.get();
-            return VipUser.reconstruct(user.id(), user.name(), user.userPlan());
+    public VipUser findVipByIdFromDb(UUID loginUserId) {
+        Records records = db.find(String.format(
+                "select * from users where id = '%s'",
+                loginUserId.toString()
+        ));
+        if (records.size() == 0) {
+            throw new RuntimeException("VIP ユーザが存在しません");
         }
-        throw new RuntimeException("VIP ユーザが存在しません");
+        Map o = (Map) records.items.get(0);
+        return VipUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("memberShip")));
     }
 }
