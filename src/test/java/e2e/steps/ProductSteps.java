@@ -18,14 +18,19 @@ import features.product.presentation.NewOrderInput;
 import features.user.application.SignupUsecase;
 import features.user.domain.User;
 import features.user.presentation.SignupInput;
+import shared.SqliteDatabase;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductSteps {
+
+    static SqliteDatabase db = new SqliteDatabase();
+
 
     public static void ユーザが新規登録してログイン() {
         SignupInput signupInput = new SignupInput("d.kanai", "kanai@test.com");
@@ -39,12 +44,13 @@ public class ProductSteps {
     }
 
     public static void ユーザが商品を公開() {
-        Product product = ProductRepository.records.get(0);
-        new ProductPublishUsecase().run(UserContext.loginUserId, new ProductPublishInput(product.id()));
+        Map product = db.findFirst("products");
+        new ProductPublishUsecase().run(UserContext.loginUserId, new ProductPublishInput(UUID.fromString((String) product.get("id"))));
     }
 
     public static void 商品が公開して登録されていること() {
-        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status());
+        Map product = db.findFirst("products");
+        assertEquals(ProductStatus.PUBLISHED.toString(), product.get("status"));
     }
 
     public static void ユーザのチャージ残高が5000円になっている() {
@@ -52,7 +58,8 @@ public class ProductSteps {
     }
 
     public static void ユーザが購入する() {
-        new NewOrderForStandardUsecase().run(UserContext.loginUserId, new NewOrderInput(ProductRepository.records.get(0).id()));
+        Map product = db.findFirst("products");
+        new NewOrderForStandardUsecase().run(UserContext.loginUserId, new NewOrderInput(UUID.fromString((String) product.get("id"))));
     }
 
     public static void ユーザが10000万円チャージする() {
@@ -60,7 +67,8 @@ public class ProductSteps {
     }
 
     public static void _5000円の商品が登録されている() {
-        ProductRepository.records = Arrays.asList(PublishedProduct.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000));
+        PublishedProduct book = PublishedProduct.reconstruct(UUID.randomUUID(), UserContext.loginUserId, ProductStatus.PUBLISHED, "book", 5000);
+        new ProductRepository().create(book);
     }
 
     public static void 購入履歴一覧に商品が表示されている() {

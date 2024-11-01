@@ -1,10 +1,11 @@
 package e2e.features;
 
+import helpers.TestBase;
 import org.junit.jupiter.api.Test;
 
 import static e2e.steps.ProductSteps.*;
 
-public class ProductFeatureTest {
+public class ProductFeatureTest extends TestBase {
 
     @Test
     void ユーザが商品を公開する() {
