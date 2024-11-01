@@ -1,4 +1,0 @@
-flyway.url=jdbc:sqlite:/sqlite.db
-flyway.user= # SQLiteは通常ユーザー名とパスワードは不要
-flyway.password= # パスワードも不要
-flyway.driver=org.sqlite.JDBC
