@@ -38,7 +38,7 @@ public class DraftProduct extends Product {
     }
 
     public Product publish(UUID loginUserId) {
-        if (loginUserId != userId()) throw new RuntimeException("商品が存在しません");
+        if (!loginUserId.equals(userId())) throw new RuntimeException("商品が存在しません");
         return new Product(
                 this.id(),
                 this.userId(),

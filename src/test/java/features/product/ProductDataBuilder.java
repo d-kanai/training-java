@@ -1,11 +1,7 @@
 package features.product;
 
 import features.product.domain.*;
-import features.user.domain.User;
-import features.user.domain.UserPlan;
-import features.user.domain.UserRepository;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public class ProductDataBuilder {
@@ -24,7 +20,7 @@ public class ProductDataBuilder {
                 "book",
                 1000
         );
-        new ProductRepository().save(product);
+        new ProductRepository().create(product);
         return product;
     }
 
@@ -36,7 +32,7 @@ public class ProductDataBuilder {
                 "book",
                 1000
         );
-        new ProductRepository().save(product);
+        new ProductRepository().create(product);
         return product;
     }
 

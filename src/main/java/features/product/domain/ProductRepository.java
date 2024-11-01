@@ -10,10 +10,9 @@ public class ProductRepository {
 
     private SqliteDatabase db = new SqliteDatabase();
 
-    public void update2(Product product) {
+    public void update(Product product) {
         db.execute(String.format(
-                "update products set userId = '%s', price = '%d', name = '%s', status = '%s' where id = '%s'",
-                product.userId().toString(),
+                "update products set price = '%d', name = '%s', status = '%s' where id = '%s'",
                 product.price(),
                 product.name(),
                 product.status().toString(),
@@ -21,7 +20,7 @@ public class ProductRepository {
         ));
     }
 
-    public boolean save(Product product) {
+    public boolean create(Product product) {
         db.execute(String.format(
                 "insert into products (id, userId, price, name, status) VALUES ('%s', '%s', %d, '%s', '%s')",
                 product.id().toString(),
@@ -30,42 +29,25 @@ public class ProductRepository {
                 product.name(),
                 product.status()
         ));
-
-        if (product.id() == null) {
-            records.add(product);
-        } else {
-            update(product);
-        }
         return true;
     }
 
-    private void update(Product product) {
-        //Arrays.asListで作成したリストが変更不可なので、listを作り直す
-        ArrayList<Product> newRecords = new ArrayList<>(records);
-        newRecords.removeIf(o -> o.id() == product.id());
-        newRecords.add(product);
-        records = newRecords;
-    }
-
-    public DraftProduct findDraftById(UUID productId) {
-        // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
-        Optional<Product> first = records.stream().filter(product -> product.id() == productId && product.status() == ProductStatus.DRAFT).findFirst();
-        if (first.isPresent()) {
-            try {
-                Product clone = first.get().clone();
-                return DraftProduct.reconstruct(
-                        clone.id(),
-                        clone.userId(),
-                        clone.status(),
-                        clone.name(),
-                        clone.price()
-                );
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
+    public DraftProduct findDraftByIdFromDb(UUID productId) {
+        Records records = db.find(String.format(
+                "select * from products where id = '%s'",
+                productId.toString()
+        ));
+        if (records.size() == 0) {
             throw new RuntimeException("商品が存在しません");
         }
+        Map record = (Map) records.items.get(0);
+        return DraftProduct.reconstruct(
+                UUID.fromString((String) record.get("id")),
+                UUID.fromString((String) record.get("userId")),
+                ProductStatus.valueOf((String) record.get("status")),
+                (String) record.get("name"),
+                (Integer) record.get("price")
+        );
     }
 
     public PublishedProduct findPublishedByIdFromDb(UUID productId) {
@@ -74,7 +56,7 @@ public class ProductRepository {
                 productId.toString()
         ));
         if (records.size() == 0) {
-            throw new RuntimeException("No Product");
+            throw new RuntimeException("商品が存在しません");
         }
         Map record = (Map) records.items.get(0);
         return PublishedProduct.reconstruct(
