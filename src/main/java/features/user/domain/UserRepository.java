@@ -38,7 +38,7 @@ public class UserRepository {
 
     public StandardUser findStandardByIdFromDb(UUID loginUserId) {
         Records records = db.find(String.format(
-                "select * from users where '%s'",
+                "select * from users where id = '%s'",
                 loginUserId.toString()
         ));
         if (records.size() == 0) {
