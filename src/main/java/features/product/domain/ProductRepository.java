@@ -1,5 +1,7 @@
 package features.product.domain;
 
+import shared.SqliteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +11,16 @@ public class ProductRepository {
     public static List<Product> records = new ArrayList();
 
     public boolean save(Product product) {
+        SqliteDatabase sqliteDatabase = new SqliteDatabase();
+        sqliteDatabase.execute(String.format(
+                "INSERT INTO products (id, userId, price, name, status) VALUES ('%s', '%s', %d, '%s', '%s')",
+                product.id().toString(),
+                product.userId().toString(),
+                product.price(),
+                product.name(),
+                product.status()
+        ));
+
         if (product.id() == null) {
             records.add(product);
         } else {

@@ -4,6 +4,7 @@ import features.product.domain.DraftProduct;
 import features.product.presentation.ProductCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
+import shared.SqliteDatabase;
 
 import java.util.UUID;
 

@@ -36,26 +36,26 @@ public class SqliteDatabase {
         }
     }
 
-//    public Records find(String sql) {
-//        ResultSet rs = query(sql);
-//        ResultSetMetaData md;
-//        ArrayList list = new ArrayList();
-//        try {
-//            md = rs.getMetaData();
-//            while (rs.next()) {
-//                Map row = new HashMap();
-//                for (int i = 1; i <= md.getColumnCount(); ++i) {
-//                    row.put(md.getColumnName(i), rs.getObject(i));
-//                }
-//                list.add(row);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e.getMessage());
-//        }
-//        return new Records(list);
-//    }
+    public Records find(String sql) {
+        ResultSet rs = query(sql);
+        ResultSetMetaData md;
+        ArrayList list = new ArrayList();
+        try {
+            md = rs.getMetaData();
+            while (rs.next()) {
+                Map row = new HashMap();
+                for (int i = 1; i <= md.getColumnCount(); ++i) {
+                    row.put(md.getColumnName(i), rs.getObject(i));
+                }
+                list.add(row);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return new Records(list);
+    }
 
-//    public Map findFirst(final String tableName) {
-//        return find("select * from " + tableName + ";").first();
-//    }
+    public Map findFirst(final String tableName) {
+        return find("select * from " + tableName + ";").first();
+    }
 }
