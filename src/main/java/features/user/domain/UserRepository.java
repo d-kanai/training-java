@@ -25,6 +25,17 @@ public class UserRepository {
         return true;
     }
 
+    public boolean update2(User user) {
+        db.execute(String.format(
+                "update users set email = '%s', memberShip = '%s'",
+                user.email(),
+                user.userPlan().toString()
+        ));
+        update(user);
+        return true;
+    }
+
+
     private void update(User user) {
         //Arrays.asListで作成したリストが変更不可なので、listを作り直す
         ArrayList<User> newRecords = new ArrayList<>(records);

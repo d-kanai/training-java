@@ -9,6 +9,7 @@ import features.moneyFlow.MoneyFlowDataBuilder;
 import helpers.TestBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import shared.Records;
 
 
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ public class UpgradeToVipUsecaseTest extends TestBase {
         //when
         new UpgradeToVipUsecase().run(loginUser.id());
         //then
-        assertEquals(1, UserRepository.records.size());
-        assertEquals(UserPlan.VIP, UserRepository.records.get(0).userPlan());
+        Records records = db.find("select * from users");
+        assertEquals(1, records.size());
+        assertEquals(UserPlan.VIP.toString(), records.first().get("memberShip"));
     }
 
     @Test
