@@ -1,6 +1,7 @@
 package e2e.features;
 
 import org.junit.jupiter.api.Test;
+import shared.SqliteDatabase;
 
 import static e2e.steps.ProductSteps.*;
 
@@ -16,6 +17,8 @@ public class ProductFeatureTest {
 
     @Test
     void ユーザが商品を購入する() {
+        new SqliteDatabase().execute("delete from products;");
+        new SqliteDatabase().execute("delete from orders;");
 //        ユーザが新規登録してログイン();
         _5000円の商品が登録されている();
 //        ユーザが10000万円チャージする();
