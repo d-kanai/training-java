@@ -31,7 +31,7 @@ public class UpgradeToVipUsecaseTest extends TestBase {
         //then
         Records records = db.find("select * from users");
         assertEquals(1, records.size());
-        assertEquals(UserPlan.VIP.toString(), records.first().get("memberShip"));
+        assertEquals(UserPlan.VIP.toString(), records.first().get("userPlan"));
     }
 
     @Test

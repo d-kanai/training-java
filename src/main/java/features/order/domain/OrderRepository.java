@@ -39,7 +39,7 @@ public class OrderRepository {
                             User.reconstruct(
                                     UUID.fromString((String) recordAsMap.get("id")),
                                     (String) recordAsMap.get("email"),
-                                    UserPlan.fromString((String) recordAsMap.get("memberShip"))
+                                    UserPlan.fromString((String) recordAsMap.get("userPlan"))
                             ),
                             PublishedProduct.reconstruct(
                                     UUID.fromString((String) recordAsMap.get("id")),

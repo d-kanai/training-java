@@ -26,7 +26,7 @@ public class UserDataBuilder {
                 userPlan
         );
         sqliteDatabase.execute(String.format(
-                "INSERT INTO users (id, email, memberShip) VALUES ('%s', '%s', '%s')",
+                "INSERT INTO users (id, email, userPlan) VALUES ('%s', '%s', '%s')",
                 user.id().toString(),
                 user.name(),
                 user.userPlan()

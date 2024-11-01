@@ -11,7 +11,7 @@ public class UserRepository {
 
     public boolean create(User user) {
         db.execute(String.format(
-                "insert into users (id, email, memberShip) VALUES ('%s', '%s', '%s')",
+                "insert into users (id, email, userPlan) VALUES ('%s', '%s', '%s')",
                 user.id().toString(),
                 user.email(),
                 user.userPlan().toString()
@@ -21,7 +21,7 @@ public class UserRepository {
 
     public boolean update(User user) {
         db.execute(String.format(
-                "update users set email = '%s', memberShip = '%s'",
+                "update users set email = '%s', userPlan = '%s'",
                 user.email(),
                 user.userPlan().toString()
         ));
@@ -37,7 +37,7 @@ public class UserRepository {
             throw new RuntimeException("STANDARD ユーザが存在しません");
         }
         Map o = (Map) records.items.get(0);
-        return StandardUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("memberShip")));
+        return StandardUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("userPlan")));
     }
 
     public VipUser findVipById(UUID loginUserId) {
@@ -49,6 +49,6 @@ public class UserRepository {
             throw new RuntimeException("VIP ユーザが存在しません");
         }
         Map o = (Map) records.items.get(0);
-        return VipUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("memberShip")));
+        return VipUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("userPlan")));
     }
 }

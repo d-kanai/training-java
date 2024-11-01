@@ -1,6 +1,5 @@
 package features.order.domain;
 
-import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlows;
 import features.product.domain.PublishedProduct;
 import features.user.domain.User;
