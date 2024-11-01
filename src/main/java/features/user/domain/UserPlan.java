@@ -16,4 +16,14 @@ public enum UserPlan {
     public double discountRate() {
         return discountRate;
     }
+
+    // 文字列からUserPlanに変換するメソッド
+    public static UserPlan fromString(String planString) {
+        for (UserPlan plan : UserPlan.values()) {
+            if (plan.name.equalsIgnoreCase(planString)) {
+                return plan;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for name: " + planString);
+    }
 }

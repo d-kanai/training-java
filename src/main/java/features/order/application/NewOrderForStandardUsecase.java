@@ -18,7 +18,7 @@ public class NewOrderForStandardUsecase {
     }
 
     public void run(UUID loginUserId, NewOrderInput input) {
-        StandardUser user = userRepository.findStandardById(loginUserId);
+        StandardUser user = userRepository.findStandardByIdFromDb(loginUserId);
         newOrder.run(input.productId, user);
     }
 

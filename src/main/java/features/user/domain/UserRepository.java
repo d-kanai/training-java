@@ -1,12 +1,14 @@
 package features.user.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import shared.Records;
+import shared.SqliteDatabase;
+
+import java.util.*;
 
 public class UserRepository {
     public static List<User> records = new ArrayList();
+
+    private SqliteDatabase db = new SqliteDatabase();
 
     public boolean save(User user) {
         if (user.id() == null) {
@@ -33,6 +35,19 @@ public class UserRepository {
         }
         throw new RuntimeException("ユーザが存在しません");
     }
+
+    public StandardUser findStandardByIdFromDb(UUID loginUserId) {
+        Records records = db.find(String.format(
+                "select * from users where '%s'",
+                loginUserId.toString()
+        ));
+        if (records.size() == 0) {
+            throw new RuntimeException("STANDARD ユーザが存在しません");
+        }
+        Map o = (Map) records.items.get(0);
+        return StandardUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("memberShip")));
+    }
+
     public StandardUser findStandardById(UUID loginUserId) {
         //TODO: メモリ保持問題が起きている
         Optional<User> first = records.stream().filter(user -> user.id() == loginUserId && user.userPlan() == UserPlan.STANDARD).findFirst();
@@ -42,6 +57,7 @@ public class UserRepository {
         }
         throw new RuntimeException("STANDARD ユーザが存在しません");
     }
+
     public VipUser findVipById(UUID loginUserId) {
         //TODO: メモリ保持問題が起きている
         Optional<User> first = records.stream().filter(user -> user.id() == loginUserId && user.userPlan() == UserPlan.VIP).findFirst();

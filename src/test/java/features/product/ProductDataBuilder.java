@@ -36,6 +36,9 @@ public class ProductDataBuilder {
                 "book",
                 1000
         );
+        new ProductRepository().save(product);
+
+        //TODO delete
         ProductRepository.records = Arrays.asList(product);
         return product;
     }

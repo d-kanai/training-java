@@ -11,6 +11,7 @@ import features.user.domain.User;
 import features.moneyFlow.MoneyFlowDataBuilder;
 import features.product.ProductDataBuilder;
 import features.user.UserDataBuilder;
+import helpers.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,9 @@ public class NewOrderForStandardUsecaseTest {
 
     @BeforeEach
     void beforeAll() {
+        TestHelper.resetTables();
+
+        //TODO delete
         MoneyFlowRepository.records = new ArrayList<>();
         OrderRepository.records = new ArrayList<>();
     }
