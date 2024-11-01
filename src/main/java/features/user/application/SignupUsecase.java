@@ -14,7 +14,7 @@ public class SignupUsecase {
 
     public User run(SignupInput signupInput) {
         User user = User.signup(signupInput);
-        userRepository.save(user);
+        userRepository.create(user);
         return user;
     }
 }

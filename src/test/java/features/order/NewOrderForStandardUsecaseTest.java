@@ -59,7 +59,7 @@ public class NewOrderForStandardUsecaseTest extends TestBase {
         } catch (RuntimeException e) {
             //then
             assertEquals("チャージ残高が足りません", e.getMessage());
-            assertEquals(0, MoneyFlowRepository.records.size());
+            assertEquals(0, db.find("select * from moneyFlows").size());
             return;
         }
         fail("unexpected test fail");

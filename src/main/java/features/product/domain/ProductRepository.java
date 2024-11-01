@@ -6,8 +6,6 @@ import shared.SqliteDatabase;
 import java.util.*;
 
 public class ProductRepository {
-    public static List<Product> records = new ArrayList();
-
     private SqliteDatabase db = new SqliteDatabase();
 
     public void update(Product product) {
@@ -32,7 +30,7 @@ public class ProductRepository {
         return true;
     }
 
-    public DraftProduct findDraftByIdFromDb(UUID productId) {
+    public DraftProduct findDraftById(UUID productId) {
         Records records = db.find(String.format(
                 "select * from products where id = '%s'",
                 productId.toString()
@@ -50,7 +48,7 @@ public class ProductRepository {
         );
     }
 
-    public PublishedProduct findPublishedByIdFromDb(UUID productId) {
+    public PublishedProduct findPublishedById(UUID productId) {
         Records records = db.find(String.format(
                 "select * from products where id = '%s'",
                 productId.toString()

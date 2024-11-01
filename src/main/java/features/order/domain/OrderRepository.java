@@ -1,8 +1,5 @@
 package features.order.domain;
 
-import features.moneyFlow.domain.MoneyFlow;
-import features.moneyFlow.domain.MoneyFlows;
-import features.product.domain.Product;
 import features.product.domain.ProductStatus;
 import features.product.domain.PublishedProduct;
 import features.user.domain.User;
@@ -14,24 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class OrderRepository {
-    public static List<Order> records = new ArrayList();
-
     private SqliteDatabase db = new SqliteDatabase();
 
-    public void save(Order order) {
+    public void create(Order order) {
         db.execute(String.format(
                 "INSERT INTO orders (id, userId, productId) VALUES ('%s', '%s', '%s')",
                 order.id(),
                 order.userId(),
                 order.product().id()
         ));
-        records.add(order);
     }
 
-    public List<Order> findByUserIdFromDb(UUID loginUserId) {
+    public List<Order> findByUserId(UUID loginUserId) {
         Records records = db.find(String.format(
                 "select * from orders " +
                         "join users on users.id = orders.userId " +
