@@ -3,6 +3,7 @@ package features.product;
 import features.product.domain.DraftProduct;
 import features.user.domain.User;
 import features.user.UserDataBuilder;
+import helpers.TestBase;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import features.product.application.ProductPublishUsecase;
@@ -10,13 +11,15 @@ import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.domain.ProductStatus;
 import features.product.presentation.ProductPublishInput;
+import shared.Records;
 
+import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ProductPublishUsecaseTest {
+public class ProductPublishUsecaseTest extends TestBase {
 
     @Test
     void 商品を公開する() {
@@ -28,10 +31,10 @@ public class ProductPublishUsecaseTest {
         Product actual = new ProductPublishUsecase().run(loginUser.id(), input);
         //then
         assertEquals(ProductStatus.PUBLISHED, actual.status());
-        assertEquals(1, ProductRepository.records.size());
-        assertEquals(ProductStatus.PUBLISHED, ProductRepository.records.get(0).status());
+        Records records = db.find("select * from products");
+        assertEquals(1, records.size());
+        assertEquals(ProductStatus.PUBLISHED.toString(), records.first().get("status"));
     }
-
 
     @Nested
     class 異常パターン {

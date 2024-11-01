@@ -29,6 +29,7 @@ public class User {
     protected User(UUID id, String name, UserPlan userPlan) {
         this.id = id;
         this.name = name;
+        this.email = name;
         this.userPlan = userPlan;
     }
 

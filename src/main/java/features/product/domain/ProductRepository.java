@@ -1,7 +1,5 @@
 package features.product.domain;
 
-import features.user.domain.StandardUser;
-import features.user.domain.UserPlan;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -12,9 +10,20 @@ public class ProductRepository {
 
     private SqliteDatabase db = new SqliteDatabase();
 
+    public void update2(Product product) {
+        db.execute(String.format(
+                "update products set userId = '%s', price = '%d', name = '%s', status = '%s' where id = '%s'",
+                product.userId().toString(),
+                product.price(),
+                product.name(),
+                product.status().toString(),
+                product.id().toString()
+        ));
+    }
+
     public boolean save(Product product) {
         db.execute(String.format(
-                "INSERT INTO products (id, userId, price, name, status) VALUES ('%s', '%s', %d, '%s', '%s')",
+                "insert into products (id, userId, price, name, status) VALUES ('%s', '%s', %d, '%s', '%s')",
                 product.id().toString(),
                 product.userId().toString(),
                 product.price(),

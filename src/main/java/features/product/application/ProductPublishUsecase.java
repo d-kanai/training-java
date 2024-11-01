@@ -18,7 +18,7 @@ public class ProductPublishUsecase {
     public Product run(UUID loginUserId, ProductPublishInput input) {
         DraftProduct draftProduct = productRepository.findDraftById(input.productId);
         Product product = draftProduct.publish(loginUserId);
-        productRepository.save(product);
+        productRepository.update2(product);
         return product;
     }
 }

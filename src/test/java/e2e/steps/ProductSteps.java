@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ProductSteps {
 
     public static void ユーザが新規登録してログイン() {
-        SignupInput signupInput = new SignupInput("d.kanai");
+        SignupInput signupInput = new SignupInput("d.kanai", "kanai@test.com");
         User user = new SignupUsecase().run(signupInput);
         UserContext.loginUserId = user.id();
     }

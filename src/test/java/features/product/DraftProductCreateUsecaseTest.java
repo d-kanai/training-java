@@ -36,10 +36,6 @@ public class DraftProductCreateUsecaseTest {
         Records records = sqliteDatabase.find("select * from products");
         assertEquals(1, records.size());
         assertEquals(1000, records.first().get("price"));
-
-        //TODO: 削除
-        assertEquals("book", product.name());
-        assertEquals(1, ProductRepository.records.size());
     }
 
 }

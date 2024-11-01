@@ -16,8 +16,6 @@ public class MoneyChargeUsecase {
     }
 
     public void run(UUID userId, MoneyChargeInput input) {
-//        SqliteDatabase sqliteDatabase = new SqliteDatabase();
-//        sqliteDatabase.query("select * from articles;");
         MoneyFlow charge = MoneyFlow.charge(userId, input.value);
         moneyFlowRepository.save(charge);
     }

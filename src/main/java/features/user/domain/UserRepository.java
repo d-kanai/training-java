@@ -11,6 +11,12 @@ public class UserRepository {
     private SqliteDatabase db = new SqliteDatabase();
 
     public boolean save(User user) {
+        db.execute(String.format(
+                "insert into users (id, email, memberShip) VALUES ('%s', '%s', '%s')",
+                user.id().toString(),
+                user.email(),
+                user.userPlan().toString()
+        ));
         if (user.id() == null) {
             records.add(user);
         } else {

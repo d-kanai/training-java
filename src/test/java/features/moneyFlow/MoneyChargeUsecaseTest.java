@@ -1,16 +1,16 @@
 package features.moneyFlow;
 
 import features.moneyFlow.application.MoneyChargeUsecase;
-import features.moneyFlow.domain.MoneyFlowRepository;
 import features.moneyFlow.presentation.MoneyChargeInput;
 import features.user.domain.User;
 import features.user.UserDataBuilder;
+import helpers.TestBase;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class MoneyChargeUsecaseTest {
+public class MoneyChargeUsecaseTest extends TestBase {
 
     @Test
     void お金をチャージする() {
@@ -20,7 +20,7 @@ public class MoneyChargeUsecaseTest {
         //when
         new MoneyChargeUsecase().run(loginUser.id(), input);
         //then
-        assertEquals(30000, MoneyFlowRepository.records.get(0).value());
+        assertEquals(30000, db.findFirst("moneyFlows").get("value"));
     }
 
     @Test

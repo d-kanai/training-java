@@ -24,6 +24,7 @@ public class ProductDataBuilder {
                 "book",
                 1000
         );
+        new ProductRepository().save(product);
         ProductRepository.records = Arrays.asList(product);
         return product;
     }
