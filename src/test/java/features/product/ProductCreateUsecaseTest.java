@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import shared.Records;
 import shared.SqliteDatabase;
 
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductCreateUsecaseTest {
@@ -18,7 +16,7 @@ public class ProductCreateUsecaseTest {
         //given
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
-        new ProductCreateUsecase().run(UUID.randomUUID(), input);
+        new ProductCreateUsecase().run(input);
         //then
         Records records = db.find("select * from products");
         assertEquals(1, records.size());
