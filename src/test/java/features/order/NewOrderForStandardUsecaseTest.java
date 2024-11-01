@@ -52,10 +52,8 @@ public class NewOrderForStandardUsecaseTest {
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
         assertEquals(-1000, ((Map) moneyFlows.items.get(1)).get("value"));
-
-        assertEquals(2, MoneyFlowRepository.records.size());
-        assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
-        assertEquals(1, OrderRepository.records.size());
+        Records orders = db.find("select * from orders");
+        assertEquals(1, orders.size());
         assertEquals(0, mailSender.callCountSend);
     }
 

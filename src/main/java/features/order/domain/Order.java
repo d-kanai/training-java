@@ -17,6 +17,9 @@ public class Order {
         this.orderedPrice = price;
     }
 
+    public UUID id() {
+        return id;
+    }
     public UUID userId() {
         return userId;
     }
