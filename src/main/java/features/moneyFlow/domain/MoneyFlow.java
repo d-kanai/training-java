@@ -18,6 +18,10 @@ public class MoneyFlow {
         this.value = value;
     }
 
+    public UUID id() {
+        return id;
+    }
+
     public UUID userId() {
         return userId;
     }
@@ -26,7 +30,7 @@ public class MoneyFlow {
         return new MoneyFlow(UUID.randomUUID(), userId, value);
     }
 
-    public static MoneyFlow order(UUID loginUserId, PublishedProduct.DiscountedPrice price) {
+    public static MoneyFlow newByOrder(UUID loginUserId, PublishedProduct.DiscountedPrice price) {
         return new MoneyFlow(UUID.randomUUID(), loginUserId, -price.value);
     }
 

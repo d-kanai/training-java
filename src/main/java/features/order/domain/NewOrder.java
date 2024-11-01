@@ -22,9 +22,9 @@ public class NewOrder {
 
     public void run(UUID productId, User loginUser) {
         PublishedProduct product = productRepository.findPublishedByIdFromDb(productId);
-        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUser.id());
+        MoneyFlows moneyFlows = moneyFlowRepository.findByUserIdFromDb(loginUser.id());
         Order orderResult = OrderFactory.newOrder(loginUser, product, moneyFlows);
-        MoneyFlow usedMoneyFlow = MoneyFlow.order(loginUser.id(), product.discountedPrice(loginUser.userPlan()));
+        MoneyFlow usedMoneyFlow = MoneyFlow.newByOrder(loginUser.id(), product.discountedPrice(loginUser.userPlan()));
 
         moneyFlowRepository.save(usedMoneyFlow);
         orderRepository.save(orderResult);

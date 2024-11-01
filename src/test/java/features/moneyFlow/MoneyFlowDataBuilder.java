@@ -2,10 +2,13 @@ package features.moneyFlow;
 
 import features.moneyFlow.domain.MoneyFlow;
 import features.moneyFlow.domain.MoneyFlowRepository;
+import shared.SqliteDatabase;
 
 import java.util.UUID;
 
 public class MoneyFlowDataBuilder {
+
+    private SqliteDatabase sqliteDatabase = new SqliteDatabase();
 
     public MoneyFlowDataBuilder(UUID userId) {
         this.userId = userId;
@@ -14,7 +17,7 @@ public class MoneyFlowDataBuilder {
     private UUID userId;
     private int price = 10000;
 
-     public MoneyFlowDataBuilder setPrice(int price) {
+    public MoneyFlowDataBuilder setPrice(int price) {
         this.price = price;
         return this;
     }
@@ -25,6 +28,12 @@ public class MoneyFlowDataBuilder {
                 userId,
                 price
         );
+        sqliteDatabase.execute(String.format(
+                "INSERT INTO moneyFlows (id, userId, value) VALUES ('%s', '%s', '%d')",
+                moneyFlow.id(),
+                moneyFlow.userId(),
+                moneyFlow.value()
+        ));
         MoneyFlowRepository.records.add(moneyFlow);
         return moneyFlow;
     }

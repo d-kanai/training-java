@@ -13,8 +13,7 @@ public class ProductRepository {
     private SqliteDatabase db = new SqliteDatabase();
 
     public boolean save(Product product) {
-        SqliteDatabase sqliteDatabase = new SqliteDatabase();
-        sqliteDatabase.execute(String.format(
+        db.execute(String.format(
                 "INSERT INTO products (id, userId, price, name, status) VALUES ('%s', '%s', %d, '%s', '%s')",
                 product.id().toString(),
                 product.userId().toString(),
@@ -61,34 +60,21 @@ public class ProductRepository {
     }
 
     public PublishedProduct findPublishedByIdFromDb(UUID productId) {
-//        Records records = db.find(String.format(
-//                "select * from products where '%s'",
-//                loginUserId.toString()
-//        ));
-//        if (records.size() == 0) {
-//            throw new RuntimeException("STANDARD ユーザが存在しません");
-//        }
-//        Map o = (Map) records.items.get(0);
-//        return StandardUser.reconstruct(UUID.fromString((String) o.get("id")), (String) o.get("email"), UserPlan.fromString((String) o.get("memberShip")));
-        // TODO: アドレス比較のせい？なのか状態遷移が引き継がれてしまっているのでclone.　DB使うようにしてしまうか
-        Optional<Product> first = records.stream().filter(product -> product.id() == productId && product.status() == ProductStatus.PUBLISHED).findFirst();
-        if (first.isPresent()) {
-            try {
-                Product clone = first.get().clone();
-                return PublishedProduct.reconstruct(
-                        clone.id(),
-                        clone.userId(),
-                        clone.status(),
-                        clone.name(),
-                        clone.price()
-                );
-            } catch (CloneNotSupportedException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            throw new RuntimeException("商品が存在しません");
+        Records records = db.find(String.format(
+                "select * from products where id = '%s'",
+                productId.toString()
+        ));
+        if (records.size() == 0) {
+            throw new RuntimeException("No Product");
         }
-
+        Map record = (Map) records.items.get(0);
+        return PublishedProduct.reconstruct(
+                UUID.fromString((String) record.get("id")),
+                UUID.fromString((String) record.get("userId")),
+                ProductStatus.valueOf((String) record.get("status")),
+                (String) record.get("name"),
+                (Integer) record.get("price")
+        );
     }
 
     public PublishedProduct findPublishedById(UUID productId) {

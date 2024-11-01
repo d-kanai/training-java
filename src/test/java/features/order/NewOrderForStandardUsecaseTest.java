@@ -14,8 +14,11 @@ import features.user.UserDataBuilder;
 import helpers.TestHelper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import shared.Records;
+import shared.SqliteDatabase;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -24,6 +27,8 @@ public class NewOrderForStandardUsecaseTest {
 
     FakeMailSender mailSender = new FakeMailSender();
     NewOrderForStandardUsecase newOrderForStandardUsecase = new NewOrderForStandardUsecase();
+
+    SqliteDatabase db = new SqliteDatabase();
 
     @BeforeEach
     void beforeAll() {
@@ -44,6 +49,10 @@ public class NewOrderForStandardUsecaseTest {
         //when
         newOrderForStandardUsecase.run(loginUser.id(), input);
         //then
+        Records moneyFlows = db.find("select * from moneyFlows");
+        assertEquals(2, moneyFlows.size());
+        assertEquals(-1000, ((Map) moneyFlows.items.get(1)).get("value"));
+
         assertEquals(2, MoneyFlowRepository.records.size());
         assertEquals(-1000, MoneyFlowRepository.records.get(1).value());
         assertEquals(1, OrderRepository.records.size());
