@@ -1,5 +1,8 @@
 package e2e.steps;
 
+import features.product.application.ProductCreateUsecase;
+import features.product.presentation.ProductCreateInput;
+
 public class ProductSteps {
 
 
@@ -29,6 +32,7 @@ public class ProductSteps {
     }
 
     public static void _5000円の商品が登録されている() {
+        new ProductCreateUsecase().run(new ProductCreateInput("book", 5000));
     }
 
     public static void 購入履歴一覧に商品が表示されている() {
