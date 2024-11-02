@@ -20,7 +20,7 @@ public class SqliteDatabase {
         }
     }
 
-    public ResultSet query(String sql) {
+    private ResultSet query(String sql) {
         try {
             return con.executeQuery(sql);
         } catch (SQLException e) {
