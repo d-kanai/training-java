@@ -4,8 +4,11 @@ import features.moneyFlows.application.ChargeMoneyUsecase;
 import features.moneyFlows.presentation.ChargeMoneyInput;
 import features.order.application.OrderCreateUsecase;
 import features.order.presentation.OrderCreateInput;
-import features.product.application.ProductCreateUsecase;
+import features.product.application.ProductCreateAsDraftUsecase;
+import features.product.application.ProductPublishUsecase;
+import features.product.domain.Product;
 import features.product.presentation.ProductCreateInput;
+import features.product.presentation.ProductPublishInput;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -20,12 +23,19 @@ public class ProductSteps {
     }
 
     public static void ユーザが商品をドラフトで登録() {
+        ProductCreateInput input = new ProductCreateInput("book", 1000);
+        new ProductCreateAsDraftUsecase().run(input);
     }
 
     public static void ユーザが商品を公開() {
+        Records products = new SqliteDatabase().find("select * from products");
+        ProductPublishInput input = new ProductPublishInput(UUID.fromString((String) products.first().get("id")));
+        new ProductPublishUsecase().run(input);
     }
 
     public static void 商品が公開して登録されていること() {
+        Records products = new SqliteDatabase().find("select * from products");
+        assertEquals(products.first().get("status"), Product.Status.PUBLISHED.toString());
     }
 
     public static void ユーザのチャージ残高が5000円になっている() {
@@ -52,7 +62,7 @@ public class ProductSteps {
     }
 
     public static void _5000円の商品が登録されている() {
-        new ProductCreateUsecase().run(new ProductCreateInput("book", 5000));
+        new ProductCreateAsDraftUsecase().run(new ProductCreateInput("book", 5000));
     }
 
     public static void 購入履歴一覧に商品が表示されている() {

@@ -1,6 +1,6 @@
 package features.product;
 
-import features.product.application.ProductCreateUsecase;
+import features.product.application.ProductCreateAsDraftUsecase;
 import features.product.domain.Product;
 import features.product.presentation.ProductCreateInput;
 import helpers.BaseTest;
@@ -10,14 +10,14 @@ import shared.Records;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ProductCreateUsecaseTest extends BaseTest {
+public class ProductCreateAsDraftUsecaseTest extends BaseTest {
 
     @Test
     void 商品登録() {
         //given
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
-        new ProductCreateUsecase().run(input);
+        new ProductCreateAsDraftUsecase().run(input);
         //then
         Records records = db.find("select * from products");
         assertEquals(1, records.size());
@@ -31,7 +31,7 @@ public class ProductCreateUsecaseTest extends BaseTest {
         ProductCreateInput input = new ProductCreateInput("book", -1000);
         //when
         try {
-            new ProductCreateUsecase().run(input);
+            new ProductCreateAsDraftUsecase().run(input);
         } catch (RuntimeException e) {
             //then
             Records records = db.find("select * from products");

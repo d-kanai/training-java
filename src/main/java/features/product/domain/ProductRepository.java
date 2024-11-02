@@ -10,7 +10,10 @@ public class ProductRepository {
     SqliteDatabase db = new SqliteDatabase();
 
     public void save(Product product) {
-        db.execute(String.format("insert into products (id, name, price, status) values ('%s', '%s', %d, '%s');",
+        db.execute(String.format(
+                "insert into products (id, name, price, status) values ('%s', '%s', %d, '%s') " +
+                "ON CONFLICT(id) DO " +
+                "UPDATE SET price = excluded.price, name = excluded.name, status = excluded.status;",
                 product.id(),
                 product.name(),
                 product.price(),
@@ -25,7 +28,7 @@ public class ProductRepository {
                 UUID.fromString((String) record.get("id")),
                 (String) record.get("name"),
                 (Integer) record.get("price"),
-                (Product.Status) record.get("status")
+                Product.Status.fromString((String) record.get("status"))
         );
     }
 }
