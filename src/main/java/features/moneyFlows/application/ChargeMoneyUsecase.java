@@ -6,7 +6,11 @@ import features.moneyFlows.presentation.ChargeMoneyInput;
 
 public class ChargeMoneyUsecase {
     public void run(ChargeMoneyInput input) {
-        MoneyFlow moneyFlow = MoneyFlow.charge(input.getValue());
+        int value = input.getValue();
+        if (value < 0) {
+            throw new RuntimeException("マイナス額はチャージできません");
+        }
+        MoneyFlow moneyFlow = new MoneyFlow(value);
         new MoneyFlowRepository().save(moneyFlow);
     }
 }
