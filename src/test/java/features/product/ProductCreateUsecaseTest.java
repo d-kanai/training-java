@@ -2,18 +2,16 @@ package features.product;
 
 import features.product.application.ProductCreateUsecase;
 import features.product.presentation.ProductCreateInput;
+import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
 import shared.Records;
-import shared.SqliteDatabase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ProductCreateUsecaseTest {
+public class ProductCreateUsecaseTest extends BaseTest {
 
     @Test
     void 商品登録() {
-        SqliteDatabase db = new SqliteDatabase();
-        db.execute("delete from products");
         //given
         ProductCreateInput input = new ProductCreateInput("book", 1000);
         //when
