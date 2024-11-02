@@ -1,5 +1,7 @@
 package features.order.domain;
 
+import features.product.domain.Product;
+
 import java.util.UUID;
 
 public class Order {
@@ -12,8 +14,8 @@ public class Order {
         this.productId = productId;
     }
 
-    public static Order create(UUID productId) {
-        return new Order(UUID.randomUUID(), productId);
+    public static Order create(Product product) {
+        return new Order(UUID.randomUUID(), product.id());
     }
 
     public UUID id() {

@@ -1,5 +1,7 @@
 package e2e.steps;
 
+import features.moneyFlows.application.ChargeMoneyUsecase;
+import features.moneyFlows.presentation.ChargeMoneyInput;
 import features.order.application.OrderCreateUsecase;
 import features.order.presentation.OrderCreateInput;
 import features.product.application.ProductCreateUsecase;
@@ -34,9 +36,13 @@ public class ProductSteps {
         new OrderCreateUsecase().run(new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
         Records orders = new SqliteDatabase().find("select * from orders");
         assertEquals(1, orders.size()); // middle assertion
+        Records moneyFlows = new SqliteDatabase().find("select * from moneyFlows");
+        assertEquals(2, moneyFlows.size()); // middle assertion
     }
 
     public static void ユーザが10000万円チャージする() {
+        ChargeMoneyInput input = new ChargeMoneyInput(10000);
+        new ChargeMoneyUsecase().run(input);
     }
 
     public static void ユーザが商品を一覧を見る() {

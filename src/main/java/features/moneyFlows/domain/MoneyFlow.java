@@ -9,8 +9,8 @@ public class MoneyFlow {
     private final UUID id;
     private final int value;
 
-    public MoneyFlow(int value) {
-        this.id = UUID.randomUUID();
+    public MoneyFlow(UUID id, int value) {
+        this.id = id;
         this.value = value;
     }
 
@@ -18,11 +18,15 @@ public class MoneyFlow {
         if (value < 0) {
             throw new RuntimeException("マイナス額はチャージできません");
         }
-        return new MoneyFlow(value);
+        return MoneyFlow.create(value);
+    }
+
+    private static MoneyFlow create(int value) {
+        return new MoneyFlow(UUID.randomUUID(), value);
     }
 
     public static MoneyFlow order(Product product) {
-        return new MoneyFlow(-product.price());
+        return MoneyFlow.create(-product.price());
     }
 
     public UUID id() {
