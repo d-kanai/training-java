@@ -13,7 +13,7 @@ public class OrderFactory {
         this.product = product;
     }
 
-    public Ordered run() {
+    public Ordered create() {
         if (moneyFlows.sum() < product.price()) throw new RuntimeException("お金が足りません");
         Order order = Order.create(product);
         MoneyFlow moneyFlow = MoneyFlow.order(product);
