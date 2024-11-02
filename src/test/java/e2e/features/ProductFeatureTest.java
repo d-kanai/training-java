@@ -1,12 +1,21 @@
 package e2e.features;
 
-import helpers.BaseTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.SqliteDatabase;
 
 import static e2e.steps.ProductSteps.*;
 
-public class ProductFeatureTest extends BaseTest {
+public class ProductFeatureTest {
+
+    public SqliteDatabase db = new SqliteDatabase();
+
+    @BeforeEach
+    void setup() {
+        SqliteDatabase db = new SqliteDatabase();
+        db.execute("delete from products;");
+        db.execute("delete from orders;");
+    }
 
     @Test
     void ユーザが商品を登録する() {
