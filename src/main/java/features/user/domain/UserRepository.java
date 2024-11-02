@@ -28,7 +28,7 @@ public class UserRepository {
         Map record = records.first();
         return User.reconstruct(
                 UUID.fromString((String) record.get("id")),
-                (String) record.get("name"),
+                (String) record.get("email"),
                 User.Plan.fromString((String) record.get("plan"))
         );
 

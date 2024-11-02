@@ -8,6 +8,8 @@ import features.order.domain.Ordered;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.ProductRepository;
 import features.product.domain.PublishedProduct;
+import features.user.domain.User;
+import features.user.domain.UserRepository;
 import shared.IMailSender;
 import shared.MailSender;
 
@@ -22,6 +24,7 @@ public class OrderUsecase {
     }
 
     public void run(UUID loginUserId, OrderCreateInput input) {
+        User user = new UserRepository().findById(loginUserId);
         PublishedProduct product = new ProductRepository().findPublishedById(input.getProductId());
         MoneyFlows moneyFlows = new MoneyFlowRepository().findByUserId(loginUserId);
 
@@ -30,7 +33,9 @@ public class OrderUsecase {
         new OrderRepository().save(ordered.order);
         new MoneyFlowRepository().save(ordered.moneyFlow);
 
-        mailSender.send("", "for VIP");
+        if (user.plan() == User.Plan.VIP) {
+            mailSender.send(user.email(), "for VIP");
+        }
     }
 
 
