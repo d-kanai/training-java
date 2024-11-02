@@ -1,6 +1,12 @@
 package features.user.domain;
 
+import features.product.domain.DraftProduct;
+import features.product.domain.Product;
+import shared.Records;
 import shared.SqliteDatabase;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class UserRepository {
 
@@ -15,5 +21,16 @@ public class UserRepository {
                 user.email(),
                 user.plan()
         ));
+    }
+
+    public User findById(UUID loginUserId) {
+        Records records = db.find(String.format("select * from users where id = '%s'", loginUserId));
+        Map record = records.first();
+        return User.reconstruct(
+                UUID.fromString((String) record.get("id")),
+                (String) record.get("name"),
+                User.Plan.fromString((String) record.get("plan"))
+        );
+
     }
 }

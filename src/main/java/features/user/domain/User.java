@@ -1,11 +1,17 @@
 package features.user.domain;
 
+import features.product.domain.Product;
+
 import java.util.UUID;
 
 public class User {
     private final UUID id;
     private final String email;
     private Plan plan;
+
+    public static User reconstruct(UUID id, String email, Plan plan) {
+        return new User(id, email, plan);
+    }
 
     public UUID id() {
         return id;
@@ -17,7 +23,16 @@ public class User {
 
     public enum Plan {
         NORMAL,
-        VIP
+        VIP;
+
+        public static User.Plan fromString(String status) {
+            if (status == null) throw new IllegalArgumentException("Status cannot be null");
+            try {
+                return User.Plan.valueOf(status.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Unknown status: " + status, e);
+            }
+        }
     }
 
 
