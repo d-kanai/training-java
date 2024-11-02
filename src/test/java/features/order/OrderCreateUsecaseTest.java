@@ -44,5 +44,24 @@ public class OrderCreateUsecaseTest extends BaseTest {
         assertEquals(-2000, ((Map) moneyFlows.items.get(1)).get("value"));
     }
 
+    @Test
+    void お金が足りないと購入できない() {
+        //given
+        Product product = new ProductDataBuilder().price(2000).please();
+        new MoneyFlowDataBuilder().value(1999).please();
+        //when
+        OrderCreateInput input = new OrderCreateInput(product.id());
+        try {
+            new OrderCreateUsecase().run(input);
+        } catch (RuntimeException e) {
+            //then
+            Records moneyFlows = db.find("select * from moneyFlows");
+            assertEquals(1, moneyFlows.size());
+            assertEquals("お金が足りません", e.getMessage());
+            return;
+        }
+        fail("unexpected reached");
+    }
+
 }
 
