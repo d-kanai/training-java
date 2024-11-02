@@ -31,9 +31,6 @@ public class OrderCreateUsecaseTest extends BaseTest {
         Records orders = db.find("select * from orders");
         assertEquals(1, orders.size());
         assertEquals(product.id().toString(), orders.first().get("productId"));
-        Records moneyFlows = db.find("select * from moneyFlows");
-        assertEquals(2, moneyFlows.size());
-        assertEquals(-1000, ((Map) moneyFlows.items.get(1)).get("value"));
     }
 
 }

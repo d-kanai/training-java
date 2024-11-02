@@ -14,10 +14,4 @@ public class ProductRepository {
                 product.price()
         ));
     }
-
-    public Product findById(UUID productId) {
-        Records records = new SqliteDatabase().find("select * from products");
-        int price = (int) records.first().get("price");
-        return new Product((String) records.first().get("name"), price);
-    }
 }

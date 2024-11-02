@@ -6,7 +6,7 @@ import features.moneyFlows.presentation.ChargeMoneyInput;
 
 public class ChargeMoneyUsecase {
     public void run(ChargeMoneyInput input) {
-        MoneyFlow moneyFlow = new MoneyFlow(input.getValue());
+        MoneyFlow moneyFlow = MoneyFlow.charge(input.getValue());
         new MoneyFlowRepository().save(moneyFlow);
     }
 }

@@ -15,10 +15,5 @@ public class OrderCreateUsecase {
     public void run(OrderCreateInput input) {
         Order order = new Order(input.getProductId());
         new OrderRepository().save(order);
-
-        Product product = new ProductRepository().findById(input.getProductId());
-
-        MoneyFlow moneyFlow = new MoneyFlow(-product.price());
-        new MoneyFlowRepository().save(moneyFlow);
     }
 }
