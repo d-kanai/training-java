@@ -18,6 +18,7 @@ public class User {
     }
 
     public void upgradeToVip() {
+        //TODO: 状態毎の型？
         this.plan = Plan.VIP;
     }
 

@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public class UpgradeToVipUsecase {
 
-
     UserRepository userRepository = new UserRepository();
 
     public void run(UUID loginUserId) {
