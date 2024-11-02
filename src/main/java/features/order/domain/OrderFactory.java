@@ -14,9 +14,7 @@ public class OrderFactory {
     }
 
     public Ordered run() {
-        if (moneyFlows.sum() < product.price()) {
-            throw new RuntimeException("お金が足りません");
-        }
+        if (moneyFlows.sum() < product.price()) throw new RuntimeException("お金が足りません");
         Order order = Order.create(product);
         MoneyFlow moneyFlow = MoneyFlow.order(product);
         return new Ordered(order, moneyFlow);
