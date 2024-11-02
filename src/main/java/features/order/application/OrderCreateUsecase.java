@@ -22,9 +22,9 @@ public class OrderCreateUsecase {
         Records records = db.find("select * from moneyFlows");
         int sum = 0;
         for (Object item : records.items) {
-            sum += (int)((Map)item).get("value");
+            sum += (int) ((Map) item).get("value");
         }
-        if(sum< product.price()) {
+        if (sum < product.price()) {
             throw new RuntimeException("お金が足りません");
         }
 
