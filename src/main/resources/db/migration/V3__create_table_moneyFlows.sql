@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS moneyFlows (
+    id TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);
