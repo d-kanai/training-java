@@ -6,4 +6,10 @@ public class ChargeMoneyInput {
     public ChargeMoneyInput(int value) {
         this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
+
+
 }

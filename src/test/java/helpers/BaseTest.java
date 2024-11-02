@@ -12,5 +12,6 @@ public class BaseTest {
         SqliteDatabase db = new SqliteDatabase();
         db.execute("delete from products;");
         db.execute("delete from orders;");
+        db.execute("delete from moneyFlows;");
     }
 }
