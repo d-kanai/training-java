@@ -7,9 +7,13 @@ public class Order {
     private final UUID id;
     private final UUID productId;
 
-    public Order(UUID productId) {
-        this.id = UUID.randomUUID();
+    private Order(UUID id, UUID productId) {
+        this.id = id;
         this.productId = productId;
+    }
+
+    public static Order create(UUID productId) {
+        return new Order(UUID.randomUUID(), productId);
     }
 
     public UUID id() {

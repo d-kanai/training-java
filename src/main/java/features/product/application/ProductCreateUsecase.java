@@ -7,7 +7,7 @@ import features.product.presentation.ProductCreateInput;
 public class ProductCreateUsecase {
 
     public void run(ProductCreateInput input) {
-        Product product = new Product(input.name, input.price);
+        Product product = Product.create(input.name, input.price);
         new ProductRepository().save(product);
     }
 }

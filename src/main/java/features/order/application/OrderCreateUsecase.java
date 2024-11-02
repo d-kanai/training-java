@@ -13,7 +13,12 @@ import shared.SqliteDatabase;
 public class OrderCreateUsecase {
 
     public void run(OrderCreateInput input) {
-        Order order = new Order(input.getProductId());
+        Order order = Order.create(input.getProductId());
         new OrderRepository().save(order);
+
+        Product product = new ProductRepository().findById(input.getProductId());
+
+        MoneyFlow moneyFlow = MoneyFlow.order(product);
+        new MoneyFlowRepository().save(moneyFlow);
     }
 }

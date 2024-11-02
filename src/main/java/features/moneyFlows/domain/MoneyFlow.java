@@ -21,6 +21,10 @@ public class MoneyFlow {
         return new MoneyFlow(value);
     }
 
+    public static MoneyFlow order(Product product) {
+        return new MoneyFlow(-product.price());
+    }
+
     public UUID id() {
         return id;
     }
