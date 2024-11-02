@@ -16,10 +16,9 @@ public class OrderCreateUsecase {
         Order order = new Order(input.getProductId());
         new OrderRepository().save(order);
 
-        Records records = new SqliteDatabase().find("select * from products");
-        int price = (int) records.first().get("price");
+        Product product = new ProductRepository().findById(input.getProductId());
 
-        MoneyFlow moneyFlow = new MoneyFlow(-price);
+        MoneyFlow moneyFlow = new MoneyFlow(-product.price());
         new MoneyFlowRepository().save(moneyFlow);
     }
 }
