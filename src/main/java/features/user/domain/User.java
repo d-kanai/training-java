@@ -5,15 +5,21 @@ import java.util.UUID;
 public class User {
     private final UUID id;
     private final String email;
-    private final Plan plan;
+    private Plan plan;
 
     public UUID id() {
         return id;
     }
 
+    public void upgradeToVip() {
+        this.plan = Plan.VIP;
+    }
+
     public enum Plan {
         NORMAL,
+        VIP
     }
+
 
     public User(UUID id, String email, Plan plan) {
         this.id = id;
