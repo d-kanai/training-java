@@ -6,19 +6,24 @@ import features.order.domain.Order;
 import features.order.domain.OrderRepository;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
-import features.product.domain.ProductRepository;
 import shared.Records;
 import shared.SqliteDatabase;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class OrderCreateUsecase {
 
-    public void run(OrderCreateInput input) {
-        Product product = new ProductRepository().findById(input.getProductId());
+    SqliteDatabase db = new SqliteDatabase();
 
-        Order order = Order.create(product);
+    public void run(OrderCreateInput input) {
+        Records products = db.find(String.format("select * from products where id = '%s'", input.getProductId()));
+        Map product = products.first();
+
+        Order order = new Order(UUID.randomUUID(), input.getProductId());
         new OrderRepository().save(order);
 
-        MoneyFlow moneyFlow = MoneyFlow.order(product);
+        MoneyFlow moneyFlow = new MoneyFlow(UUID.randomUUID(), -(Integer) product.get("price"));
         new MoneyFlowRepository().save(moneyFlow);
     }
 }
