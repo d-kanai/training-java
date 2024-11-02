@@ -12,6 +12,7 @@ import features.product.presentation.ProductPublishInput;
 import features.user.application.UserSignupUsecase;
 import features.user.domain.User;
 import features.user.presentation.UserSignupInput;
+import helpers.FakeMailSender;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -50,7 +51,7 @@ public class ProductSteps {
 
     public static void ユーザが購入する() {
         Records products = new SqliteDatabase().find("select * from products");
-        new OrderUsecase().run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
+        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
         Records orders = new SqliteDatabase().find("select * from orders");
         assertEquals(1, orders.size()); // middle assertion
         Records moneyFlows = new SqliteDatabase().find("select * from moneyFlows");

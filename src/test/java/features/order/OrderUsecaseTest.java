@@ -8,6 +8,7 @@ import features.product.domain.Product;
 import features.user.UserDataBuilder;
 import features.user.domain.User;
 import helpers.BaseTest;
+import helpers.FakeMailSender;
 import org.junit.jupiter.api.Test;
 import shared.Records;
 
@@ -26,7 +27,7 @@ public class OrderUsecaseTest extends BaseTest {
         new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase().run(loginUser.id(), input);
+        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
         //then
         Records orders = db.find("select * from orders");
         assertEquals(1, orders.size());
@@ -42,7 +43,7 @@ public class OrderUsecaseTest extends BaseTest {
         new MoneyFlowDataBuilder(loginUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase().run(loginUser.id(), input);
+        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
         //then
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
@@ -61,7 +62,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase().run(loginUser.id(), input);
+            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records moneyFlows = db.find("select * from moneyFlows");
@@ -81,7 +82,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase().run(loginUser.id(), input);
+            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records orders = db.find("select * from orders");
