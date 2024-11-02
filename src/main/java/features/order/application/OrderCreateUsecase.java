@@ -1,13 +1,25 @@
 package features.order.application;
 
+import features.moneyFlows.domain.MoneyFlow;
+import features.moneyFlows.domain.MoneyFlowRepository;
 import features.order.domain.Order;
 import features.order.domain.OrderRepository;
 import features.order.presentation.OrderCreateInput;
+import features.product.domain.Product;
+import features.product.domain.ProductRepository;
+import shared.Records;
+import shared.SqliteDatabase;
 
 public class OrderCreateUsecase {
 
     public void run(OrderCreateInput input) {
         Order order = new Order(input.getProductId());
         new OrderRepository().save(order);
+
+        Records records = new SqliteDatabase().find("select * from products");
+        int price = (int) records.first().get("price");
+
+        MoneyFlow moneyFlow = new MoneyFlow(-price);
+        new MoneyFlowRepository().save(moneyFlow);
     }
 }
