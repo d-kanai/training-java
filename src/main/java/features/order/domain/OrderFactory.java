@@ -7,17 +7,8 @@ import features.product.domain.PublishedProduct;
 import java.util.UUID;
 
 public class OrderFactory {
-    private final UUID loginUserId;
-    private final MoneyFlows moneyFlows;
-    private final PublishedProduct product;
 
-    public OrderFactory(UUID loginUserId, MoneyFlows moneyFlows, PublishedProduct product) {
-        this.loginUserId = loginUserId;
-        this.moneyFlows = moneyFlows;
-        this.product = product;
-    }
-
-    public Ordered create() {
+    public Ordered create(UUID loginUserId, MoneyFlows moneyFlows, PublishedProduct product) {
         if (moneyFlows.sum() < product.price()) throw new RuntimeException("お金が足りません");
         Order order = Order.create(loginUserId, product);
         MoneyFlow moneyFlow = MoneyFlow.order(loginUserId, product);

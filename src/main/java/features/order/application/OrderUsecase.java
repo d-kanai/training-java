@@ -29,7 +29,7 @@ public class OrderUsecase {
         PublishedProduct product = new ProductRepository().findPublishedById(productId);
         MoneyFlows moneyFlows = new MoneyFlowRepository().findByUserId(loginUserId);
 
-        Ordered ordered = new OrderFactory(loginUserId, moneyFlows, product).create();
+        Ordered ordered = new OrderFactory().create(loginUserId, moneyFlows, product);
 
         new OrderRepository().save(ordered.order);
         new MoneyFlowRepository().save(ordered.moneyFlow);
@@ -38,4 +38,6 @@ public class OrderUsecase {
             mailSender.send(user.email(), "for VIP");
         }
     }
+
+
 }
