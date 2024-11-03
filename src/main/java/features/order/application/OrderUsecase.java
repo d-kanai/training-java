@@ -8,12 +8,11 @@ import features.order.domain.Ordered;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
-import features.product.domain.PublishedProduct;
 
 public class OrderUsecase {
 
     public void run(OrderCreateInput input) {
-        PublishedProduct product = new ProductRepository().findPublishedById(input.getProductId());
+        Product product = new ProductRepository().findById(input.getProductId());
         MoneyFlows moneyFlows = new MoneyFlowRepository().findAll();
 
         Ordered ordered = new OrderFactory(moneyFlows, product).create();

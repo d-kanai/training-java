@@ -7,7 +7,7 @@ public class Product {
     protected final UUID id;
     protected final String name;
     protected final int price;
-    protected final Status status;
+    protected Status status;
 
     public enum Status {
         DRAFT,
@@ -23,7 +23,7 @@ public class Product {
         }
     }
 
-    protected Product(UUID id, String name, int price, Status status) {
+    private Product(UUID id, String name, int price, Status status) {
         if (price < 0) throw new RuntimeException("マイナスは登録できません");
         this.id = id;
         this.name = name;
@@ -36,6 +36,14 @@ public class Product {
         return new Product(id, name, price, status);
     }
 
+    public static Product create(String name, int price) {
+        return new Product(UUID.randomUUID(), name, price, Status.DRAFT);
+    }
+
+    public void publish() {
+        if (status == Status.PUBLISHED)  throw new RuntimeException("すでに公開済みです");
+        this.status = Status.PUBLISHED;
+    }
 
     public UUID id() {
         return id;

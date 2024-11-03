@@ -21,13 +21,10 @@ public class ProductRepository {
         ));
     }
 
-    public DraftProduct findDraftById(UUID productId) {
+    public Product findById(UUID productId) {
         Records records = db.find(String.format("select * from products where id = '%s'", productId));
-        if (records.first().get("status") == Product.Status.PUBLISHED.toString()) {
-            throw new RuntimeException("すでに公開済みです");
-        }
         Map record = records.first();
-        return DraftProduct.reconstruct(
+        return Product.reconstruct(
                 UUID.fromString((String) record.get("id")),
                 (String) record.get("name"),
                 (Integer) record.get("price"),
@@ -35,15 +32,4 @@ public class ProductRepository {
         );
     }
 
-    public PublishedProduct findPublishedById(UUID productId) {
-        Records records = db.find(String.format("select * from products where id = '%s' and status = 'PUBLISHED'", productId));
-        if (records.size() == 0) throw new RuntimeException("商品が存在しません");
-        Map record = records.first();
-        return PublishedProduct.reconstruct(
-                UUID.fromString((String) record.get("id")),
-                (String) record.get("name"),
-                (Integer) record.get("price"),
-                Product.Status.fromString((String) record.get("status"))
-        );
-    }
 }
