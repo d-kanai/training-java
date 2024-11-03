@@ -7,6 +7,7 @@ import features.order.domain.OrderRepository;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
+import shared.DomainException;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class OrderCreateUsecase {
                 .mapToInt(MoneyFlow::value)
                 .sum();
 
-        if (sum < product.price()) throw new RuntimeException("お金が足りません");
+        if (sum < product.price()) throw new DomainException("お金が足りません");
 
         Order order = Order.create(product);
         MoneyFlow moneyFlow = MoneyFlow.order(product);
