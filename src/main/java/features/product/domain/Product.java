@@ -9,10 +9,6 @@ public class Product {
     protected final int price;
     protected Status status;
 
-    public boolean isDraft() {
-        return status == Status.DRAFT;
-    }
-
     public enum Status {
         DRAFT,
         PUBLISHED;
