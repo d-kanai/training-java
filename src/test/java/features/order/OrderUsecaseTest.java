@@ -2,14 +2,18 @@ package features.order;
 
 import features.moneyFlow.MoneyFlowDataBuilder;
 import features.order.application.OrderUsecase;
+import features.order.domain.OrderRepository;
+import features.order.domain.OrderService;
 import features.order.presentation.OrderCreateInput;
 import features.product.ProductDataBuilder;
 import features.product.domain.Product;
 import features.user.UserDataBuilder;
 import features.user.domain.User;
 import helpers.BaseTest;
+import helpers.FakeEventPublisher;
 import helpers.FakeMailSender;
 import org.junit.jupiter.api.Test;
+import shared.EventPublisher;
 import shared.Records;
 
 import java.util.Map;
@@ -19,37 +23,27 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class OrderUsecaseTest extends BaseTest {
 
+    FakeMailSender mailSender = new FakeMailSender();
+    FakeEventPublisher eventPublisher = new FakeEventPublisher();
+    OrderUsecase orderUsecase = new OrderUsecase(new OrderService(new OrderRepository(eventPublisher)));
+
     @Test
     void 購入が積まれる() {
         //given
         User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(1000).please();
         new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
-        FakeMailSender mailSender = new FakeMailSender();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(mailSender).run(loginUser.id(), input);
+        orderUsecase.run(loginUser.id(), input);
         //then
         Records orders = db.find("select * from orders");
         assertEquals(1, orders.size());
         assertEquals(product.id().toString(), orders.first().get("productId"));
         assertEquals(loginUser.id().toString(), orders.first().get("userId"));
         assertEquals(0, mailSender.callCount);
-    }
-
-    @Test
-    void VIPの場合メールが飛ぶ() {
-        //given
-        User loginUser = new UserDataBuilder().plan(User.Plan.VIP).please();
-        Product product = new ProductDataBuilder().price(1000).please();
-        new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
-        FakeMailSender mailSender = new FakeMailSender();
-        //when
-        OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(mailSender).run(loginUser.id(), input);
-        //then
-        assertEquals(1, mailSender.callCount);
-        assertEquals(loginUser.email(), mailSender.argsEmail);
+        assertEquals(1, eventPublisher.callCount);
+        assertEquals("OrderCreate", eventPublisher.argsDomainEvent.eventName);
     }
 
     @Test
@@ -60,7 +54,7 @@ public class OrderUsecaseTest extends BaseTest {
         new MoneyFlowDataBuilder(loginUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+        orderUsecase.run(loginUser.id(), input);
         //then
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
@@ -79,7 +73,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+            orderUsecase.run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records moneyFlows = db.find("select * from moneyFlows");
@@ -99,7 +93,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+            orderUsecase.run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records orders = db.find("select * from orders");

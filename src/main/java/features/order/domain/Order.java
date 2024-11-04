@@ -2,6 +2,8 @@ package features.order.domain;
 
 import features.product.domain.Product;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Order {
@@ -9,6 +11,7 @@ public class Order {
     private final UUID id;
     private final UUID productId;
     private final UUID userId;
+    public List<DomainEvent> domainEvents = new ArrayList<>();
 
     private Order(UUID id, UUID userId, UUID productId) {
         this.id = id;
@@ -17,7 +20,9 @@ public class Order {
     }
 
     static Order create(UUID userId, Product product) {
-        return new Order(UUID.randomUUID(), userId, product.id());
+        Order order = new Order(UUID.randomUUID(), userId, product.id());
+        order.domainEvents.add(new DomainEvent("OrderCreate", order));
+        return order;
     }
 
     public UUID id() {

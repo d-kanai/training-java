@@ -3,6 +3,8 @@ package e2e.steps;
 import features.moneyFlows.application.ChargeMoneyUsecase;
 import features.moneyFlows.presentation.ChargeMoneyInput;
 import features.order.application.OrderUsecase;
+import features.order.domain.OrderRepository;
+import features.order.domain.OrderService;
 import features.order.presentation.OrderCreateInput;
 import features.product.application.ProductCreateAsDraftUsecase;
 import features.product.application.ProductPublishUsecase;
@@ -12,7 +14,9 @@ import features.product.presentation.ProductPublishInput;
 import features.user.application.UserSignupUsecase;
 import features.user.domain.User;
 import features.user.presentation.UserSignupInput;
+import helpers.FakeEventPublisher;
 import helpers.FakeMailSender;
+import shared.EventPublisher;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -51,7 +55,7 @@ public class ProductSteps {
 
     public static void ユーザが購入する() {
         Records products = new SqliteDatabase().find("select * from products");
-        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
+        new OrderUsecase(new OrderService(new OrderRepository(new FakeEventPublisher()))).run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
         Records orders = new SqliteDatabase().find("select * from orders");
         assertEquals(1, orders.size()); // middle assertion
         Records moneyFlows = new SqliteDatabase().find("select * from moneyFlows");
