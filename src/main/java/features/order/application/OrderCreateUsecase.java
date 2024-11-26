@@ -12,6 +12,8 @@ import shared.SqliteDatabase;
 import java.util.Map;
 import java.util.UUID;
 
+// Develop from "0" not "-1" by Test
+
 public class OrderCreateUsecase {
 
     SqliteDatabase db = new SqliteDatabase();
