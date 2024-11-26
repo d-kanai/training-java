@@ -5,7 +5,6 @@ import features.moneyFlows.domain.MoneyFlowRepository;
 import features.order.domain.Order;
 import features.order.domain.OrderRepository;
 import features.order.presentation.OrderCreateInput;
-import features.product.domain.Product;
 import shared.Records;
 import shared.SqliteDatabase;
 
@@ -13,6 +12,10 @@ import java.util.Map;
 import java.util.UUID;
 
 // Develop from "0" not "-1" by Test
+// reconstruct Domain Model in Repository
+// Test Data Builder
+// Test Case By Intention
+// Design By Type
 
 public class OrderCreateUsecase {
 

@@ -2,8 +2,8 @@ package features.order;
 
 import features.order.application.OrderCreateUsecase;
 import features.order.presentation.OrderCreateInput;
+import features.product.ProductDataBuilder;
 import features.product.domain.Product;
-import features.product.domain.ProductRepository;
 import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
 import shared.Records;
@@ -18,8 +18,7 @@ public class OrderCreateUsecaseTest extends BaseTest {
     @Test
     void 購入が積まれる() {
         //given
-        Product product = new Product("book", 1000);
-        new ProductRepository().save(product);
+        Product product = new ProductDataBuilder().please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         new OrderCreateUsecase().run(input);
@@ -32,8 +31,7 @@ public class OrderCreateUsecaseTest extends BaseTest {
     @Test
     void お金が減る() {
         //given
-        Product product = new Product("book", 2000);
-        new ProductRepository().save(product);
+        Product product = new ProductDataBuilder().price(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         new OrderCreateUsecase().run(input);
