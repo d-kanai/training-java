@@ -17,10 +17,11 @@ public class OrderCreateUsecase {
         Product product = new ProductRepository().findById(input.getProductId());
 
         List<MoneyFlow> moneyFlows = new MoneyFlowRepository().findAll();
-        int sum = moneyFlows
-                .stream()
-                .mapToInt(MoneyFlow::value)
-                .sum();
+
+        int sum = 0;
+        for (MoneyFlow moneyFlow : moneyFlows) {
+            sum += moneyFlow.value();
+        }
 
         if (sum < product.price()) throw new DomainException("お金が足りません");
 
