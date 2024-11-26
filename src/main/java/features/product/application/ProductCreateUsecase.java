@@ -5,6 +5,12 @@ import shared.SqliteDatabase;
 
 import java.util.UUID;
 
+//・flyway, db migration
+//・永続データのテスト
+//・domain model rule
+//・no setter, use constructor
+//・3層 + domain model
+
 public class ProductCreateUsecase {
 
     public void run(ProductCreateInput input) {
