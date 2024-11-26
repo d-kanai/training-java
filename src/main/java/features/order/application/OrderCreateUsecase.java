@@ -11,9 +11,11 @@ import shared.DomainException;
 
 import java.util.List;
 
-//・No for, Use declarative by pipeline
-//・First Class Collection
-//・Factory Class
+
+//・Code Smell: No for, Use declarative by pipeline
+//・Code Smell: Feature Envy | Tell, Don't ask | Data Class
+//・Pattern: First Class Collection
+//・Pattern: Factory Class
 //・Package Private
 
 public class OrderCreateUsecase {
