@@ -7,6 +7,7 @@ import features.moneyFlows.presentation.ChargeMoneyInput;
 //・Static Factory
 //・No no name constructor
 //・completed constructor
+//・private default constructor
 //・domain exception. domain validation. not usecase knowledge
 //・not transaction script => domain model
 
