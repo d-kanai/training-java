@@ -11,11 +11,11 @@ import shared.SqliteDatabase;
 import java.util.Map;
 import java.util.UUID;
 
-// Develop from "0" not "-1" by Test | Data Management
-// reconstruct Domain Model in Repository
-// Test Data Builder
-// Test Case By Intention
-// Design By Type
+// ・Develop from "0" not "-1" by Test | Data Management
+// ・reconstruct Domain Model in Repository
+// ・Test Data Builder
+// ・Test Case By Intention
+// ・Design By Type
 
 public class OrderCreateUsecase {
 
