@@ -11,6 +11,11 @@ import shared.DomainException;
 
 import java.util.List;
 
+//・No for, Use declarative by pipeline
+//・First Class Collection
+//・Factory Class
+//・Package Private
+
 public class OrderCreateUsecase {
 
     public void run(OrderCreateInput input) {
