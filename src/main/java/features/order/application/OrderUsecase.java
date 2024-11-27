@@ -9,6 +9,11 @@ import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 
+// ・Domain model Test or not
+// ・Design By Type MORE
+// ・always valid model
+// ・Feature Envy!
+
 public class OrderUsecase {
 
     public void run(OrderCreateInput input) {
