@@ -4,6 +4,10 @@ import features.product.domain.Product;
 import features.product.domain.ProductRepository;
 import features.product.presentation.ProductCreateInput;
 
+// ・Add Column migration
+// ・Enum in Domain, not All constants dir
+// ・named constructor
+
 public class ProductCreateUsecase {
 
     public void run(ProductCreateInput input) {
