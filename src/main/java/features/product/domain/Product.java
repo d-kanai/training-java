@@ -4,10 +4,10 @@ import java.util.UUID;
 
 public class Product {
 
-    protected final UUID id;
-    protected final String name;
-    protected final int price;
-    protected Status status;
+    private final UUID id;
+    private final String name;
+    private final int price;
+    private Status status;
 
     public enum Status {
         DRAFT,
@@ -41,7 +41,7 @@ public class Product {
     }
 
     public void publish() {
-        if (status == Status.PUBLISHED)  throw new RuntimeException("すでに公開済みです");
+        if (status == Status.PUBLISHED) throw new RuntimeException("すでに公開済みです");
         this.status = Status.PUBLISHED;
     }
 
