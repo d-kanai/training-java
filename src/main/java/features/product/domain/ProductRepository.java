@@ -25,7 +25,7 @@ public class ProductRepository {
                 UUID.fromString((String) record.get("id")),
                 (String) record.get("name"),
                 (Integer) record.get("price"),
-                (Product.Status) record.get("status")
+                Product.Status.valueOf((String) record.get("status"))
         );
     }
 }

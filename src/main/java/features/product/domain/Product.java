@@ -21,9 +21,8 @@ public class Product {
     }
 
     //NOTE: 永続データからの再構成用途
-
     public static Product reconstruct(UUID id, String name, Integer price, Status status) {
-        return new Product(id, name, price, Status.DRAFT);
+        return new Product(id, name, price, status);
     }
     public static Product createDraft(String name, int price) {
         if (price < 0) {
