@@ -21,9 +21,6 @@ public class OrderCreateUsecaseTest extends BaseTest {
     void 購入() {
         //given
         Product product = new Product("book", 1000);
-        new ProductRepository().save(product);
-        MoneyFlow moneyFlow = new MoneyFlow(1500);
-        new MoneyFlowRepository().save(moneyFlow);
         OrderCreateInput input = new OrderCreateInput(product.id());
         //when
         new OrderCreateUsecase().run(input);
