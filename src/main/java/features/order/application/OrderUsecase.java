@@ -15,6 +15,9 @@ public class OrderUsecase {
         Product product = new ProductRepository().findById(input.getProductId());
         MoneyFlows moneyFlows = new MoneyFlowRepository().findAll();
 
+        if (product.status() == Product.Status.DRAFT) {
+            throw new RuntimeException("商品が存在しません");
+        }
         Ordered ordered = new OrderFactory(moneyFlows, product).create();
 
         new OrderRepository().save(ordered.order);
