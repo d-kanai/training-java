@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class ProductDataBuilder {
     private int price = 1000;
-    private Product.Status status = Product.Status.DRAFT;
+    private Product.Status status = Product.Status.PUBLISHED;
 
     public Product please() {
         Product product = Product.reconstruct(UUID.randomUUID(), "book", price, status);

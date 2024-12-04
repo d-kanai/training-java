@@ -3,12 +3,13 @@ package features.order.domain;
 import features.moneyFlows.domain.MoneyFlow;
 import features.moneyFlows.domain.MoneyFlows;
 import features.product.domain.Product;
+import features.product.domain.PublishedProduct;
 
 public class OrderFactory {
     private final MoneyFlows moneyFlows;
-    private final Product product;
+    private final PublishedProduct product;
 
-    public OrderFactory(MoneyFlows moneyFlows, Product product) {
+    public OrderFactory(MoneyFlows moneyFlows, PublishedProduct product) {
         this.moneyFlows = moneyFlows;
         this.product = product;
     }

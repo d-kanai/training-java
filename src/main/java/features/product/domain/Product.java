@@ -4,15 +4,10 @@ import java.util.UUID;
 
 public class Product {
 
-    private final UUID id;
-    private final String name;
-    private final int price;
-    private Status status;
-
-    public void publish() {
-        if (status == Status.PUBLISHED) throw new RuntimeException("すでに公開済みです");
-        this.status = Status.PUBLISHED;
-    }
+    protected final UUID id;
+    protected final String name;
+    protected final int price;
+    protected final Status status;
 
     public enum Status {
         DRAFT,
@@ -28,7 +23,7 @@ public class Product {
         }
     }
 
-    private Product(UUID id, String name, int price, Status status) {
+    protected Product(UUID id, String name, int price, Status status) {
         if (price < 0) throw new RuntimeException("マイナスは登録できません");
         this.id = id;
         this.name = name;
@@ -41,9 +36,6 @@ public class Product {
         return new Product(id, name, price, status);
     }
 
-    public static Product create(String name, int price) {
-        return new Product(UUID.randomUUID(), name, price, Status.DRAFT);
-    }
 
     public UUID id() {
         return id;

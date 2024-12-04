@@ -15,7 +15,7 @@ public class ProductPublishUsecaseTest extends BaseTest {
     @Test
     void 商品公開() {
         //given
-        Product product = new ProductDataBuilder().please();
+        Product product = new ProductDataBuilder().status(Product.Status.DRAFT).please();
         ProductPublishInput input = new ProductPublishInput(product.id());
         //when
         new ProductPublishUsecase().run(input);
