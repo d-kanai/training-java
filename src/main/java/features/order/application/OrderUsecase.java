@@ -14,6 +14,11 @@ import shared.IMailSender;
 
 import java.util.UUID;
 
+//・No Nested Usecase (Logic!!)
+//・Service Class(使わないで良いなら使わない）
+//・High Cohesion
+//・Composition Over Inheritance(継承より委譲)
+
 public class OrderUsecase {
 
     private final IMailSender mailSender;
