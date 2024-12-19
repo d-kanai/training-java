@@ -17,22 +17,26 @@ import java.util.UUID;
 public class OrderUsecase {
 
     private final IMailSender mailSender;
+    private UserRepository userRepository = new UserRepository();
+    private ProductRepository productRepository = new ProductRepository();
+    private OrderRepository orderRepository = new OrderRepository();
+    private MoneyFlowRepository moneyFlowRepository = new MoneyFlowRepository();
 
     public OrderUsecase(IMailSender mailSender) {
         this.mailSender = mailSender;
     }
 
     public void run(UUID loginUserId, OrderCreateInput input) {
-        User user = new UserRepository().findById(loginUserId);
+        User user = userRepository.findById(loginUserId);
         UUID productId = input.getProductId();
 
-        PublishedProduct product = new ProductRepository().findPublishedById(productId);
-        MoneyFlows moneyFlows = new MoneyFlowRepository().findByUserId(loginUserId);
+        PublishedProduct product = productRepository.findPublishedById(productId);
+        MoneyFlows moneyFlows = moneyFlowRepository.findByUserId(loginUserId);
 
         Ordered ordered = new OrderFactory().create(loginUserId, moneyFlows, product);
 
-        new OrderRepository().save(ordered.order);
-        new MoneyFlowRepository().save(ordered.moneyFlow);
+        orderRepository.save(ordered.order);
+        moneyFlowRepository.save(ordered.moneyFlow);
 
         if (user.plan() == User.Plan.VIP) {
             mailSender.send(user.email(), "for VIP");
