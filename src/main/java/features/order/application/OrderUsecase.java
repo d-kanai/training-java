@@ -15,7 +15,8 @@ import shared.MailSender;
 
 import java.util.UUID;
 
-//
+//・DI & Mock. Capture Mock
+//・ALL DI...? Easy to Use
 
 public class OrderUsecase {
 
