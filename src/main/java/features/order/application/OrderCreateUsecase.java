@@ -1,24 +1,42 @@
 package features.order.application;
 
+import features.moneyFlows.domain.MoneyFlow;
 import features.moneyFlows.domain.MoneyFlowRepository;
-import features.moneyFlows.domain.MoneyFlows;
-import features.order.domain.OrderFactory;
+import features.order.domain.Order;
 import features.order.domain.OrderRepository;
-import features.order.domain.Ordered;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
+import shared.DomainException;
+
+import java.util.List;
+
+
+//・Code Smell: No for, Use declarative by pipeline
+//・Code Smell: Feature Envy | Tell, Don't ask | Data Class
+//・Pattern: First Class Collection
+//・Pattern: Factory Class
+//・Package Private
 
 public class OrderCreateUsecase {
 
     public void run(OrderCreateInput input) {
         Product product = new ProductRepository().findById(input.getProductId());
-        MoneyFlows moneyFlows = new MoneyFlowRepository().findAll();
 
-        Ordered ordered = new OrderFactory(moneyFlows, product).create();
+        List<MoneyFlow> moneyFlows = new MoneyFlowRepository().findAll();
 
-        new OrderRepository().save(ordered.order);
-        new MoneyFlowRepository().save(ordered.moneyFlow);
+        int sum = 0;
+        for (MoneyFlow moneyFlow : moneyFlows) {
+            sum += moneyFlow.value();
+        }
+
+        if (sum < product.price()) throw new DomainException("お金が足りません");
+
+        Order order = Order.create(product);
+        MoneyFlow moneyFlow = MoneyFlow.order(product);
+
+        new OrderRepository().save(order);
+        new MoneyFlowRepository().save(moneyFlow);
     }
 
 

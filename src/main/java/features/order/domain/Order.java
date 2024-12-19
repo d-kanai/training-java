@@ -14,7 +14,7 @@ public class Order {
         this.productId = productId;
     }
 
-    static Order create(Product product) {
+    public static Order create(Product product) {
         return new Order(UUID.randomUUID(), product.id());
     }
 

@@ -19,7 +19,7 @@ public class MoneyFlowRepository {
         ));
     }
 
-    public MoneyFlows findAll() {
+    public List<MoneyFlow> findAll() {
         Records records = db.find("select * from moneyFlows");
         List<MoneyFlow> moneyFlowList = new ArrayList<>();
         records.items.forEach(record -> {
@@ -30,6 +30,6 @@ public class MoneyFlowRepository {
                     )
             );
         });
-        return new MoneyFlows(moneyFlowList);
+        return moneyFlowList;
     }
 }
