@@ -11,16 +11,13 @@ import features.product.domain.PublishedProduct;
 import features.user.domain.User;
 import features.user.domain.UserRepository;
 import shared.IMailSender;
+import shared.MailSender;
 
 import java.util.UUID;
 
+//
+
 public class OrderUsecase {
-
-    private final IMailSender mailSender;
-
-    public OrderUsecase(IMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
 
     public void run(UUID loginUserId, OrderCreateInput input) {
         User user = new UserRepository().findById(loginUserId);
@@ -35,7 +32,7 @@ public class OrderUsecase {
         new MoneyFlowRepository().save(ordered.moneyFlow);
 
         if (user.plan() == User.Plan.VIP) {
-            mailSender.send(user.email(), "for VIP");
+            new MailSender().send(user.email(), "for VIP");
         }
     }
 

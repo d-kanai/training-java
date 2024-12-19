@@ -51,7 +51,7 @@ public class ProductSteps {
 
     public static void ユーザが購入する() {
         Records products = new SqliteDatabase().find("select * from products");
-        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
+        new OrderUsecase().run(loginUser.id(), new OrderCreateInput(UUID.fromString((String) products.first().get("id"))));
         Records orders = new SqliteDatabase().find("select * from orders");
         assertEquals(1, orders.size()); // middle assertion
         Records moneyFlows = new SqliteDatabase().find("select * from moneyFlows");
