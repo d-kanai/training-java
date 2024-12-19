@@ -2,9 +2,12 @@ package features.user.application;
 
 import features.user.domain.User;
 import features.user.domain.UserRepository;
-import features.user.presentation.UserSignupInput;
 
 import java.util.UUID;
+
+//・Design by Type MORE!!
+//・Each Status Class
+//・validation ? no, make Class. その振る舞いは誰ができるのか？
 
 public class UpgradeToVipUsecase {
 
