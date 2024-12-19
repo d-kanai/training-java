@@ -7,8 +7,12 @@ import features.user.presentation.UserSignupInput;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserSignupUsecase {
+//・Value Object
+//・不変条件
+//・集約
+//・const, cohesion
 
+public class UserSignupUsecase {
 
     public User run(UserSignupInput input) {
         final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
