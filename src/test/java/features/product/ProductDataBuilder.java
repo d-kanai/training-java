@@ -7,7 +7,7 @@ public class ProductDataBuilder {
     private int price = 1000;
 
     public Product please() {
-        Product product = Product.create("book", price);
+        Product product = Product.createDraft("book", price);
         new ProductRepository().save(product);
         return product;
     }

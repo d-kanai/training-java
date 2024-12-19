@@ -1,6 +1,7 @@
 package features.product;
 
 import features.product.application.ProductCreateUsecase;
+import features.product.domain.Product;
 import features.product.presentation.ProductCreateInput;
 import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ public class ProductCreateUsecaseTest extends BaseTest {
         Records records = db.find("select * from products");
         assertEquals(1, records.size());
         assertEquals(1000, records.first().get("price"));
+        assertEquals(Product.Status.DRAFT.toString(), records.first().get("status"));
     }
 
     @Test
