@@ -18,7 +18,7 @@ public class User {
     }
 
     public void upgradeToVip() {
-        //TODO: 状態毎の型？
+        if(this.plan == Plan.VIP) throw new RuntimeException("already VIP");
         this.plan = Plan.VIP;
     }
 
