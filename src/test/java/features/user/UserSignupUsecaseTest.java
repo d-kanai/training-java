@@ -1,5 +1,6 @@
 package features.user;
 
+import features.moneyFlows.application.ChargeMoneyUsecase;
 import features.user.presentation.UserSignupInput;
 import features.user.application.UserSignupUsecase;
 import helpers.BaseTest;
@@ -20,6 +21,20 @@ public class UserSignupUsecaseTest extends BaseTest {
         //then
         Records records = db.find("select * from users");
         assertEquals(1, records.size());
+    }
+
+    @Test
+    void invalidなメールは登録できない() {
+        //given
+        UserSignupInput input = new UserSignupInput("kanaitest.com");
+        //when
+        try {
+            new UserSignupUsecase().run(input);
+        } catch (RuntimeException e) {
+            assertEquals("invalid email", e.getMessage());
+            return;
+        }
+        fail("unexpected reached");
     }
 
 }
