@@ -4,14 +4,21 @@ import features.order.application.OrderCreateUsecase;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.domain.ProductRepository;
-import helpers.BaseTest;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import shared.Records;
 import shared.SqliteDatabase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OrderCreateUsecaseTest extends BaseTest {
+public class OrderCreateUsecaseTest {
+
+    public SqliteDatabase db = new SqliteDatabase();
+
+    @BeforeEach
+    void setup() {
+        db.execute("delete from orders;");
+    }
 
     @Test
     void 購入() {
@@ -26,6 +33,5 @@ public class OrderCreateUsecaseTest extends BaseTest {
         assertEquals(1, records.size());
         assertEquals(product.id().toString(), records.first().get("productId"));
     }
-
 }
 
