@@ -18,15 +18,7 @@ public class MoneyFlow {
         if (value < 0) {
             throw new RuntimeException("マイナス額はチャージできません");
         }
-        return MoneyFlow.create(value);
-    }
-
-    private static MoneyFlow create(int value) {
         return new MoneyFlow(UUID.randomUUID(), value);
-    }
-
-    public static MoneyFlow order(Product product) {
-        return MoneyFlow.create(-product.price());
     }
 
     public UUID id() {
