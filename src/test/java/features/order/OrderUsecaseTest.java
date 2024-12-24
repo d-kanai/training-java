@@ -19,16 +19,19 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class OrderUsecaseTest extends BaseTest {
 
+    FakeMailSender mailSender = new FakeMailSender();
+
+    OrderUsecase orderUsecase = new OrderUsecase(mailSender);
+
     @Test
     void 購入が積まれる() {
         //given
         User loginUser = new UserDataBuilder().please();
         Product product = new ProductDataBuilder().price(1000).please();
         new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
-        FakeMailSender mailSender = new FakeMailSender();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(mailSender).run(loginUser.id(), input);
+        orderUsecase.run(loginUser.id(), input);
         //then
         Records orders = db.find("select * from orders");
         assertEquals(1, orders.size());
@@ -43,10 +46,9 @@ public class OrderUsecaseTest extends BaseTest {
         User loginUser = new UserDataBuilder().plan(User.Plan.VIP).please();
         Product product = new ProductDataBuilder().price(1000).please();
         new MoneyFlowDataBuilder(loginUser.id()).value(1000).please();
-        FakeMailSender mailSender = new FakeMailSender();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(mailSender).run(loginUser.id(), input);
+        orderUsecase.run(loginUser.id(), input);
         //then
         assertEquals(1, mailSender.callCount);
         assertEquals(loginUser.email(), mailSender.argsEmail);
@@ -60,7 +62,7 @@ public class OrderUsecaseTest extends BaseTest {
         new MoneyFlowDataBuilder(loginUser.id()).value(2000).please();
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
-        new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+        orderUsecase.run(loginUser.id(), input);
         //then
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
@@ -79,7 +81,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+            new OrderUsecase(mailSender).run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records moneyFlows = db.find("select * from moneyFlows");
@@ -99,7 +101,7 @@ public class OrderUsecaseTest extends BaseTest {
         //when
         OrderCreateInput input = new OrderCreateInput(product.id());
         try {
-            new OrderUsecase(new FakeMailSender()).run(loginUser.id(), input);
+            new OrderUsecase(mailSender).run(loginUser.id(), input);
         } catch (RuntimeException e) {
             //then
             Records orders = db.find("select * from orders");
