@@ -13,5 +13,6 @@ public class BaseTest {
         db.execute("delete from products;");
         db.execute("delete from orders;");
         db.execute("delete from moneyFlows;");
+        db.execute("delete from users;");
     }
 }
