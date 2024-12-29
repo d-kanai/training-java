@@ -1,5 +1,6 @@
 package features.product.domain;
 
+import shared.Records;
 import shared.SqliteDatabase;
 
 import java.util.UUID;
