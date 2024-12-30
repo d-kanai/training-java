@@ -13,7 +13,7 @@ public class UserTest extends BaseTest {
         User user = User.signup("kanai@test.com");
         //then
         assertEquals(User.Plan.NORMAL, user.plan());
-        assertEquals("kanai@test.com", user.email());
+        assertEquals("kanai@test.com", user.email().value());
     }
     @Test
     void upgradeToVip() {

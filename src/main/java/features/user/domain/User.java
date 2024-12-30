@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class User {
     private final UUID id;
-    private final String email;
+    private final Email email;
     private Plan plan;
 
     public static User reconstruct(UUID id, String email, Plan plan) {
@@ -35,9 +35,9 @@ public class User {
     }
 
 
-    public User(UUID id, String email, Plan plan) {
+    private User(UUID id, String email, Plan plan) {
         this.id = id;
-        this.email = email;
+        this.email = Email.create(email);
         this.plan = plan;
     }
 
@@ -49,7 +49,7 @@ public class User {
         return plan;
     }
 
-    public String email() {
+    public Email email() {
         return email;
     }
 }
