@@ -49,7 +49,7 @@ public class OrderUsecaseTest extends BaseTest {
         new OrderUsecase(mailSender).run(loginUser.id(), input);
         //then
         assertEquals(1, mailSender.callCount);
-        assertEquals(loginUser.email().value(), mailSender.argsEmail);
+        assertEquals(loginUser.email().value(), mailSender.argsEmail.toString());
     }
 
     @Test

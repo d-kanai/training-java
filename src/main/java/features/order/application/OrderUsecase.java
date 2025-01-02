@@ -22,7 +22,7 @@ public class OrderUsecase {
         User user = userRepository.findById(loginUserId);
         orderService.run(loginUserId, input.getProductId());
         if (user.plan() == User.Plan.VIP) {
-            mailSender.send(user.email().value(), "for VIP");
+            mailSender.send(user.email(), "for VIP");
         }
     }
 }
