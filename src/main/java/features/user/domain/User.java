@@ -7,10 +7,6 @@ public class User {
     private final Email email;
     private Plan plan;
 
-    public static User reconstruct(UUID id, String email, Plan plan) {
-        return new User(id, email, plan);
-    }
-
     public UUID id() {
         return id;
     }
@@ -35,13 +31,13 @@ public class User {
     }
 
 
-    private User(UUID id, String email, Plan plan) {
+    User(UUID id, Email email, Plan plan) {
         this.id = id;
-        this.email = Email.create(email);
+        this.email = email;
         this.plan = plan;
     }
 
-    public static User signup(String email) {
+    public static User signup(Email email) {
         return new User(UUID.randomUUID(), email, Plan.NORMAL);
     }
 
@@ -52,6 +48,5 @@ public class User {
     public Email email() {
         return email;
     }
-
 
 }

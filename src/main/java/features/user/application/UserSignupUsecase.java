@@ -1,12 +1,9 @@
 package features.user.application;
 
-import features.user.domain.Email;
 import features.user.domain.User;
+import features.user.domain.UserFactory;
 import features.user.domain.UserRepository;
 import features.user.presentation.UserSignupInput;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //・Value Object
 //・不変条件
@@ -16,7 +13,7 @@ import java.util.regex.Pattern;
 public class UserSignupUsecase {
 
     public User run(UserSignupInput input) {
-        User user = User.signup(input.getEmail());
+        User user = new UserFactory().signup(input.getEmail());
         new UserRepository().save(user);
         return user;
     }
