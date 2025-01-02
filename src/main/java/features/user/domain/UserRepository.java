@@ -26,7 +26,7 @@ public class UserRepository {
     public User findById(UUID loginUserId) {
         Records records = db.find(String.format("select * from users where id = '%s'", loginUserId));
         Map record = records.first();
-        return User.reconstruct(
+        return new UserFactory().reconstruct(
                 UUID.fromString((String) record.get("id")),
                 (String) record.get("email"),
                 User.Plan.fromString((String) record.get("plan"))

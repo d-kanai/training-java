@@ -4,12 +4,8 @@ import java.util.UUID;
 
 public class User {
     private final UUID id;
-    private final String email;
+    private final Email email;
     private Plan plan;
-
-    public static User reconstruct(UUID id, String email, Plan plan) {
-        return new User(id, email, plan);
-    }
 
     public UUID id() {
         return id;
@@ -34,22 +30,18 @@ public class User {
         }
     }
 
-
-    public User(UUID id, String email, Plan plan) {
+    User(UUID id, Email email, Plan plan) {
         this.id = id;
         this.email = email;
         this.plan = plan;
-    }
-
-    public static User signup(String email) {
-        return new User(UUID.randomUUID(), email, Plan.NORMAL);
     }
 
     public Plan plan() {
         return plan;
     }
 
-    public String email() {
+    public Email email() {
         return email;
     }
+
 }
