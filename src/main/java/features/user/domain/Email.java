@@ -1,13 +1,13 @@
 package features.user.domain;
 
+import shared.ValueObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Email {
-    private final String value;
-
+public class Email extends ValueObject {
     public Email(String value) {
-        this.value = value;
+        super(value);
 
         final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(value);
@@ -20,12 +20,4 @@ public class Email {
         return new Email(value);
     }
 
-    public String value(){
-        return this.value;
-    }
-
-    @Override
-    public String toString() {
-        return this.value;
-    }
 }

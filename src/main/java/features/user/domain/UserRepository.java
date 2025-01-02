@@ -18,7 +18,7 @@ public class UserRepository {
                         "ON CONFLICT(id) DO " +
                         "UPDATE SET email = excluded.email, plan = excluded.plan;",
                 user.id(),
-                user.email().value(),
+                user.email(),
                 user.plan()
         ));
     }
