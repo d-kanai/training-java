@@ -30,15 +30,10 @@ public class User {
         }
     }
 
-
     User(UUID id, Email email, Plan plan) {
         this.id = id;
         this.email = email;
         this.plan = plan;
-    }
-
-    public static User signup(Email email) {
-        return new User(UUID.randomUUID(), email, Plan.NORMAL);
     }
 
     public Plan plan() {
