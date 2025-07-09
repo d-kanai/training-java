@@ -1,0 +1,73 @@
+modules = ["java", "python-3.11"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["maven"]
+
+[workflows]
+runButton = "test"
+
+[[workflows.workflow]]
+name = "test"
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = 'MAVEN_OPTS="-Xmx2g -Xms512m" mvn -T 4 test' 
+# args = 'MAVEN_OPTS="-Xmx1g -Xms512m" mvn -T 2 -pl workspace1 test jacoco:report'
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Maven Test Runner"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "java_junit5_tests"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Code Coverage Report"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "View JaCoCo Report"
+
+[[workflows.workflow]]
+name = "Maven Test Runner"
+author = "agent"
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn clean test jacoco:report"
+
+
+[[workflows.workflow]]
+name = "Code Coverage Report"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn clean test jacoco:report"
+
+[[workflows.workflow]]
+name = "View JaCoCo Report"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 -m http.server 5000"
+waitForPort = 5000
+
+
+[deployment]
+run = ["sh", "-c", "mvn clean test jacoco:report"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
