@@ -1,7 +1,7 @@
 package features.moneyFlows.application;
 
 import features.moneyFlows.domain.MoneyFlow;
-import features.moneyFlows.domain.MoneyFlowRepository;
+import features.moneyFlows.infra.MoneyFlowRepository;
 import features.moneyFlows.presentation.ChargeMoneyInput;
 
 public class ChargeMoneyUsecase {

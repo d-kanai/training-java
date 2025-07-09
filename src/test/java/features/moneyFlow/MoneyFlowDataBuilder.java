@@ -1,7 +1,7 @@
 package features.moneyFlow;
 
 import features.moneyFlows.domain.MoneyFlow;
-import features.moneyFlows.domain.MoneyFlowRepository;
+import features.moneyFlows.infra.MoneyFlowRepository;
 
 public class MoneyFlowDataBuilder {
     private int value = 1000;

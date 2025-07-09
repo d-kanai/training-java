@@ -1,7 +1,7 @@
 package features.product.application;
 
 import features.product.domain.Product;
-import features.product.domain.ProductRepository;
+import features.product.infra.ProductRepository;
 import features.product.presentation.ProductCreateInput;
 
 public class ProductCreateUsecase {

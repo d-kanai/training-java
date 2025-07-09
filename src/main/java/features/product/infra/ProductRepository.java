@@ -1,7 +1,8 @@
-package features.product.domain;
+package features.product.infra;
 
 import shared.Records;
 import shared.SqliteDatabase;
+import features.product.domain.Product;
 
 import java.util.Map;
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package features.product;
 
 import features.product.domain.Product;
-import features.product.domain.ProductRepository;
+import features.product.infra.ProductRepository;
 
 public class ProductDataBuilder {
     private int price = 1000;

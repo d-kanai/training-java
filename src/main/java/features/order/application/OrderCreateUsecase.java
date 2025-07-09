@@ -1,12 +1,12 @@
 package features.order.application;
 
 import features.moneyFlows.domain.MoneyFlow;
-import features.moneyFlows.domain.MoneyFlowRepository;
+import features.moneyFlows.infra.MoneyFlowRepository;
 import features.order.domain.Order;
-import features.order.domain.OrderRepository;
+import features.order.infra.OrderRepository;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
-import features.product.domain.ProductRepository;
+import features.product.infra.ProductRepository;
 import shared.Records;
 import shared.SqliteDatabase;
 

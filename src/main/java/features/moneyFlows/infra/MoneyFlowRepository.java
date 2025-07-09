@@ -1,6 +1,7 @@
-package features.moneyFlows.domain;
+package features.moneyFlows.infra;
 
 import shared.SqliteDatabase;
+import features.moneyFlows.domain.MoneyFlow;
 
 public class MoneyFlowRepository {
     public void save(MoneyFlow moneyFlow) {

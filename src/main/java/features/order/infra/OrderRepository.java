@@ -1,5 +1,6 @@
-package features.order.domain;
+package features.order.infra;
 
+import features.order.domain.Order;
 import shared.SqliteDatabase;
 
 public class OrderRepository {
