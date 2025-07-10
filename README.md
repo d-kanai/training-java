@@ -91,6 +91,17 @@ publish()
 
 ---
 
+## 基本的なコーディングルール
+- メソッドの行数30行以下
+- 引数の数3追加（コンストラクタは例外）
+- クラスの行数150行以下 (importなど除く)
+- 循環複雑度・認知的複雑度 10以下
+- nestの数2以下(if, for)
+- 変数は基本final利用 (immutable var)
+- for loopはできる限りstream api利用にする( declarative style)
+- code smell: data class, feature envy, tell don't ask, primitive obsessionなどOOPの観点をケアする
+
+---
 ## 🧪 Spec・テストルール
 
 ### 📋 テストの種類
