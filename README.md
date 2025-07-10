@@ -24,6 +24,9 @@
 
 > **🎯 設計思想**: DDD、Clean Architectureのレイヤと依存関係のルールを持つ構造
 
+![image](https://github.com/user-attachments/assets/77880273-336a-480e-b44a-c853e11052ad)
+
+
 ### 📁 ディレクトリ構成
 **Feature-based構成** (Screaming Architecture、Modular Monolith方式)
 
