@@ -1,3 +1,4 @@
+
 package features.order.application;
 
 import features.moneyFlows.domain.MoneyFlow;
@@ -7,24 +8,35 @@ import features.order.infra.OrderRepository;
 import features.order.presentation.OrderCreateInput;
 import features.product.domain.Product;
 import features.product.infra.ProductRepository;
-import shared.Records;
-import shared.SqliteDatabase;
 
 public class OrderCreateUsecase {
 
-    public void run(OrderCreateInput input) {
-        Product product = new ProductRepository().findById(input.getProductId());
-        
-        // Check if there's enough money to afford the product
-        int availableFunds = new MoneyFlowRepository().getTotalFunds();
-        if (availableFunds < product.price()) {
-            throw new RuntimeException("Insufficient funds to create order.");
-        }
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
+    private final MoneyFlowRepository moneyFlowRepository;
 
-        Order order = Order.create(product);
-        new OrderRepository().save(order);
+    public OrderCreateUsecase() {
+        this.productRepository = new ProductRepository();
+        this.orderRepository = new OrderRepository();
+        this.moneyFlowRepository = new MoneyFlowRepository();
+    }
+
+    public OrderCreateUsecase(ProductRepository productRepository, 
+                             OrderRepository orderRepository, 
+                             MoneyFlowRepository moneyFlowRepository) {
+        this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
+        this.moneyFlowRepository = moneyFlowRepository;
+    }
+
+    public void run(OrderCreateInput input) {
+        Product product = productRepository.findById(input.getProductId());
+        int availableFunds = moneyFlowRepository.getTotalFunds();
+        
+        Order order = Order.create(product, availableFunds);
+        orderRepository.save(order);
 
         MoneyFlow moneyFlow = MoneyFlow.order(product);
-        new MoneyFlowRepository().save(moneyFlow);
+        moneyFlowRepository.save(moneyFlow);
     }
 }
