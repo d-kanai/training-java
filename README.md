@@ -1,4 +1,4 @@
-# ProductBackLog
+# ProductBacklog
 
 ![image](https://github.com/user-attachments/assets/a93ea144-4f83-4e36-9f87-a92b59ca7480)
 
@@ -16,7 +16,7 @@
     - value
 
 # アーキテクチャ全体ルール
-- DDD, Clean Architectureのようなレイヤと依存関係を持つ構造
+- DDD, Clean Architectureのようなレイヤと依存関係のルールを持つ構造
 - feature baseのディレクトリ構成 (like screaming architecture, modular monolith)
 - ディレクトリルール
     - features
