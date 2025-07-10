@@ -24,7 +24,7 @@
 
 > **🎯 設計思想**: DDD、Clean Architectureのレイヤと依存関係のルールを持つ構造
 
-![image](https://github.com/user-attachments/assets/77880273-336a-480e-b44a-c853e11052ad)
+![image](https://github.com/user-attachments/assets/d85c9057-50b4-4bee-88fd-0eb7a750a545)
 
 
 ### 📁 ディレクトリ構成
