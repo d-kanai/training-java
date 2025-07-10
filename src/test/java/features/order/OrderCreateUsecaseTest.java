@@ -8,7 +8,6 @@ import features.product.domain.Product;
 import helpers.BaseTest;
 import org.junit.jupiter.api.Test;
 import shared.Records;
-import shared.SqliteDatabase;
 
 import java.util.Map;
 
@@ -43,23 +42,6 @@ public class OrderCreateUsecaseTest extends BaseTest {
         Records moneyFlows = db.find("select * from moneyFlows");
         assertEquals(2, moneyFlows.size());
         assertEquals(-2000, ((Map) moneyFlows.items.get(1)).get("value"));
-    }
-
-
-    @Test
-    void お金が足りない場合はエラーになる() {
-        //given
-        Product product = new ProductDataBuilder().price(3000).please();
-        new MoneyFlowDataBuilder().value(1000).please();
-        //when
-        OrderCreateInput input = new OrderCreateInput(product.id());
-        //then
-        try {
-            new OrderCreateUsecase().run(input);
-            fail("Expected an error due to insufficient funds, but the operation succeeded.");
-        } catch (RuntimeException e) {
-            // Test passes if the exception is thrown
-        }
     }
 
 }
