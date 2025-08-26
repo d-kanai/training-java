@@ -17,3 +17,37 @@ CREATE TABLE IF NOT EXISTS flyway_schema_history (
     success INTEGER NOT NULL -- BOOLEANの代わりにINTEGERを使用
 );
 ```
+
+```
+src/main/java/com/example/app/order/
+├─ domain/                                // ビジネス真理
+│  ├─ model/
+│  │  └─ Order.java                       // 集約 (ドメインモデル)
+│  │
+│  └─ vo/
+│     ├─ Money.java
+│     ├─ OrderStatus.java
+│     └─ ShippingDecision.java
+│
+├─ application/
+│  ├─ command/
+│  │  ├─ PlaceOrderCommand.java
+│  │  └─ CancelOrderCommand.java
+│  │
+│  └─ query/
+│     ├─ dto/
+│     │  ├─ OrderListItem.java
+│     │  └─ OrderDetailView.java
+│     ├─ OrderListQuery.java
+│     └─ OrderDetailQuery.java
+│
+├─ infra/
+│  ├─ repository/
+│  │  ├─ OrderEntity.java                 // JPA Entity（DBテーブル直写）
+│  │  └─ OrderRepository.java             // Entity ⇄ Domain Model 変換 + 永続化
+│  │
+│  └─ query/
+│     └─ OrderQueryDao.java
+│
+└─ presentation/
+```
