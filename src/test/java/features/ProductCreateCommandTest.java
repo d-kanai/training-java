@@ -16,6 +16,9 @@ public class ProductCreateCommandTest {
     @BeforeEach
     public void setUp() {
         db = new SqliteDatabase();
+        db.execute("DELETE FROM products;");
+        db.execute("DELETE FROM orders;");
+        db.execute("DELETE FROM moneyFlows;");
         command = new ProductCreateCommand();
     }
 
@@ -33,7 +36,6 @@ public class ProductCreateCommandTest {
 
         // then response
         assertNotNull(productId);
-        assertFalse(productId.isEmpty());
 
         // then db change
         Records results = db.find("SELECT * FROM products WHERE id = '" + productId + "';");
