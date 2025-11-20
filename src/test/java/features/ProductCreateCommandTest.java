@@ -17,8 +17,6 @@ public class ProductCreateCommandTest {
     public void setUp() {
         db = new SqliteDatabase();
         db.execute("DELETE FROM products;");
-        db.execute("DELETE FROM orders;");
-        db.execute("DELETE FROM moneyFlows;");
         command = new ProductCreateCommand();
     }
 
