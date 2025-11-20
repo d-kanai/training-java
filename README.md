@@ -3,7 +3,7 @@
 ## 📋 機能一覧
 
 ### 1. 商品DRAFT登録機能
-商品を下書き状態で登録できる（初期ステータスは必ずDRAFT）
+商品を下書き状態で登録できる
 
 **実装クラス**: `ProductCreateCommand`
 
@@ -11,6 +11,9 @@
 - `sessionUserId` (String): セッションユーザーID
 - `productName` (String): 商品名
 - `price` (int): 価格
+
+**ビジネスルール**:
+- 初期ステータスは必ずDRAFT
 
 ---
 
