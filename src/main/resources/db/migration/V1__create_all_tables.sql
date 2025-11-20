@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL,
+    userPlan TEXT NOT NULL -- NORMAL, VIP
+);
+
+CREATE TABLE IF NOT EXISTS moneyFlows (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    value INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    price INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    status TEXT NOT NULL -- DRAFT, PUBLISHED
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id TEXT PRIMARY KEY,
+    userId TEXT NOT NULL,
+    productId TEXT NOT NULL
+);
